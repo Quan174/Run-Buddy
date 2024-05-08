@@ -13,13 +13,6 @@
         android:theme="@style/Theme.Group2_BigProject"
         tools:targetApi="31">
 
-        <service
-            android:name=".dBHelper"
-            android:enabled="true"
-            android:exported="true">
-
-        </service>
-
         <activity
             android:name=".WelcomePageActivity"
             android:exported="true">
@@ -35,6 +28,11 @@
         </activity>
 
         <activity android:name=".SignInPageActivity"
+            android:exported="false">
+
+        </activity>
+
+        <activity android:name=".HomePageActivity"
             android:exported="false">
 
         </activity>

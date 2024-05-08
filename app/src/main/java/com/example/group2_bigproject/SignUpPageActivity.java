@@ -16,7 +16,6 @@ public class SignUpPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_page);
 
-        Intent signInClick = new Intent(this, SignInPageActivity.class);
 
         Button btn_SignUp = findViewById(R.id.btn_SignUp);
 
@@ -24,13 +23,15 @@ public class SignUpPageActivity extends AppCompatActivity {
         hereClickView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(signInClick);
+                finish();
             }
         });
 
         btn_SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(SignUpPageActivity.this,HomePageActivity.class);
+                startActivity(intent);
                 Toast.makeText(SignUpPageActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
             }
         });
