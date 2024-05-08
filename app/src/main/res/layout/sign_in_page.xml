@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/btn_Google_SignIn"
+        android:layout_width="63dp"
+        android:layout_height="53dp"
+        android:background="@color/white"
+        android:src="@drawable/google_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_SignIn"
+        app:layout_constraintVertical_bias="0.614" />
+
+    <ImageView
+        android:id="@+id/btn_Facebook_SignIn"
+        android:layout_width="63dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="28dp"
+        android:background="@color/white"
+        android:src="@drawable/facebook_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_Google_SignIn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_SignIn"
+        app:layout_constraintVertical_bias="0.61" />
+
+    <ImageView
+        android:id="@+id/img_SignIn"
+        android:layout_width="match_parent"
+        android:layout_height="334dp"
+        android:layout_marginTop="3dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image1" />
+
+    <TextView
+        android:id="@+id/textView_SignInIntro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="167dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="186dp"
+        android:gravity="center_horizontal"
+        android:text="Exercising with Strava clone"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_SignIn" />
+
+    <EditText
+        android:id="@+id/edtText_UsernameSignIn"
+        android:layout_width="312dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="92dp"
+        android:ems="10"
+        android:background="@drawable/text_field_1"
+        android:gravity="start|center_vertical"
+        android:paddingLeft="20dp"
+        android:inputType="text"
+        android:hint="Enter your username/email"
+        android:textColorHint="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_SignInIntro" />
+
+    <EditText
+        android:id="@+id/edtText_PasswordSignIn"
+        android:layout_width="312dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="92dp"
+        android:ems="10"
+        android:background="@drawable/text_field_1"
+        android:gravity="start|center_vertical"
+        android:paddingLeft="20dp"
+        android:inputType="textPassword"
+        android:hint="Enter your password"
+        android:textColorHint="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtText_UsernameSignIn" />
+
+
+    <Button
+        android:id="@+id/btn_SignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="159dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="160dp"
+        android:background="@drawable/button_orange"
+        android:ems="15"
+        android:text="Sign In"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtText_PasswordSignIn" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="12dp"
+        android:text="Haven't created an account yet ? Sign up"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textView_HereClicker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_SignIn" />
+
+    <TextView
+        android:id="@+id/textView_HereClicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="100dp"
+        android:text="here"
+        android:textColor="@color/orange"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_SignIn" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

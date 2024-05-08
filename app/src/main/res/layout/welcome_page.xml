@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomePageActivity">
+
+    <Button
+        android:id="@+id/btn_Welcome"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="24dp"
+
+        android:layout_marginEnd="170dp"
+
+        android:background="@drawable/button_orange"
+
+        android:drawableTint="@color/black"
+        android:ems="15"
+
+        android:freezesText="true"
+        android:text="Getting started"
+        android:textColor="@color/black"
+        app:icon="@drawable/baseline_arrow_forward_24"
+        app:iconGravity="textEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Introduce" />
+
+    <ImageView
+        android:id="@+id/img_Welcome"
+        android:layout_width="match_parent"
+        android:layout_height="384dp"
+
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image1" />
+
+    <TextView
+        android:id="@+id/textView_Welcome"
+        android:layout_width="294dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="174dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="179dp"
+        android:text="Exercising with Strava Clone"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_Welcome" />
+
+    <TextView
+        android:id="@+id/textView_Introduce"
+        android:layout_width="344dp"
+        android:layout_height="133dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="177dp"
+
+        android:gravity="center"
+        android:text="RunMate - Your perfect companion app for fitness enthusiasts. Track and record every step, every kilometer of your journey towards better health. With its user-friendly interface and diverse features, RunMate helps you monitor progress, enhance performance, and share achievements with a vibrant community. Start your journey today and explore a new lifestyle with RunMate!"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Welcome" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".WelcomePageActivity">
+
+        <ImageView
+            android:id="@+id/btn_Google_SignUp"
+            android:layout_width="63dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/white"
+            android:src="@drawable/google_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_SignUp" />
+
+        <ImageView
+            android:id="@+id/btn_Facebook_SignUp"
+            android:layout_width="63dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/white"
+            android:src="@drawable/facebook_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Google_SignUp"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_SignUp" />
+
+        <ImageView
+            android:id="@+id/img_SignUp"
+            android:layout_width="match_parent"
+            android:layout_height="229dp"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/image1" />
+
+        <TextView
+            android:id="@+id/textView_SignUpQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="173dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="180dp"
+            android:text="You are new here ?"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.468"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_SignUp" />
+
+        <EditText
+            android:id="@+id/edtText_Username"
+            android:layout_width="312dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="109dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="92dp"
+            android:ems="10"
+            android:background="@drawable/text_field_1"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="20dp"
+            android:hint="Enter your username"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_SignUpQuestion" />
+
+        <EditText
+            android:id="@+id/edtText_Email"
+            android:layout_width="312dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="109dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="92dp"
+            android:ems="10"
+            android:background="@drawable/text_field_1"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="20dp"
+            android:hint="Enter your email"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtText_Username" />
+
+        <EditText
+            android:id="@+id/edtText_Password"
+            android:layout_width="312dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="109dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="92dp"
+            android:ems="10"
+            android:background="@drawable/text_field_1"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="20dp"
+            android:hint="Enter your password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtText_Email" />
+
+        <EditText
+            android:id="@+id/edtText_ConfirmPassword"
+            android:layout_width="312dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="109dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="92dp"
+            android:background="@drawable/text_field_1"
+            android:ems="10"
+            android:gravity="start|center_vertical"
+            android:hint="Confirm password"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp"
+            android:textColorHint="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtText_Password" />
+
+        <Button
+            android:id="@+id/btn_SignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="159dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="160dp"
+            android:background="@drawable/button_orange"
+            android:ems="15"
+            android:text="Sign Up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtText_ConfirmPassword" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="4dp"
+            android:text="Already have an account ? Sign in"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textView_HereClicker"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_SignUp" />
+
+        <TextView
+            android:id="@+id/textView_HereClicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="100dp"
+            android:text="here"
+            android:textColor="@color/orange"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/btn_SignUp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
