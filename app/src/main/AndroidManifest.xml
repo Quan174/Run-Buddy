@@ -32,6 +32,36 @@
 
         </activity>
 
+        <activity android:name=".MapPageActivity"
+            android:exported="false">
+
+        </activity>
+
+        <activity android:name=".ChatBoxActivity"
+            android:exported="false">
+
+        </activity>
+
+        <activity android:name=".ProfilePageActivity"
+            android:exported="false">
+
+        </activity>
+
+        <activity android:name=".SocialPageActivity"
+            android:exported="false">
+
+        </activity>
+
+        <activity android:name=".ChatSettingsPageActivity"
+            android:exported="false">
+
+        </activity>
+
+        <activity android:name=".RoutesPage"
+            android:exported="false">
+
+        </activity>
+
         <activity android:name=".HomePageActivity"
             android:exported="false">
 

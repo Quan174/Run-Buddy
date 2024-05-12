@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class HomePageActivity extends AppCompatActivity {
+public class MapPageActivity extends AppCompatActivity {
     ConstraintLayout mapSuggestedRoutesButton;
     ConstraintLayout mapSavedRoutesButton;
     TextView mapSuggestedRoutesButtonText;
@@ -26,7 +26,14 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);
+        setContentView(R.layout.map_page);
+
+        mapSuggestedRoutesButton = findViewById(R.id.mapSuggestedRoutesButton);
+        mapSavedRoutesButton = findViewById(R.id.mapSavedRoutesButton);
+        mapSuggestedRoutesButtonText = findViewById(R.id.mapSuggestedRoutesButtonText);
+        mapSavedRoutesButtonText = findViewById(R.id.mapSavedRoutesButtonText);
+        mapSuggestedRoutesLayout = findViewById(R.id.mapSuggestedRoutesLayout);
+        mapSavedRoutesLayout = findViewById(R.id.mapSavedRoutesLayout);
 
         menuBarHomeButton =findViewById(R.id.menuBarHomeButton);
         menuBarRoutesButton = findViewById(R.id.menuBarRoutesButton);
@@ -34,32 +41,29 @@ public class HomePageActivity extends AppCompatActivity {
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
 
-        menuBarHomeButton.setTextColor(R.color.light_grey);
-
-        /*menuBarHomeButton.setOnClickListener(new View.OnClickListener() {
+        menuBarMapButton.setTextColor(R.color.light_grey);
+        mapSuggestedRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, HomePageActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
+            public void onClick(View view){
+                mapSuggestedRoutesLayout.setVisibility(View.VISIBLE);
+                mapSavedRoutesLayout.setVisibility(View.INVISIBLE);
             }
-        });*/
+        });
 
-        menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
+        menuBarHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, RoutesPage.class);
+                Intent intent = new Intent(MapPageActivity.this, HomePageActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
         });
 
-        menuBarMapButton.setOnClickListener(new View.OnClickListener() {
+        menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, MapPageActivity.class);
+                Intent intent = new Intent(MapPageActivity.this, RoutesPage.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -69,7 +73,7 @@ public class HomePageActivity extends AppCompatActivity {
         menuBarSocialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, SocialPageActivity.class);
+                Intent intent = new Intent(MapPageActivity.this, SocialPageActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -79,12 +83,11 @@ public class HomePageActivity extends AppCompatActivity {
         menuBarProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, ProfilePageActivity.class);
+                Intent intent = new Intent(MapPageActivity.this, ProfilePageActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
         });
-
     }
 }

@@ -29,7 +29,7 @@ public class SignInPageActivity extends AppCompatActivity {
         btn_SignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignInPageActivity.this,HomePageActivity.class);
+                Intent intent = new Intent(SignInPageActivity.this, HomePageActivity.class);
                 startActivity(intent);
                 Toast.makeText(SignInPageActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
             }
