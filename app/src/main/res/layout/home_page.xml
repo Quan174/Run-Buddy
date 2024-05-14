@@ -32,10 +32,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-<include android:layout = "@layout/layout_post"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"/>
-    </ScrollView>
+            android:orientation="vertical">
+            <include android:id = "@+id/Layout_Post"
+                layout="@layout/layout_post"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+        </LinearLayout>
+
+        </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
