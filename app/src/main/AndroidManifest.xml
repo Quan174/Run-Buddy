@@ -76,6 +76,11 @@
             android:exported="false">
 
         </activity>
+
+        <activity android:name=".CreateRoutePageActivity"
+            android:exported="false">
+
+        </activity>
     </application>
 
 </manifest>
