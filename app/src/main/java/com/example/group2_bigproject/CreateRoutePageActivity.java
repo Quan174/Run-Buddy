@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class ResultPageActivity extends AppCompatActivity {
+public class CreateRoutePageActivity extends AppCompatActivity {
     ImageView resultPageHomeButton;
     TextView resultPageCreateRouteButton;
     @Override
@@ -17,21 +17,19 @@ public class ResultPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result_page);
         resultPageHomeButton = findViewById(R.id.resultPageHomeButton);
-        resultPageCreateRouteButton = findViewById(R.id.resultPageCreateRouteButton);
+        resultPageCreateRouteButton = findViewById(R.id.resultPageCreateRouteButton;
         resultPageHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        resultPageCreateRouteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ResultPageActivity.this, CreateRoutePageActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
+//        resultPageCreateRouteButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(ResultPageActivity.this, CreateRoutePageActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 }
