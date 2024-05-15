@@ -1,9 +1,12 @@
 package com.example.group2_bigproject;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +25,9 @@ public class MapPageActivity extends AppCompatActivity {
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
+    ConstraintLayout mapStartTrackingButton;
+    ImageView mapWalkingButton;
+    ImageView mapCyclingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +39,44 @@ public class MapPageActivity extends AppCompatActivity {
         mapSuggestedRoutesButtonText = findViewById(R.id.mapSuggestedRoutesButtonText);
         mapSavedRoutesButtonText = findViewById(R.id.mapSavedRoutesButtonText);
         mapSuggestedRoutesLayout = findViewById(R.id.mapSuggestedRoutesLayout);
-        mapSavedRoutesLayout = findViewById(R.id.mapSavedRoutesLayout);
+        mapStartTrackingButton = findViewById(R.id.mapStartTrackingButton);
 
         menuBarHomeButton =findViewById(R.id.menuBarHomeButton);
         menuBarRoutesButton = findViewById(R.id.menuBarRoutesButton);
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
+        mapWalkingButton = findViewById(R.id.mapWalkingButton);
+        mapCyclingButton = findViewById(R.id.mapCyclingButton);
 
         menuBarMapButton.setTextColor(R.color.light_grey);
         mapSuggestedRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                mapSuggestedRoutesLayout.setVisibility(View.VISIBLE);
-                mapSavedRoutesLayout.setVisibility(View.INVISIBLE);
+                mapSuggestedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                mapSuggestedRoutesButtonText.setTypeface(null, Typeface.BOLD);
+                mapSavedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+                mapSavedRoutesButtonText.setTypeface(null, Typeface.NORMAL);
+            }
+        });
+
+        mapSavedRoutesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                mapSavedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                mapSavedRoutesButtonText.setTypeface(null, Typeface.BOLD);
+                mapSuggestedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+                mapSuggestedRoutesButtonText.setTypeface(null, Typeface.NORMAL);
+            }
+        });
+
+        mapStartTrackingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapPageActivity.this, TrackingPageActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -87,6 +117,22 @@ public class MapPageActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        mapCyclingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapCyclingButton.setImageResource(R.drawable.circle_shape);
+                mapWalkingButton.setImageResource(R.drawable.black_circle_shape);
+            }
+        });
+
+        mapWalkingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapCyclingButton.setImageResource(R.drawable.black_circle_shape);
+                mapWalkingButton.setImageResource(R.drawable.circle_shape);
             }
         });
     }

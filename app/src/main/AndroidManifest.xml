@@ -66,6 +66,11 @@
             android:exported="false">
 
         </activity>
+
+        <activity android:name=".TrackingPageActivity"
+            android:exported="false">
+
+        </activity>
     </application>
 
 </manifest>
