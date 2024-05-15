@@ -12,12 +12,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 public class ResultPageActivity extends AppCompatActivity {
     ImageView resultPageHomeButton;
     TextView resultPageCreateRouteButton;
+    TextView resultPageShareRouteButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result_page);
         resultPageHomeButton = findViewById(R.id.resultPageHomeButton);
         resultPageCreateRouteButton = findViewById(R.id.resultPageCreateRouteButton);
+        resultPageShareRouteButton = findViewById(R.id.resultPageShareRouteButton);
         resultPageHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +34,13 @@ public class ResultPageActivity extends AppCompatActivity {
             }
         });
 
-
+        resultPageShareRouteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResultPageActivity.this, CreatePostPageActivity.class);
+                intent.putExtra("format", "result");
+                startActivity(intent);
+            }
+        });
     }
 }

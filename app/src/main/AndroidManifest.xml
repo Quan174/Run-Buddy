@@ -81,6 +81,11 @@
             android:exported="false">
 
         </activity>
+
+        <activity android:name=".CreatePostPageActivity"
+            android:exported="false">
+
+        </activity>
     </application>
 
 </manifest>

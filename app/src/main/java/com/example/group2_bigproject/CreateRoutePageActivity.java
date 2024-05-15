@@ -17,6 +17,7 @@ public class CreateRoutePageActivity extends AppCompatActivity {
         setContentView(R.layout.create_route_page);
 
         createRoutePageBackButton = findViewById(R.id.createRoutePageBackButton);
+        String format = getIntent().getStringExtra("format");
         createRoutePageBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
