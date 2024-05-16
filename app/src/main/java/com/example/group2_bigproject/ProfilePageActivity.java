@@ -23,6 +23,7 @@ public class ProfilePageActivity extends AppCompatActivity {
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
+    TextView profilePageEditInformationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class ProfilePageActivity extends AppCompatActivity {
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
+        profilePageEditInformationButton = findViewById(R.id.profilePageEditInformationButton);
+
         Bundle bundle = getIntent().getExtras();
         String userID = bundle.getString("userID", "Default");
 
@@ -90,6 +93,12 @@ public class ProfilePageActivity extends AppCompatActivity {
             }
         });
 
-
+        profilePageEditInformationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileEditFragment profileEditDiaglog = new ProfileEditFragment();
+                profileEditDiaglog.show(getSupportFragmentManager(), "profileedit");
+            }
+        });
     }
 }

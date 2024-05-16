@@ -120,7 +120,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView58"
+            android:id="@+id/profilePageGenderField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -242,30 +242,18 @@
             app:layout_constraintTop_toTopOf="@+id/textView62" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/profilePageEditInformationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/sent_messages"
+            android:text="Edit"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:text="Save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/received_messages"
-            android:text="Cancel"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -23,9 +23,9 @@ public class CreateRouteFragment extends DialogFragment {
         createRouteFragmentDescriptionInput = view.findViewById(R.id.createRouteFragmentDescriptionInput);
         Button createRouteFragmentConfirmButton = view.findViewById(R.id.createRouteFragmentConfirmButton);
         createRouteFragmentConfirmButton.setOnClickListener(v -> {
-            String username = createRouteFragmentRouteNameInput.getText().toString();
-            String password = createRouteFragmentDescriptionInput.getText().toString();
-            // Thực hiện kiểm tra đăng nhập ở đây
+            String routeName = createRouteFragmentRouteNameInput.getText().toString();
+            String description = createRouteFragmentDescriptionInput.getText().toString();
+            //Code
         });
         return view;
     }
