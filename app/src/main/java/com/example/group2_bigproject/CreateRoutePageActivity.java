@@ -15,9 +15,12 @@ public class CreateRoutePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_route_page);
+        Bundle bundle = getIntent().getExtras();
+        String userID = bundle.getString("userID", "Default");
 
         createRoutePageBackButton = findViewById(R.id.createRoutePageBackButton);
         String format = getIntent().getStringExtra("format");
+
         createRoutePageBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

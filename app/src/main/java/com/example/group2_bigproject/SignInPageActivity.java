@@ -52,6 +52,9 @@ public class SignInPageActivity extends AppCompatActivity {
                     switch (flags) {
                         case 0:
                             Intent intent = new Intent(SignInPageActivity.this, HomePageActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("userID", "000");
+                            intent.putExtras(bundle);
                             startActivity(intent);
                             Toast.makeText(SignInPageActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
                             break;

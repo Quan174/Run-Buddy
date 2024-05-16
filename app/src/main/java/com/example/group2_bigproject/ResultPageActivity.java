@@ -20,6 +20,8 @@ public class ResultPageActivity extends AppCompatActivity {
         resultPageHomeButton = findViewById(R.id.resultPageHomeButton);
         resultPageCreateRouteButton = findViewById(R.id.resultPageCreateRouteButton);
         resultPageShareRouteButton = findViewById(R.id.resultPageShareRouteButton);
+        Bundle bundle = getIntent().getExtras();
+        String userID = bundle.getString("userID", "Default");
         resultPageHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +43,9 @@ public class ResultPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ResultPageActivity.this, CreatePostPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", userID);
+                intent.putExtras(bundle);
                 intent.putExtra("format", "result");
                 startActivity(intent);
             }

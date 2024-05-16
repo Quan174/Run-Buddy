@@ -31,13 +31,17 @@ public class SocialPageActivity extends AppCompatActivity {
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
         message1 = findViewById(R.id.message1);
-
+        Bundle bundle = getIntent().getExtras();
+        String userID = bundle.getString("userID", "Default");
         menuBarSocialButton.setTextColor(R.color.light_grey);
 
         menuBarHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SocialPageActivity.this, HomePageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", "000");
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -48,6 +52,9 @@ public class SocialPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SocialPageActivity.this, RoutesPage.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", "000");
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -58,6 +65,9 @@ public class SocialPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SocialPageActivity.this, MapPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", "000");
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -68,6 +78,9 @@ public class SocialPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SocialPageActivity.this, ProfilePageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", "000");
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -78,6 +91,9 @@ public class SocialPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SocialPageActivity.this, ChatBoxActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", "000");
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

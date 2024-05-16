@@ -82,6 +82,8 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
         trackingPagePauseButtonText = findViewById(R.id.trackingPagePauseButtonText);
         trackingPageFinishButton = findViewById(R.id.trackingPageFinishButton);
         chronometer = findViewById(R.id.simpleChronometer);
+        Bundle bundle = getIntent().getExtras();
+        String userID = bundle.getString("userID", "Default");
         chronometer.start();
         trackingPageBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +112,9 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
 
         trackingPageFinishButton.setOnClickListener(v -> {
             Intent intent = new Intent(TrackingPageActivity.this, ResultPageActivity.class);
+            Bundle bundle2 = new Bundle();
+            bundle2.putString("userID", "000");
+            intent.putExtras(bundle2);
             startActivity(intent);
             finish();
         });

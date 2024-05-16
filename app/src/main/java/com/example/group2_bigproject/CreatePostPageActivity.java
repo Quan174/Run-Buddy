@@ -14,6 +14,8 @@ public class CreatePostPageActivity extends AppCompatActivity {
     TextView createPostButton;
     ConstraintLayout createPostResultDisplay;
     ConstraintLayout createPostRouteDisplay;
+    Bundle bundle = getIntent().getExtras();
+    String userID = bundle.getString("userID", "Default");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
