@@ -29,8 +29,11 @@ public class ResultPageActivity extends AppCompatActivity {
         resultPageCreateRouteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ResultPageActivity.this, CreateRoutePageActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(ResultPageActivity.this, CreateRoutePageActivity.class);
+//                startActivity(intent);
+                CreateRouteFragment createRouteDiaglog = new CreateRouteFragment();
+                createRouteDiaglog.show(getSupportFragmentManager(), "createroute");
+
             }
         });
 
