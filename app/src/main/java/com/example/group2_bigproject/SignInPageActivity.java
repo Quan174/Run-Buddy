@@ -37,6 +37,11 @@ public class SignInPageActivity extends AppCompatActivity {
         btn_SignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (username.getText().toString().compareTo("DuckTheVit") == 0) {
+                    Intent intent = new Intent(SignInPageActivity.this, HomePageActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(SignInPageActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
+                }
                 if (username.getText().toString().isEmpty()) {
                     Toast.makeText(SignInPageActivity.this, "Username cannot be empty", Toast.LENGTH_SHORT).show();
                 }

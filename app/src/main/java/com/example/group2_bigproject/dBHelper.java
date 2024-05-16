@@ -127,7 +127,7 @@ public class dBHelper extends SQLiteOpenHelper {
      */
     public void addUser(String username, String email, String password) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO users (routeID, userID, password, created_at) VALUES (?,?,?,?)",
+        db.execSQL("INSERT INTO users (email, username, password, created_at) VALUES (?,?,?,?)",
                 new String[]{email, username, password, String.valueOf(new Date(System.currentTimeMillis()))});
     }
 

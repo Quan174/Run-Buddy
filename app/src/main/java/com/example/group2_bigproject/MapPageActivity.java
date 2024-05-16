@@ -37,6 +37,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Objects;
+
 public class MapPageActivity extends FragmentActivity implements OnMapReadyCallback {
     private ConstraintLayout mapSuggestedRoutesButton;
     private ConstraintLayout mapSavedRoutesButton;
@@ -64,7 +66,6 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_page);
-
         mapSuggestedRoutesButton = findViewById(R.id.mapSuggestedRoutesButton);
         mapSavedRoutesButton = findViewById(R.id.mapSavedRoutesButton);
         mapSuggestedRoutesButtonText = findViewById(R.id.mapSuggestedRoutesButtonText);
@@ -78,12 +79,10 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
         mapWalkingButton = findViewById(R.id.mapWalkingButton);
         mapCyclingButton = findViewById(R.id.mapCyclingButton);
-
         menuBarMapButton.setTextColor(R.color.light_grey);
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        Objects.requireNonNull(mapFragment).getMapAsync(MapPageActivity.this);
         locationRequest = new LocationRequest.Builder(4000).setMinUpdateDistanceMeters(10).setMinUpdateIntervalMillis(2000).setPriority(Priority.PRIORITY_HIGH_ACCURACY).build();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         locationCallback = new LocationCallback() {
@@ -94,8 +93,9 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
                     currentLocation = location;
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.map);
-                    assert mapFragment != null;
-                    mapFragment.getMapAsync(MapPageActivity.this);
+                    if (mapFragment != null) {
+                        mapFragment.getMapAsync(MapPageActivity.this);
+                    }
                 }
             }
         };

@@ -1,5 +1,6 @@
 package com.example.group2_bigproject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class SocialPageActivity extends AppCompatActivity {
 
     ConstraintLayout message1;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
