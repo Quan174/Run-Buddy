@@ -43,6 +43,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class TrackingPageActivity extends FragmentActivity implements OnMapReadyCallback {
     private dBHelper helper;
@@ -66,7 +67,7 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
     private GoogleMap map;
     private ArrayList<LatLng> myRoute;
     private List<Polyline> polylines = null;
-
+    private int userID;
     private boolean started;
 
     @Override
@@ -76,15 +77,16 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
         helper = new dBHelper(this);
         db = helper.getWritableDatabase();
         lastRecordedTime = 0;
+        velocityTrack = findViewById(R.id.textView14);
         distance = findViewById(R.id.textView13);
         trackingPageBackButton = findViewById(R.id.trackingPageBackButton);
         trackingPagePauseButton = findViewById(R.id.trackingPagePauseButton);
         trackingPagePauseButtonText = findViewById(R.id.trackingPagePauseButtonText);
         trackingPageFinishButton = findViewById(R.id.trackingPageFinishButton);
         chronometer = findViewById(R.id.simpleChronometer);
-        Bundle bundle = getIntent().getExtras();
-        String userID = bundle.getString("userID", "Default");
+        chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
+        userID = getIntent().getIntExtra("userID", -1);
         trackingPageBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +97,7 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
         trackingPagePauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (trackingPagePauseButtonText.getText()=="Pause") {
+                if (trackingPagePauseButtonText.getText().toString().compareTo("Pause") == 0) {
                     trackingPagePauseButtonText.setText("Continue");
                     started = false;
                     lastPause = chronometer.getBase() - SystemClock.elapsedRealtime();
@@ -103,6 +105,7 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
                     trackingPageFinishButton.setVisibility(View.VISIBLE);
                 } else {
                     trackingPagePauseButtonText.setText("Pause");
+                    started = true;
                     chronometer.setBase(SystemClock.elapsedRealtime() + lastPause);
                     chronometer.start();
                     trackingPageFinishButton.setVisibility(View.INVISIBLE);
@@ -112,9 +115,20 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
 
         trackingPageFinishButton.setOnClickListener(v -> {
             Intent intent = new Intent(TrackingPageActivity.this, ResultPageActivity.class);
-            Bundle bundle2 = new Bundle();
-            bundle2.putString("userID", "000");
-            intent.putExtras(bundle2);
+            double distanceInKilometres = (double) Math.round(distanceMoved) /1000;
+            distanceInKilometres = (double) Math.round(distanceInKilometres * 100) /100;
+            long millis = showElapsedTime();
+            String timeString = String.format("%02d:%02d:%02d",
+                                    TimeUnit.MILLISECONDS.toHours(millis),
+                                    TimeUnit.MILLISECONDS.toMinutes(millis) -
+                                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                                    TimeUnit.MILLISECONDS.toSeconds(millis) -
+                                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+            intent.putExtra("TimeInNumeral", showElapsedTime());
+            intent.putExtra("totalDistance", distanceInKilometres);
+            intent.putExtra("Time", timeString);
+            intent.putExtra("userID", userID);
+            saveRouteToRunHistory();
             startActivity(intent);
             finish();
         });
@@ -140,13 +154,15 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
                     lastRecordedTime = showElapsedTime();
                     double distanceInKilometres = (double) Math.round(distanceMoved) /1000;
                     distanceInKilometres = (double) Math.round(distanceInKilometres * 100) /100;
-                    double velocity = distanceInKilometres*1000/timeSpend;
+                    Double velocity = distanceInKilometres*1000/timeSpend;
                     myRoute.add(new LatLng(location.getLatitude(), location.getLongitude()));
                     distance.setText(Double.toString(distanceInKilometres));
-
+                    velocityTrack.setText(Math.round(velocity) + "m/s");
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.map);
-                    mapFragment.getMapAsync(TrackingPageActivity.this);
+                    if (mapFragment != null) {
+                        mapFragment.getMapAsync(TrackingPageActivity.this);
+                    }
                 }
             }
         };
@@ -244,6 +260,24 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
     }
 
     private long showElapsedTime() {
-        return SystemClock.elapsedRealtime() - chronometer.getBase();
+        int stoppedMilliseconds = 0;
+
+        String chronoText = chronometer.getText().toString();
+        String[] array = chronoText.split(":");
+        if (array.length == 2) {
+            stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 1000
+                    + Integer.parseInt(array[1]) * 1000;
+        } else if (array.length == 3) {
+            stoppedMilliseconds = Integer.parseInt(array[0]) * 60 * 60 * 1000
+                    + Integer.parseInt(array[1]) * 60 * 1000
+                    + Integer.parseInt(array[2]) * 1000;
+        }
+        return stoppedMilliseconds;
+    }
+
+    private void saveRouteToRunHistory() {
+        int distanceInMetres = (int) ((double) Math.round(distanceMoved * 100) /100);
+        String UUID = helper.addRouteToHistory(userID, (int) distanceInMetres, (int) (showElapsedTime()/1000));
+        helper.addRouteDetailToHistory(myRoute, UUID);
     }
 }

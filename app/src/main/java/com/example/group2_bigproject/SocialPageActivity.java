@@ -18,6 +18,7 @@ public class SocialPageActivity extends AppCompatActivity {
     TextView menuBarRoutesButton;
 
     ConstraintLayout message1;
+    private int userID;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -31,8 +32,7 @@ public class SocialPageActivity extends AppCompatActivity {
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
         message1 = findViewById(R.id.message1);
-        Bundle bundle = getIntent().getExtras();
-        String userID = bundle.getString("userID", "Default");
+        userID = getIntent().getIntExtra("userID", -1 );
         menuBarSocialButton.setTextColor(R.color.light_grey);
 
         menuBarHomeButton.setOnClickListener(new View.OnClickListener() {

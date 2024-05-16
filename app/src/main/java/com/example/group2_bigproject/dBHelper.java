@@ -131,6 +131,25 @@ public class dBHelper extends SQLiteOpenHelper {
                 new String[]{email, username, password, String.valueOf(new Date(System.currentTimeMillis()))});
     }
 
+    public Integer getUserIDFromUsername(String username) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query("users", null, "username" + " = ?", new String[] { username }, null, null, null);
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            return cursor.getInt(0);
+        }
+        return -1;
+    }
+
+    public boolean checkConflictedUsername(String username) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query("users", null, "username" + " = ?", new String[] { username }, null, null, null);
+        return cursor.getCount() != 0;
+
+    }
+
     /**
      * This method is used  to check an user password. return an integer
      * 0 means the password matched.
@@ -164,11 +183,11 @@ public class dBHelper extends SQLiteOpenHelper {
         return random;
     }
 
-    public String addRouteToHistory(String userID, Integer length, Integer duration) {
+    public String addRouteToHistory(int userID, Integer length, Integer duration) {
         String random = UUID.randomUUID().toString();
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO runHistory (routeID,userID, length, duration, time_ran) VALUES (?,?,?,?,?)",
-                new String[]{random ,userID, String.valueOf(length), String.valueOf(duration),String.valueOf(new Date(System.currentTimeMillis()))});
+                new String[]{random ,Integer.toString(userID), String.valueOf(length), String.valueOf(duration),String.valueOf(new Date(System.currentTimeMillis()))});
         return random;
     }
 

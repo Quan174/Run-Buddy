@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,6 +23,7 @@ public class HomePageActivity extends AppCompatActivity {
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,8 @@ public class HomePageActivity extends AppCompatActivity {
 
         menuBarHomeButton.setTextColor(R.color.light_grey);
 
-        Bundle bundle = getIntent().getExtras();
-        String userID = bundle.getString("userID", "Default");
+        userID = getIntent().getIntExtra("userID", -1);
+        Toast.makeText(this, userID + "", Toast.LENGTH_SHORT).show();
 
 
         menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
@@ -45,9 +47,7 @@ public class HomePageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, RoutesPage.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
+                intent.putExtra("userID", userID);
                 startActivity(intent);
                 finish();
             }
@@ -57,9 +57,7 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, MapPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -70,9 +68,7 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, SocialPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -83,9 +79,7 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, ProfilePageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();

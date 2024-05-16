@@ -42,7 +42,9 @@ public class SignUpPageActivity extends AppCompatActivity {
         btn_SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (password.getText().toString().compareTo(confirmPassword.getText().toString()) > 0) {
+                if (helper.checkConflictedUsername(username.getText().toString())) {
+                    Toast.makeText(SignUpPageActivity.this, "Username is taken!", Toast.LENGTH_SHORT).show();
+                } else if (password.getText().toString().compareTo(confirmPassword.getText().toString()) > 0) {
                     Toast.makeText(SignUpPageActivity.this, "Password does not match!", Toast.LENGTH_SHORT).show();
                 } else {
                     helper.addUser(username.getText().toString(), email.getText().toString(), password.getText().toString());

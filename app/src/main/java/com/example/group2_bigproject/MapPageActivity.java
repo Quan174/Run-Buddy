@@ -60,6 +60,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
     private LocationRequest locationRequest;
     private Location currentLocation;
     static int FINE_PERMISSION_CODE = 1;
+    private int userID;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -79,9 +80,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
         mapWalkingButton = findViewById(R.id.mapWalkingButton);
         mapCyclingButton = findViewById(R.id.mapCyclingButton);
-
-        Bundle bundle = getIntent().getExtras();
-        String userID = bundle.getString("userID", "Default");
+        userID = getIntent().getIntExtra("userID", -1);
 
         menuBarMapButton.setTextColor(R.color.light_grey);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -129,9 +128,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapPageActivity.this, TrackingPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             }
         });
@@ -140,9 +137,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapPageActivity.this, HomePageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -153,9 +148,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapPageActivity.this, RoutesPage.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -166,9 +159,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapPageActivity.this, SocialPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -179,9 +170,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapPageActivity.this, ProfilePageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
