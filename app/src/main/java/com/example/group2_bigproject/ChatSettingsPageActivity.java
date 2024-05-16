@@ -40,8 +40,6 @@ public class ChatSettingsPageActivity extends AppCompatActivity {
         chatSettingsSharesLayout = findViewById(R.id.chatSettingsSharesLayout);
         chatSettingsAvatar = findViewById(R.id.chatSettingsAvatar);
         chatSettingsPicture1 = findViewById(R.id.chatSettingsPicture1);
-        Bundle bundle = getIntent().getExtras();
-        String userID = bundle.getString("userID", "Default");
 
         chatSettingsBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,9 +78,6 @@ public class ChatSettingsPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChatSettingsPageActivity.this, FullScreenActivity.class);
                 // Optionally pass the image resource if it's dynamic
                 intent.putExtra("imageRes", R.drawable.black_circle_shape);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -93,9 +88,6 @@ public class ChatSettingsPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChatSettingsPageActivity.this, FullScreenActivity.class);
                 // Optionally pass the image resource if it's dynamic
                 intent.putExtra("imageRes", R.drawable.screenshot_2024_05_06_160853);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
