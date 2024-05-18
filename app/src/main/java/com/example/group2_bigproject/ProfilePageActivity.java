@@ -23,6 +23,7 @@ public class ProfilePageActivity extends AppCompatActivity {
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
+    TextView profilePageEditInformationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,10 @@ public class ProfilePageActivity extends AppCompatActivity {
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
+        profilePageEditInformationButton = findViewById(R.id.profilePageEditInformationButton);
+
+        Bundle bundle = getIntent().getExtras();
+        String userID = bundle.getString("userID", "Default");
 
         menuBarProfileButton.setTextColor(R.color.light_grey);
 
@@ -40,6 +45,9 @@ public class ProfilePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfilePageActivity.this, HomePageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", userID);
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -50,6 +58,9 @@ public class ProfilePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfilePageActivity.this, RoutesPage.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", userID);
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -60,6 +71,9 @@ public class ProfilePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfilePageActivity.this, MapPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", userID);
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -70,12 +84,21 @@ public class ProfilePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfilePageActivity.this, SocialPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", userID);
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
             }
         });
 
-
+        profilePageEditInformationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileEditFragment profileEditDiaglog = new ProfileEditFragment();
+                profileEditDiaglog.show(getSupportFragmentManager(), "profileedit");
+            }
+        });
     }
 }

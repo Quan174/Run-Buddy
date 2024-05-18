@@ -5,29 +5,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
     ConstraintLayout mapSuggestedRoutesButton;
     ConstraintLayout mapSavedRoutesButton;
     TextView mapSuggestedRoutesButtonText;
     TextView mapSavedRoutesButtonText;
-    RecyclerView recyclerView;
-    Adapter adapter;
-    List<PostItem> postItemList;
 
+    HorizontalScrollView mapSuggestedRoutesLayout;
+    HorizontalScrollView mapSavedRoutesLayout;
     TextView menuBarHomeButton;
     TextView menuBarRoutesButton;
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,36 +36,18 @@ public class HomePageActivity extends AppCompatActivity {
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        menuBarHomeButton.setTextColor(R.color.light_grey);
 
-        postItemList = new ArrayList<>();
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture , "25/5/2024", "Trung", "First Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"26/5/2024", "Trung", "Second Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"27/5/2024", "Trung", "Third Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"28/5/2024", "Trung", "4th Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"29/5/2024", "Trung", "5th Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"30/5/2024", "Trung", "6th Test"));
+        userID = getIntent().getIntExtra("userID", -1);
+        Toast.makeText(this, userID + "", Toast.LENGTH_SHORT).show();
 
-
-        adapter = new Adapter(postItemList);
-        recyclerView.setAdapter(adapter);
-
-        /*menuBarHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, HomePageActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
-        });*/
 
         menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, RoutesPage.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("userID", userID);
                 startActivity(intent);
                 finish();
             }
@@ -79,6 +57,7 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, MapPageActivity.class);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -89,6 +68,7 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, SocialPageActivity.class);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -99,6 +79,7 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, ProfilePageActivity.class);
+                intent.putExtra("userID", userID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
