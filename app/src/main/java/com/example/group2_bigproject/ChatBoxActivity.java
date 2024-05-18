@@ -18,8 +18,6 @@ public class ChatBoxActivity extends AppCompatActivity {
 
         chatScreenBackButton = findViewById(R.id.chatScreenBackButton);
         chatScreenSettingsButton = findViewById(R.id.chatScreenSettingsButton);
-        Bundle bundle = getIntent().getExtras();
-        String userID = bundle.getString("userID", "Default");
 
         chatScreenBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,9 +30,6 @@ public class ChatBoxActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ChatBoxActivity.this, ChatSettingsPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
