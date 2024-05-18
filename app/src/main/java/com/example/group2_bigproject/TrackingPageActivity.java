@@ -46,8 +46,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TrackingPageActivity extends FragmentActivity implements OnMapReadyCallback {
-    private dBHelper helper;
-    private SQLiteDatabase db;
     private TextView velocityTrack;
     private TextView distance;
     private TextView trackingPageBackButton;
@@ -69,13 +67,13 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
     private List<Polyline> polylines = null;
     private int userID;
     private boolean started;
+    FirebaseHelper fbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tracking_page);
-        helper = new dBHelper(this);
-        db = helper.getWritableDatabase();
+
         lastRecordedTime = 0;
         velocityTrack = findViewById(R.id.textView14);
         distance = findViewById(R.id.textView13);
@@ -84,9 +82,10 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
         trackingPagePauseButtonText = findViewById(R.id.trackingPagePauseButtonText);
         trackingPageFinishButton = findViewById(R.id.trackingPageFinishButton);
         chronometer = findViewById(R.id.simpleChronometer);
+        fbHelper = new FirebaseHelper(this);
+
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
-        userID = getIntent().getIntExtra("userID", -1);
         trackingPageBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,7 +276,6 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
 
     private void saveRouteToRunHistory() {
         int distanceInMetres = (int) ((double) Math.round(distanceMoved * 100) /100);
-        String UUID = helper.addRouteToHistory(userID, (int) distanceInMetres, (int) (showElapsedTime()/1000));
-        helper.addRouteDetailToHistory(myRoute, UUID);
+        fbHelper.saveRouteToRouteHistory(new Route(myRoute, distanceInMetres));
     }
 }

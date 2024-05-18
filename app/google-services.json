@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "177561230230",
+    "project_id": "precise-reality-418908",
+    "storage_bucket": "precise-reality-418908.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177561230230:android:9981587bfed9fd3116dbb7",
+        "android_client_info": {
+          "package_name": "com.example.firebase_testing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXMCsBjWyG3fXYgZ4IWaiwbjO1zx-Ym_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177561230230:android:51129410eac4428b16dbb7",
+        "android_client_info": {
+          "package_name": "com.example.group2_bigproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXMCsBjWyG3fXYgZ4IWaiwbjO1zx-Ym_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

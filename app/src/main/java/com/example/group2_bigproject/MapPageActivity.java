@@ -60,7 +60,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
     private LocationRequest locationRequest;
     private Location currentLocation;
     static int FINE_PERMISSION_CODE = 1;
-    private int userID;
+    private String userID;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -80,7 +80,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
         mapWalkingButton = findViewById(R.id.mapWalkingButton);
         mapCyclingButton = findViewById(R.id.mapCyclingButton);
-        userID = getIntent().getIntExtra("userID", -1);
+        userID = getIntent().getStringExtra("userID");
 
         menuBarMapButton.setTextColor(R.color.light_grey);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

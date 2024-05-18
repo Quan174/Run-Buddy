@@ -23,7 +23,7 @@ public class HomePageActivity extends AppCompatActivity {
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
-    private int userID;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,52 +38,40 @@ public class HomePageActivity extends AppCompatActivity {
 
         menuBarHomeButton.setTextColor(R.color.light_grey);
 
-        userID = getIntent().getIntExtra("userID", -1);
+        userID = getIntent().getStringExtra("userID");
         Toast.makeText(this, userID + "", Toast.LENGTH_SHORT).show();
 
 
-        menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, RoutesPage.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.putExtra("userID", userID);
-                startActivity(intent);
-                finish();
-            }
+        menuBarRoutesButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePageActivity.this, RoutesPage.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("userID", userID);
+            startActivity(intent);
+            finish();
         });
 
-        menuBarMapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, MapPageActivity.class);
-                intent.putExtra("userID", userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarMapButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePageActivity.this, MapPageActivity.class);
+            intent.putExtra("userID", userID);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
-        menuBarSocialButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, SocialPageActivity.class);
-                intent.putExtra("userID", userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarSocialButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePageActivity.this, SocialPageActivity.class);
+            intent.putExtra("userID", userID);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
-        menuBarProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, ProfilePageActivity.class);
-                intent.putExtra("userID", userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarProfileButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePageActivity.this, ProfilePageActivity.class);
+            intent.putExtra("userID", userID);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
     }
