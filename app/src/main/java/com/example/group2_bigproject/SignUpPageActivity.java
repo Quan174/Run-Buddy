@@ -3,21 +3,32 @@ package com.example.group2_bigproject;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.HashSet;
 
 public class SignUpPageActivity extends AppCompatActivity {
     private EditText username;
     private EditText email;
     private EditText password;
     private EditText confirmPassword;
-    private dBHelper helper;
-    private SQLiteDatabase db;
+    private FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,33 +37,43 @@ public class SignUpPageActivity extends AppCompatActivity {
         email = findViewById(R.id.edtText_Email);
         password = findViewById(R.id.edtText_Password);
         confirmPassword = findViewById(R.id.edtText_ConfirmPassword);
-        helper = new dBHelper(this);
-        db = helper.getWritableDatabase();
-
+        db = FirebaseFirestore.getInstance();
         Button btn_SignUp = findViewById(R.id.btn_SignUp);
 
         TextView hereClickView = findViewById(R.id.textView_HereClicker);
-        hereClickView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        hereClickView.setOnClickListener(v -> finish());
 
-        btn_SignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (helper.checkConflictedUsername(username.getText().toString())) {
-                    Toast.makeText(SignUpPageActivity.this, "Username is taken!", Toast.LENGTH_SHORT).show();
-                } else if (password.getText().toString().compareTo(confirmPassword.getText().toString()) > 0) {
-                    Toast.makeText(SignUpPageActivity.this, "Password does not match!", Toast.LENGTH_SHORT).show();
+        btn_SignUp.setOnClickListener(v -> {
+            CollectionReference dbUsers = db.collection("users");
+            dbUsers.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String documentUsername = document.toObject(User.class).username;
+                        String documentEmail = document.toObject(User.class).email;
+                        if(documentUsername.compareTo(username.getText().toString()) == 0) {
+                            Toast.makeText(this, "Username existed!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (documentEmail.compareTo(email.getText().toString()) == 0) {
+                            Toast.makeText(this, "Email existed!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    if (confirmPassword.getText().toString().compareTo(password.getText().toString()) != 0) {
+                        Toast.makeText(this, "Password missmatch!!!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    User user = new User(username.getText().toString(), email.getText().toString(), password.getText().toString());
+                    dbUsers.add(user).addOnCompleteListener(task1 -> {
+                        Toast.makeText(this, "user added to firebase", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpPageActivity.this, SignInPageActivity.class);
+                        startActivity(intent);
+                    });
+
                 } else {
-                    helper.addUser(username.getText().toString(), email.getText().toString(), password.getText().toString());
-                    Intent intent = new Intent(SignUpPageActivity.this, SignInPageActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(SignUpPageActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpPageActivity.this, "Error checking users", Toast.LENGTH_SHORT).show();
                 }
-            }
+            });
         });
     }
 }

@@ -9,61 +9,56 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class SignInPageActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
-    private dBHelper helper;
-    private SQLiteDatabase db;
     private int userID;
+    private FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_page);
-        userID = -1;
         username = findViewById(R.id.edtText_UsernameSignIn);
         password = findViewById(R.id.edtText_PasswordSignIn);
-        helper = new dBHelper(this);
-        db = helper.getWritableDatabase();
+        db = FirebaseFirestore.getInstance();
         TextView hereClickView = findViewById(R.id.textView_HereClicker);
         Intent signUpClick = new Intent(this, SignUpPageActivity.class);
         Button btn_SignIn = findViewById(R.id.btn_SignIn);
 
         hereClickView.setOnClickListener(v -> startActivity(signUpClick));
         btn_SignIn.setOnClickListener(v -> {
-            if (username.getText().toString().compareTo("DuckTheVit") == 0) {
-                userID = -69;
-                Intent intent = new Intent(SignInPageActivity.this, HomePageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("userID", userID);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                Toast.makeText(SignInPageActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
-            }
-            if (username.getText().toString().isEmpty()) {
-                Toast.makeText(SignInPageActivity.this, "Username cannot be empty", Toast.LENGTH_SHORT).show();
-            }
-            if (password.getText().toString().isEmpty()) {
-                Toast.makeText(SignInPageActivity.this, "Password cannot be empty!", Toast.LENGTH_SHORT).show();
-            } else if (!username.getText().toString().isEmpty()){
-                int flags = helper.checkPassword(username.getText().toString(), password.getText().toString());
-                switch (flags) {
-                    case 0:
-                        Intent intent = new Intent(SignInPageActivity.this, HomePageActivity.class);
-                        Bundle bundle = new Bundle();
-                        userID = helper.getUserIDFromUsername(username.getText().toString());;
-                        intent.putExtra("userID", userID);
-                        startActivity(intent);
-                        Toast.makeText(SignInPageActivity.this,"Signed In, userID is " + userID,Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        Toast.makeText(SignInPageActivity.this, "Wrong password!", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        Toast.makeText(SignInPageActivity.this, "Username not registered!", Toast.LENGTH_SHORT).show();
+            CollectionReference dbUsers = db.collection("users");
+            dbUsers.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String documentUsername = document.toObject(User.class).username;
+                        if (documentUsername.compareTo(username.getText().toString()) == 0) {
+                            String documentPassword = document.toObject(User.class).password;
+                            if (documentPassword.compareTo(password.getText().toString()) == 0) {
+                                Toast.makeText(this, "Login successful! userID = " + document.getId(), Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignInPageActivity.this, HomePageActivity.class);
+                                intent.putExtra("userID", document.getId());
+                                startActivity(intent);
+                                return;
+                            } else {
+                                Toast.makeText(this, "Wrong password!!!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                    }
+                    Toast.makeText(this, "Username doesn't exist! Register?", Toast.LENGTH_SHORT).show();
                 }
-            }
+            });
         });
 
     }
