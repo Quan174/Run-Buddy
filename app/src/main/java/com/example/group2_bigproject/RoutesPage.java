@@ -60,10 +60,8 @@ public class RoutesPage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Route route = (Route) routesPageRouteListViewAdapter.getItem(position);
 
-                Intent intent = new Intent(RoutesPage.this, HomePageActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent intent = new Intent(getApplicationContext(), RouteViewActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
