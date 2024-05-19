@@ -2,6 +2,7 @@ package com.example.group2_bigproject;
 
 
 import android.graphics.Color;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 
@@ -13,22 +14,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.HorizontalScrollView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.ArrayList;
+
 public class ProfilePageActivity extends AppCompatActivity{
     FirebaseHelper fbHelper;
     private SharedPreferencesHelper spHelper;
-    ConstraintLayout mapSuggestedRoutesButton;
-    ConstraintLayout mapSavedRoutesButton;
-    TextView mapSuggestedRoutesButtonText;
-    TextView mapSavedRoutesButtonText;
-
-    HorizontalScrollView mapSuggestedRoutesLayout;
-    HorizontalScrollView mapSavedRoutesLayout;
     TextView menuBarHomeButton;
     TextView menuBarRoutesButton;
     TextView menuBarMapButton;
@@ -50,14 +47,14 @@ public class ProfilePageActivity extends AppCompatActivity{
     ConstraintLayout profilePageActivityHistoryButton;
 
     TextView profilePagePersonalInformationButtonText;
-
-    TextView profilePageCreatedRoutesButtonText;
-
     TextView  profilePageActivityHistoryButtonText;
 
     ConstraintLayout profilePagePersonalInformationLayout;
 
     LinearLayout profilePageActivityHistoryLayout;
+    ListView activityHistoryListView;
+    ArrayList<Route> listRoute;
+    ActivityHistoryListViewAdapter activityHistoryListViewAdapter;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -87,13 +84,12 @@ public class ProfilePageActivity extends AppCompatActivity{
 
         profilePagePersonalInformationButtonText = findViewById(R.id.profilePagePersonalInformationButtonText);
 
-        profilePageCreatedRoutesButtonText = findViewById(R.id.profilePageCreatedRoutesButtonText);
-
         profilePageActivityHistoryButtonText = findViewById(R.id.profilePageActivityHistoryButtonText);
 
         profilePagePersonalInformationLayout =  findViewById(R.id.profilePagePersonalInformationLayout);
 
         profilePageActivityHistoryLayout = findViewById(R.id.profilePageActivityHistoryLayout);
+        activityHistoryListView = findViewById(R.id.activityHistoryListView);
 
         userID = spHelper.getSessionID();
         Toast.makeText(this, userID, Toast.LENGTH_SHORT).show();
@@ -106,6 +102,32 @@ public class ProfilePageActivity extends AppCompatActivity{
             addressProfile.setText(user.address);
             heightProfile.setText(String.format("%s cm", user.height));
             weightProfile.setText(String.format("%s kg", user.weight));
+        });
+
+        listRoute = new ArrayList<>();
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+
+        activityHistoryListViewAdapter = new ActivityHistoryListViewAdapter(listRoute);
+        activityHistoryListView.setAdapter(activityHistoryListViewAdapter);
+        activityHistoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Route route = (Route) activityHistoryListViewAdapter.getItem(position);
+                //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
+//                Toast.makeText(ProfilePageActivity.this, route.routeName, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(ProfilePageActivity.this, HomePageActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
         });
 
         menuBarProfileButton.setTextColor(R.color.light_grey);
@@ -154,34 +176,11 @@ public class ProfilePageActivity extends AppCompatActivity{
 
             profilePagePersonalInformationButtonText.setTypeface(null, Typeface.BOLD);
 
-            profilePageCreatedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
-
-            profilePageCreatedRoutesButtonText.setTypeface(null, Typeface.BOLD);
-
             profilePageActivityHistoryButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
 
             profilePageActivityHistoryButtonText.setTypeface(null, Typeface.BOLD);
 
             profilePagePersonalInformationLayout.setVisibility(View.VISIBLE);
-
-            profilePageActivityHistoryLayout.setVisibility(View.GONE);
-
-        });
-        profilePageCreatedRoutesButton.setOnClickListener(view -> {
-
-            profilePageCreatedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
-
-            profilePageCreatedRoutesButtonText.setTypeface(null, Typeface.BOLD);
-
-            profilePagePersonalInformationButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
-
-            profilePagePersonalInformationButtonText.setTypeface(null, Typeface.BOLD);
-
-            profilePageActivityHistoryButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
-
-            profilePageActivityHistoryButtonText.setTypeface(null, Typeface.BOLD);
-
-            profilePagePersonalInformationLayout.setVisibility(View.GONE);
 
             profilePageActivityHistoryLayout.setVisibility(View.GONE);
 
@@ -196,10 +195,6 @@ public class ProfilePageActivity extends AppCompatActivity{
             profilePagePersonalInformationButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
 
             profilePagePersonalInformationButtonText.setTypeface(null, Typeface.BOLD);
-
-            profilePageCreatedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
-
-            profilePageCreatedRoutesButtonText.setTypeface(null, Typeface.BOLD);
 
             profilePagePersonalInformationLayout.setVisibility(View.GONE);
 

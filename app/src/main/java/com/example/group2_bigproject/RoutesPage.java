@@ -3,27 +3,27 @@ package com.example.group2_bigproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.ArrayList;
+
 public class RoutesPage extends AppCompatActivity {
     private SharedPreferencesHelper spHelper;
-    private ConstraintLayout mapSuggestedRoutesButton;
-    private ConstraintLayout mapSavedRoutesButton;
-    private TextView mapSuggestedRoutesButtonText;
-    private TextView mapSavedRoutesButtonText;
-
-    HorizontalScrollView mapSuggestedRoutesLayout;
-    HorizontalScrollView mapSavedRoutesLayout;
     TextView menuBarHomeButton;
     TextView menuBarRoutesButton;
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
     String userID;
+    ListView routesPageRoutesListView;
+    ArrayList<Route> listRoute;
+    RoutesPageRouteListViewAdapter routesPageRouteListViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +37,35 @@ public class RoutesPage extends AppCompatActivity {
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
+        routesPageRoutesListView = findViewById(R.id.routesPageRoutesListView);
 
         menuBarRoutesButton.setTextColor(R.color.light_grey);
         spHelper = new SharedPreferencesHelper(this);
         userID = spHelper.getSessionID();
+
+        listRoute = new ArrayList<>();
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+        listRoute.add(new Route());
+
+        routesPageRouteListViewAdapter = new RoutesPageRouteListViewAdapter(listRoute);
+        routesPageRoutesListView.setAdapter(routesPageRouteListViewAdapter);
+        routesPageRoutesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Route route = (Route) routesPageRouteListViewAdapter.getItem(position);
+
+                Intent intent = new Intent(RoutesPage.this, HomePageActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         menuBarHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(RoutesPage.this, HomePageActivity.class);
