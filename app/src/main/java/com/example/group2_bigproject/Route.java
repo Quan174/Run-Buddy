@@ -6,6 +6,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Route {
+    public String routeName;
+    public String routeDescripion;
     public String userID;
     public ArrayList<LatLng> latLngArrayList;
     public int length;
@@ -17,5 +19,7 @@ public class Route {
         this.length = length;
         this.userID = userID;
         this.time = time;
+        this.routeName = "UNSAVED";
+        this.routeDescripion = "UNSAVED";
     }
 }

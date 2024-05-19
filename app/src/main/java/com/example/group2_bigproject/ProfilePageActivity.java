@@ -1,5 +1,11 @@
 package com.example.group2_bigproject;
 
+
+import android.graphics.Color;
+import android.widget.LinearLayout;
+
+
+import android.graphics.Typeface;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
@@ -37,6 +43,21 @@ public class ProfilePageActivity extends AppCompatActivity{
     private TextView addressProfile;
     private TextView heightProfile;
     private TextView weightProfile;
+    ConstraintLayout profilePagePersonalInformationButton;
+
+    ConstraintLayout profilePageCreatedRoutesButton;
+
+    ConstraintLayout profilePageActivityHistoryButton;
+
+    TextView profilePagePersonalInformationButtonText;
+
+    TextView profilePageCreatedRoutesButtonText;
+
+    TextView  profilePageActivityHistoryButtonText;
+
+    ConstraintLayout profilePagePersonalInformationLayout;
+
+    LinearLayout profilePageActivityHistoryLayout;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -58,6 +79,21 @@ public class ProfilePageActivity extends AppCompatActivity{
         addressProfile = findViewById(R.id.textView61);
         heightProfile = findViewById(R.id.textView62);
         weightProfile = findViewById(R.id.textView63);
+        profilePagePersonalInformationButton = findViewById(R.id.profilePagePersonalInformationButton);
+
+        profilePageCreatedRoutesButton = findViewById(R.id.profilePageCreatedRoutesButton);
+
+        profilePageActivityHistoryButton = findViewById(R.id.profilePageActivityHistoryButton);
+
+        profilePagePersonalInformationButtonText = findViewById(R.id.profilePagePersonalInformationButtonText);
+
+        profilePageCreatedRoutesButtonText = findViewById(R.id.profilePageCreatedRoutesButtonText);
+
+        profilePageActivityHistoryButtonText = findViewById(R.id.profilePageActivityHistoryButtonText);
+
+        profilePagePersonalInformationLayout =  findViewById(R.id.profilePagePersonalInformationLayout);
+
+        profilePageActivityHistoryLayout = findViewById(R.id.profilePageActivityHistoryLayout);
 
         userID = spHelper.getSessionID();
         Toast.makeText(this, userID, Toast.LENGTH_SHORT).show();
@@ -103,7 +139,78 @@ public class ProfilePageActivity extends AppCompatActivity{
         });
 
         profilePageEditInformationButton.setOnClickListener(v -> {
+
             ProfileEditFragment profileEditDiaglog = new ProfileEditFragment();
+
+            profileEditDiaglog.show(getSupportFragmentManager(), "profileedit");
+
+        });
+
+
+
+        profilePagePersonalInformationButton.setOnClickListener(view -> {
+
+            profilePagePersonalInformationButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+            profilePagePersonalInformationButtonText.setTypeface(null, Typeface.BOLD);
+
+            profilePageCreatedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+
+            profilePageCreatedRoutesButtonText.setTypeface(null, Typeface.BOLD);
+
+            profilePageActivityHistoryButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+
+            profilePageActivityHistoryButtonText.setTypeface(null, Typeface.BOLD);
+
+            profilePagePersonalInformationLayout.setVisibility(View.VISIBLE);
+
+            profilePageActivityHistoryLayout.setVisibility(View.GONE);
+
+        });
+        profilePageCreatedRoutesButton.setOnClickListener(view -> {
+
+            profilePageCreatedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+            profilePageCreatedRoutesButtonText.setTypeface(null, Typeface.BOLD);
+
+            profilePagePersonalInformationButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+
+            profilePagePersonalInformationButtonText.setTypeface(null, Typeface.BOLD);
+
+            profilePageActivityHistoryButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+
+            profilePageActivityHistoryButtonText.setTypeface(null, Typeface.BOLD);
+
+            profilePagePersonalInformationLayout.setVisibility(View.GONE);
+
+            profilePageActivityHistoryLayout.setVisibility(View.GONE);
+
+        });
+
+        profilePageActivityHistoryButton.setOnClickListener(view -> {
+
+            profilePageActivityHistoryButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+            profilePageActivityHistoryButtonText.setTypeface(null, Typeface.BOLD);
+
+            profilePagePersonalInformationButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+
+            profilePagePersonalInformationButtonText.setTypeface(null, Typeface.BOLD);
+
+            profilePageCreatedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+
+            profilePageCreatedRoutesButtonText.setTypeface(null, Typeface.BOLD);
+
+            profilePagePersonalInformationLayout.setVisibility(View.GONE);
+
+            profilePageActivityHistoryLayout.setVisibility(View.VISIBLE);
+
+        });
+
+        profilePageEditInformationButton.setOnClickListener(v -> {
+
+            ProfileEditFragment profileEditDiaglog = new ProfileEditFragment();
+
             profileEditDiaglog.show(getSupportFragmentManager(), "profileEdit");
         });
     }
