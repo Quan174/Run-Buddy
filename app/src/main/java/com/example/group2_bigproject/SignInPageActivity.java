@@ -22,8 +22,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class SignInPageActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
-    private int userID;
     private FirebaseFirestore db;
+    private SharedPreferencesHelper spHeler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +31,12 @@ public class SignInPageActivity extends AppCompatActivity {
         username = findViewById(R.id.edtText_UsernameSignIn);
         password = findViewById(R.id.edtText_PasswordSignIn);
         db = FirebaseFirestore.getInstance();
+        spHeler = new SharedPreferencesHelper(this);
         TextView hereClickView = findViewById(R.id.textView_HereClicker);
         Intent signUpClick = new Intent(this, SignUpPageActivity.class);
         Button btn_SignIn = findViewById(R.id.btn_SignIn);
 
+        spHeler.endSession();
         hereClickView.setOnClickListener(v -> startActivity(signUpClick));
         btn_SignIn.setOnClickListener(v -> {
             CollectionReference dbUsers = db.collection("users");
@@ -45,9 +47,9 @@ public class SignInPageActivity extends AppCompatActivity {
                         if (documentUsername.compareTo(username.getText().toString()) == 0) {
                             String documentPassword = document.toObject(User.class).password;
                             if (documentPassword.compareTo(password.getText().toString()) == 0) {
-                                Toast.makeText(this, "Login successful! userID = " + document.getId(), Toast.LENGTH_SHORT).show();
+                                spHeler.startSession(document.getId());
+                                Toast.makeText(this, spHeler.getSessionID(), Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(SignInPageActivity.this, HomePageActivity.class);
-                                intent.putExtra("userID", document.getId());
                                 startActivity(intent);
                                 return;
                             } else {

@@ -40,6 +40,7 @@ import com.google.android.gms.tasks.Task;
 import java.util.Objects;
 
 public class MapPageActivity extends FragmentActivity implements OnMapReadyCallback {
+    private SharedPreferencesHelper spHelper;
     private ConstraintLayout mapSuggestedRoutesButton;
     private ConstraintLayout mapSavedRoutesButton;
     private TextView mapSuggestedRoutesButtonText;
@@ -80,7 +81,9 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
         mapWalkingButton = findViewById(R.id.mapWalkingButton);
         mapCyclingButton = findViewById(R.id.mapCyclingButton);
-        userID = getIntent().getStringExtra("userID");
+        spHelper = new SharedPreferencesHelper(this);
+
+        userID = spHelper.getSessionID();
 
         menuBarMapButton.setTextColor(R.color.light_grey);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -104,93 +107,61 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
         };
         getLastLocation();
 
-        mapSuggestedRoutesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                mapSuggestedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                mapSuggestedRoutesButtonText.setTypeface(null, Typeface.BOLD);
-                mapSavedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
-                mapSavedRoutesButtonText.setTypeface(null, Typeface.NORMAL);
-            }
+        mapSuggestedRoutesButton.setOnClickListener(view -> {
+            mapSuggestedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            mapSuggestedRoutesButtonText.setTypeface(null, Typeface.BOLD);
+            mapSavedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+            mapSavedRoutesButtonText.setTypeface(null, Typeface.NORMAL);
         });
 
-        mapSavedRoutesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                mapSavedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                mapSavedRoutesButtonText.setTypeface(null, Typeface.BOLD);
-                mapSuggestedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
-                mapSuggestedRoutesButtonText.setTypeface(null, Typeface.NORMAL);
-            }
+        mapSavedRoutesButton.setOnClickListener(view -> {
+            mapSavedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            mapSavedRoutesButtonText.setTypeface(null, Typeface.BOLD);
+            mapSuggestedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
+            mapSuggestedRoutesButtonText.setTypeface(null, Typeface.NORMAL);
         });
 
-        mapStartTrackingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapPageActivity.this, TrackingPageActivity.class);
-                intent.putExtra("userID", userID);
-                startActivity(intent);
-            }
+        mapStartTrackingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapPageActivity.this, TrackingPageActivity.class);
+            startActivity(intent);
         });
 
-        menuBarHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapPageActivity.this, HomePageActivity.class);
-                intent.putExtra("userID", userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarHomeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapPageActivity.this, HomePageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
-        menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapPageActivity.this, RoutesPage.class);
-                intent.putExtra("userID", userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarRoutesButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapPageActivity.this, RoutesPage.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
-        menuBarSocialButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapPageActivity.this, SocialPageActivity.class);
-                intent.putExtra("userID", userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarSocialButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapPageActivity.this, SocialPageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
-        menuBarProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapPageActivity.this, ProfilePageActivity.class);
-                intent.putExtra("userID", userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarProfileButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapPageActivity.this, ProfilePageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
-        mapCyclingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mapCyclingButton.setImageResource(R.drawable.circle_shape);
-                mapWalkingButton.setImageResource(R.drawable.black_circle_shape);
-            }
+        mapCyclingButton.setOnClickListener(v -> {
+            mapCyclingButton.setImageResource(R.drawable.circle_shape);
+            mapWalkingButton.setImageResource(R.drawable.black_circle_shape);
         });
 
-        mapWalkingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mapCyclingButton.setImageResource(R.drawable.black_circle_shape);
-                mapWalkingButton.setImageResource(R.drawable.circle_shape);
-            }
+        mapWalkingButton.setOnClickListener(v -> {
+            mapCyclingButton.setImageResource(R.drawable.black_circle_shape);
+            mapWalkingButton.setImageResource(R.drawable.circle_shape);
         });
     }
 
