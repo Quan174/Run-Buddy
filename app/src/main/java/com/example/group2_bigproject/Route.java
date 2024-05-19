@@ -4,8 +4,10 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Route {
+    public String routeID;
     public String routeName;
     public String routeDescripion;
     public String userID;
@@ -15,6 +17,7 @@ public class Route {
 
     public Route() {}
     public Route(String userID, ArrayList<LatLng> latLngArrayList, int length, String time) {
+        this.routeID = UUID.randomUUID().toString();
         this.latLngArrayList = latLngArrayList;
         this.length = length;
         this.userID = userID;
