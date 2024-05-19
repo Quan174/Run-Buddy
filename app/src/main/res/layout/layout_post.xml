@@ -43,9 +43,10 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
+                android:background="@drawable/ava"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:background="@drawable/picture" />
+                />
 
             <TextView
                 android:id="@+id/textView_Date"
@@ -80,12 +81,13 @@
 
             <ImageView
                 android:id="@+id/imgPost"
-                android:layout_width="356dp"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="23dp"
                 android:layout_marginEnd="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_PostText"
                 app:srcCompat="@drawable/facebook_logo" />

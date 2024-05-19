@@ -44,26 +44,17 @@ public class HomePageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         postItemList = new ArrayList<>();
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture , "25/5/2024", "Trung", "First Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"26/5/2024", "Trung", "Second Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"27/5/2024", "Trung", "Third Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"28/5/2024", "Trung", "4th Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"29/5/2024", "Trung", "5th Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.picture ,"30/5/2024", "Trung", "6th Test"));
+        postItemList.add(new PostItem(R.drawable.image1, R.drawable.round_person_24, "25/5/2024", "Trung", "First Test"));
+        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.google_logo,"26/5/2024", "Quan be", "Second Test"));
+        postItemList.add(new PostItem(R.drawable.facebook_logo, android.R.drawable.ic_notification_overlay,"27/5/2024", "Quan lon", "Third Test"));
+        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.ava,"28/5/2024", "Duc", "4th Test"));
+        postItemList.add(new PostItem(R.drawable.ava, R.drawable.picture ,"29/5/2024", "Quang", "5th Test"));
 
 
         adapter = new Adapter(postItemList);
         recyclerView.setAdapter(adapter);
 
-        /*menuBarHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, HomePageActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
-        });*/
+
 
         menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override

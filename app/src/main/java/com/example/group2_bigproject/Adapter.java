@@ -2,6 +2,7 @@ package com.example.group2_bigproject;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -56,6 +58,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
         holder.postImage.setImageResource(currentItem.getImageResource());
         holder.postDate.setText(currentItem.getDate());
         holder.postDescription.setText(currentItem.getDescription());
+        holder.userName.setText(currentItem.getUserName());
+        MyUtil.setImageButtonBackground(holder.itemView.getContext(), currentItem.getAvaUser(),holder.avaUser);
         holder.avaUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +73,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(holder.itemView.getContext(), PostActivity.class);
+                intent.putExtra("post_item", currentItem);
                 holder.itemView.getContext().startActivity(intent);            }
         });
 
@@ -89,9 +94,30 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
         holder.optionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(holder.itemView.getContext(), "Clicked options", Toast.LENGTH_SHORT).show();
+                PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(), holder.optionBtn);
+                popupMenu.inflate(R.menu.menu_options); // Load menu resource
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int itemId = item.getItemId();
+                        if (itemId == R.id.saveRouteBtn) {
+                            Toast.makeText(holder.itemView.getContext(), "Clicked save route", Toast.LENGTH_SHORT).show();
+                            return true;
+                        } else if (itemId == R.id.blockBtn) {
+                            Toast.makeText(holder.itemView.getContext(), "Clicked block", Toast.LENGTH_SHORT).show();
+                            return true;
+                        } else if (itemId == R.id.reportBtn) {
+                            Toast.makeText(holder.itemView.getContext(), "Clicked reported", Toast.LENGTH_SHORT).show();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+                popupMenu.show();
             }
         });
+
     }
 
     @Override
