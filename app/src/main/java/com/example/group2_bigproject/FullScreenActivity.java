@@ -8,12 +8,14 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class FullScreenActivity extends AppCompatActivity {
+    private SharedPreferencesHelper spHelper;
+    private String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
-        Bundle bundle = getIntent().getExtras();
-        String userID = bundle.getString("userID", "Default");
+        spHelper = new SharedPreferencesHelper(this);
+        userID = spHelper.getSessionID();
 
         ImageView imageView = findViewById(R.id.fullscreenImageView);
 
@@ -32,11 +34,8 @@ public class FullScreenActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // Close the activity
-            }
+        imageView.setOnClickListener(v -> {
+            finish(); // Close the activity
         });
     }
 }

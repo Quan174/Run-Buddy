@@ -13,9 +13,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class ProfilePageActivity extends AppCompatActivity implements DataListener{
+public class ProfilePageActivity extends AppCompatActivity{
     FirebaseHelper fbHelper;
-
+    private SharedPreferencesHelper spHelper;
     ConstraintLayout mapSuggestedRoutesButton;
     ConstraintLayout mapSavedRoutesButton;
     TextView mapSuggestedRoutesButtonText;
@@ -30,13 +30,6 @@ public class ProfilePageActivity extends AppCompatActivity implements DataListen
     TextView menuBarProfileButton;
     TextView profilePageEditInformationButton;
     private String userID;
-    private String name;
-    private String gender;
-    private String birthDay;
-    private String phone;
-    private String address;
-    private String height;
-    private String weight;
     private TextView nameProfile;
     private TextView genderProfile;
     private TextView birthdayProfile;
@@ -51,6 +44,7 @@ public class ProfilePageActivity extends AppCompatActivity implements DataListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_page);
         fbHelper = new FirebaseHelper(this);
+        spHelper = new SharedPreferencesHelper(this);
         menuBarHomeButton =findViewById(R.id.menuBarHomeButton);
         menuBarRoutesButton = findViewById(R.id.menuBarRoutesButton);
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
@@ -65,7 +59,7 @@ public class ProfilePageActivity extends AppCompatActivity implements DataListen
         heightProfile = findViewById(R.id.textView62);
         weightProfile = findViewById(R.id.textView63);
 
-        userID = getIntent().getStringExtra("userID");
+        userID = spHelper.getSessionID();
         Toast.makeText(this, userID, Toast.LENGTH_SHORT).show();
 
         fbHelper.readUser(userID, user -> {
@@ -82,7 +76,6 @@ public class ProfilePageActivity extends AppCompatActivity implements DataListen
 
         menuBarHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfilePageActivity.this, HomePageActivity.class);
-            intent.putExtra("userID", userID);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
@@ -90,7 +83,6 @@ public class ProfilePageActivity extends AppCompatActivity implements DataListen
 
         menuBarRoutesButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfilePageActivity.this, RoutesPage.class);
-            intent.putExtra("userID", userID);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
@@ -98,7 +90,6 @@ public class ProfilePageActivity extends AppCompatActivity implements DataListen
 
         menuBarMapButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfilePageActivity.this, MapPageActivity.class);
-            intent.putExtra("userID", userID);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
@@ -106,7 +97,6 @@ public class ProfilePageActivity extends AppCompatActivity implements DataListen
 
         menuBarSocialButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfilePageActivity.this, SocialPageActivity.class);
-            intent.putExtra("userID", userID);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
@@ -114,16 +104,7 @@ public class ProfilePageActivity extends AppCompatActivity implements DataListen
 
         profilePageEditInformationButton.setOnClickListener(v -> {
             ProfileEditFragment profileEditDiaglog = new ProfileEditFragment();
-            Bundle args = new Bundle();
-            args.putString("userID", userID);
-            profileEditDiaglog.setArguments(args);
             profileEditDiaglog.show(getSupportFragmentManager(), "profileEdit");
         });
     }
-
-    @Override
-    public void onDataReceived(String data) {
-        userID = data;
-    }
-
 }

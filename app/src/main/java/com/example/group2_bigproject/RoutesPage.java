@@ -10,10 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class RoutesPage extends AppCompatActivity {
-    ConstraintLayout mapSuggestedRoutesButton;
-    ConstraintLayout mapSavedRoutesButton;
-    TextView mapSuggestedRoutesButtonText;
-    TextView mapSavedRoutesButtonText;
+    private SharedPreferencesHelper spHelper;
+    private ConstraintLayout mapSuggestedRoutesButton;
+    private ConstraintLayout mapSavedRoutesButton;
+    private TextView mapSuggestedRoutesButtonText;
+    private TextView mapSavedRoutesButtonText;
 
     HorizontalScrollView mapSuggestedRoutesLayout;
     HorizontalScrollView mapSavedRoutesLayout;
@@ -29,6 +30,8 @@ public class RoutesPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.routes_page);
 
+        spHelper = new SharedPreferencesHelper(this);
+
         menuBarHomeButton = findViewById(R.id.menuBarHomeButton);
         menuBarRoutesButton = findViewById(R.id.menuBarRoutesButton);
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
@@ -36,51 +39,35 @@ public class RoutesPage extends AppCompatActivity {
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
 
         menuBarRoutesButton.setTextColor(R.color.light_grey);
-        Bundle bundle = getIntent().getExtras();
-        userID = bundle.getString("userID", "Default");
+        spHelper = new SharedPreferencesHelper(this);
+        userID = spHelper.getSessionID();
 
-        menuBarHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RoutesPage.this, HomePageActivity.class);
-                intent.putExtra("userID",userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarHomeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RoutesPage.this, HomePageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
-        menuBarMapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RoutesPage.this, MapPageActivity.class);
-                intent.putExtra("userID",userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarMapButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RoutesPage.this, MapPageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
-        menuBarSocialButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RoutesPage.this, SocialPageActivity.class);
-                intent.putExtra("userID",userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarSocialButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RoutesPage.this, SocialPageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
 
-        menuBarProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RoutesPage.this, ProfilePageActivity.class);
-                intent.putExtra("userID",userID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
+        menuBarProfileButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RoutesPage.this, ProfilePageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
     }
 }

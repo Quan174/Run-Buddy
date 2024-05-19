@@ -10,17 +10,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class CreatePostPageActivity extends AppCompatActivity {
+    private SharedPreferencesHelper spHelper;
     TextView createPostPageBackButton;
     TextView createPostButton;
     ConstraintLayout createPostResultDisplay;
     ConstraintLayout createPostRouteDisplay;
-    Bundle bundle = getIntent().getExtras();
-    String userID = bundle.getString("userID", "Default");
+    private String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_post_page);
-
+        spHelper = new SharedPreferencesHelper(this);
+        userID = spHelper.getSessionID();
         createPostPageBackButton = findViewById(R.id.createPostPageBackButton);
         createPostButton = findViewById(R.id.createPostButton);
         createPostResultDisplay = findViewById(R.id.createPostResultDisplay);
@@ -32,18 +33,8 @@ public class CreatePostPageActivity extends AppCompatActivity {
         } else {
             createPostRouteDisplay.setVisibility(View.VISIBLE);
         }
-        createPostPageBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        createPostButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        createPostPageBackButton.setOnClickListener(v -> finish());
+        createPostButton.setOnClickListener(v -> finish());
 
     }
 }
