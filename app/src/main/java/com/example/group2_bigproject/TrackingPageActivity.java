@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TrackingPageActivity extends FragmentActivity implements OnMapReadyCallback {
+    private SharedPreferencesHelper spHelper;
     private TextView velocityTrack;
     private TextView distance;
     private TextView trackingPageBackButton;
@@ -65,7 +66,6 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
     private GoogleMap map;
     private ArrayList<LatLng> myRoute;
     private List<Polyline> polylines = null;
-    private int userID;
     private boolean started;
     FirebaseHelper fbHelper;
 
@@ -74,6 +74,7 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tracking_page);
 
+        spHelper = new SharedPreferencesHelper(this);
         lastRecordedTime = 0;
         velocityTrack = findViewById(R.id.textView14);
         distance = findViewById(R.id.textView13);
@@ -86,29 +87,21 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
 
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
-        trackingPageBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        trackingPageBackButton.setOnClickListener(v -> finish());
 
-        trackingPagePauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (trackingPagePauseButtonText.getText().toString().compareTo("Pause") == 0) {
-                    trackingPagePauseButtonText.setText("Continue");
-                    started = false;
-                    lastPause = chronometer.getBase() - SystemClock.elapsedRealtime();
-                    chronometer.stop();
-                    trackingPageFinishButton.setVisibility(View.VISIBLE);
-                } else {
-                    trackingPagePauseButtonText.setText("Pause");
-                    started = true;
-                    chronometer.setBase(SystemClock.elapsedRealtime() + lastPause);
-                    chronometer.start();
-                    trackingPageFinishButton.setVisibility(View.INVISIBLE);
-                }
+        trackingPagePauseButton.setOnClickListener(v -> {
+            if (trackingPagePauseButtonText.getText().toString().compareTo("Pause") == 0) {
+                trackingPagePauseButtonText.setText("Continue");
+                started = false;
+                lastPause = chronometer.getBase() - SystemClock.elapsedRealtime();
+                chronometer.stop();
+                trackingPageFinishButton.setVisibility(View.VISIBLE);
+            } else {
+                trackingPagePauseButtonText.setText("Pause");
+                started = true;
+                chronometer.setBase(SystemClock.elapsedRealtime() + lastPause);
+                chronometer.start();
+                trackingPageFinishButton.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -126,7 +119,6 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
             intent.putExtra("TimeInNumeral", showElapsedTime());
             intent.putExtra("totalDistance", distanceInKilometres);
             intent.putExtra("Time", timeString);
-            intent.putExtra("userID", userID);
             saveRouteToRunHistory();
             startActivity(intent);
             finish();
@@ -276,6 +268,13 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
 
     private void saveRouteToRunHistory() {
         int distanceInMetres = (int) ((double) Math.round(distanceMoved * 100) /100);
-        fbHelper.saveRouteToRouteHistory(new Route(myRoute, distanceInMetres));
+        long millis = showElapsedTime();
+        String timeString = String.format("%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                TimeUnit.MILLISECONDS.toSeconds(millis) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+        fbHelper.saveRouteToRouteHistory(new Route(spHelper.getSessionID() ,myRoute, distanceInMetres, timeString));
     }
 }

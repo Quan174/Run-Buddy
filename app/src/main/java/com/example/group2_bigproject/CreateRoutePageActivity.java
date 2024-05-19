@@ -10,22 +10,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class CreateRoutePageActivity extends AppCompatActivity {
+    private SharedPreferencesHelper spHelper;
     TextView createRoutePageBackButton;
+    private String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_route_page);
-        Bundle bundle = getIntent().getExtras();
-        String userID = bundle.getString("userID", "Default");
+        spHelper = new SharedPreferencesHelper(this);
+        userID = spHelper.getSessionID();
 
         createRoutePageBackButton = findViewById(R.id.createRoutePageBackButton);
         String format = getIntent().getStringExtra("format");
 
-        createRoutePageBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        createRoutePageBackButton.setOnClickListener(v -> finish());
     }
 }

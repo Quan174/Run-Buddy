@@ -13,7 +13,7 @@ import android.widget.EditText;
 import androidx.fragment.app.DialogFragment;
 
 public class ProfileEditFragment extends DialogFragment {
-    private DataListener dataListener;
+    private SharedPreferencesHelper spHelper;
     private FirebaseHelper fbHelper;
     private String userID;
 
@@ -33,7 +33,8 @@ public class ProfileEditFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
-        userID = getArguments().getString("userID");
+        spHelper = new SharedPreferencesHelper(getActivity());
+        userID = spHelper.getSessionID();
         fbHelper = new FirebaseHelper(getActivity());
         profileEditFragmentNameInput = view.findViewById(R.id.profileEditFragmentNameInput);
         profileEditFragmentGenderInput = view.findViewById(R.id.profileEditFragmentGenderInput);
@@ -54,7 +55,6 @@ public class ProfileEditFragment extends DialogFragment {
             String height = profileEditFragmentHeightInput.getText().toString();
             String weight = profileEditFragmentWeightInput.getText().toString();
             fbHelper.updateUser(name, gender, birthday, phone, address, height, weight, userID);
-            sendDataBack(userID);
             dismiss();
         });
 
@@ -62,21 +62,5 @@ public class ProfileEditFragment extends DialogFragment {
             dismiss();
         });
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            dataListener = (DataListener) getTargetFragment();  // Assuming target fragment implements it
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement DataListener");
-        }
-    }
-
-    private void sendDataBack(String data) {
-        if (dataListener != null) {
-            dataListener.onDataReceived(data);
-        }
     }
 }

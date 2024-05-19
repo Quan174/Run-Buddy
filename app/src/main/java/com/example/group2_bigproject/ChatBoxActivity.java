@@ -11,32 +11,23 @@ public class ChatBoxActivity extends AppCompatActivity {
 
     ImageView chatScreenBackButton;
     ImageView chatScreenSettingsButton;
+    private SharedPreferencesHelper spHelper;
+    private String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_screen_page);
 
+        spHelper = new SharedPreferencesHelper(this);
         chatScreenBackButton = findViewById(R.id.chatScreenBackButton);
         chatScreenSettingsButton = findViewById(R.id.chatScreenSettingsButton);
-        Bundle bundle = getIntent().getExtras();
-        String userID = bundle.getString("userID", "Default");
+        userID = spHelper.getSessionID();
 
-        chatScreenBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        chatScreenBackButton.setOnClickListener(v -> finish());
 
-        chatScreenSettingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChatBoxActivity.this, ChatSettingsPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("userID", userID);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
+        chatScreenSettingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ChatBoxActivity.this, ChatSettingsPageActivity.class);
+            startActivity(intent);
         });
     }
 }
