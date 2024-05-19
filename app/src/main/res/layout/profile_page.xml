@@ -257,4 +257,24 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageButton
+        android:id="@+id/btn_editAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_edit_square_24" />
+
+    <ImageButton
+        android:id="@+id/btn_Setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_more_horiz_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
