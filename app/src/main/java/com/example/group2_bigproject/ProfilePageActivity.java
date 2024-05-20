@@ -19,9 +19,27 @@ import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import static android.Manifest.permission.READ_MEDIA_IMAGES;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+
 
 import java.util.ArrayList;
 
@@ -59,6 +77,9 @@ public class ProfilePageActivity extends AppCompatActivity{
     ActivityHistoryListViewAdapter activityHistoryListViewAdapter;
 
     @SuppressLint("DefaultLocale")
+    ImageButton btn_editAvatar;
+    ImageButton btn_settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +100,9 @@ public class ProfilePageActivity extends AppCompatActivity{
         heightProfile = findViewById(R.id.textView62);
         weightProfile = findViewById(R.id.textView63);
         profilePagePersonalInformationButton = findViewById(R.id.profilePagePersonalInformationButton);
+        btn_editAvatar = findViewById(R.id.btn_editAvatar);
+        btn_settings = findViewById(R.id.btn_Setting);
+
 
         profilePageCreatedRoutesButton = findViewById(R.id.profilePageCreatedRoutesButton);
 
@@ -132,7 +156,7 @@ public class ProfilePageActivity extends AppCompatActivity{
             }
         });
 
-        menuBarProfileButton.setTextColor(R.color.light_grey);
+        //menuBarProfileButton.setTextColor(R.color.light_grey);
 
         menuBarHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfilePageActivity.this, HomePageActivity.class);
@@ -211,6 +235,51 @@ public class ProfilePageActivity extends AppCompatActivity{
             ProfileEditFragment profileEditDiaglog = new ProfileEditFragment();
 
             profileEditDiaglog.show(getSupportFragmentManager(), "profileEdit");
+        });
+
+
+        btn_editAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(ProfilePageActivity.this,btn_editAvatar);
+                getMenuInflater().inflate(R.menu.context_menu_avatar_profile,popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int n = item.getItemId();
+                        if (n == R.id.ProfileAvatarEditor) {
+                            // Avatar change here
+                        }
+                        if (n == R.id.ProfileBackgroundAvatarEditor) {
+                            // Background change here
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
+
+        btn_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(ProfilePageActivity.this,btn_settings);
+                getMenuInflater().inflate(R.menu.context_menu_setting_profile,popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int n = item.getItemId();
+                        if (n == R.id.BlockListViewer) {
+                            // Block list view here
+                        }
+                        if (n == R.id.LogOutButton) {
+                            // Log out here
+                        }
+                        return false;
+                    }
+                });
+            }
         });
     }
 
