@@ -2,71 +2,97 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
-    <include
-        android:id="@+id/include2"
-        layout="@layout/layout_menubar"
-        tools:layout_editor_absoluteY="683dp" />
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/layout_toolbar"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout10"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/arrow_small_left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/toolBarSearchInput"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="Search..."
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="411dp"
-        android:layout_height="46dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
 
-        <Button
-            android:id="@+id/btn_All"
+        <TextView
+            android:id="@+id/allButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="All" />
-
-        <Button
-            android:id="@+id/btn_People"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="All"
+            android:background="@drawable/sent_messages"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/peopleButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="People" />
-
-        <Button
-            android:id="@+id/btn_Group"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="People"
+            android:background="@drawable/received_messages"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/routesButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Group" />
-
-        <Button
-            android:id="@+id/btn_Route"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="Routes"
+            android:background="@drawable/received_messages"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/challengesButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Routes" />
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Challenge" />
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="Challenges"
+            android:background="@drawable/received_messages"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="583dp"
+        android:layout_width="match_parent"
+        android:layout_height="710dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
