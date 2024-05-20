@@ -100,6 +100,10 @@
             android:exported="false">
 
         </activity>
+        <activity android:name=".ViewProfilePageActivity"
+            android:exported="false">
+
+        </activity>
     </application>
 
 </manifest>

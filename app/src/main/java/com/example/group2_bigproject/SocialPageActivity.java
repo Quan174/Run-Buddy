@@ -85,8 +85,6 @@ public class SocialPageActivity extends AppCompatActivity {
         socialPageFriendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User route = (User) socialPageFriendListViewAdapter.getItem(position);
-
                 Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
                 startActivity(intent);
             }
@@ -95,6 +93,13 @@ public class SocialPageActivity extends AppCompatActivity {
         socialPageFriendRequestListViewAdapter = new SocialPageFriendRequestListViewAdapter(listUser);
         socialPageFriendsRequestListView.setAdapter(socialPageFriendRequestListViewAdapter);
 
+        socialPageFriendsRequestListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ViewProfilePageActivity.class);
+                startActivity(intent);
+            }
+        });
         menuBarHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(SocialPageActivity.this, HomePageActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -47,7 +47,7 @@ class SocialPageFriendRequestListViewAdapter extends BaseAdapter {
 
         View viewUser;
         if (convertView == null) {
-            viewUser = View.inflate(parent.getContext(), R.layout.social_page_friend_item_view, null);
+            viewUser = View.inflate(parent.getContext(), R.layout.social_page_friend_request_item_view, null);
         } else viewUser = convertView;
 
         //Bind sữ liệu phần tử vào View
@@ -56,7 +56,7 @@ class SocialPageFriendRequestListViewAdapter extends BaseAdapter {
 //        ((TextView) viewUser.findViewById(R.id.activityHistoryUserName)).setText(String.format("Tên SP : %s", user.name));
 //        ((ImageView) viewUser.findViewById(R.id.idUser)).setText(String.format("ID = %d", user.UserID));
 //        ((TextView) viewUser.findViewById(R.id.priceUser)).setText(String.format("Giá %d", user.price));
-        ((TextView) viewUser.findViewById(R.id.socialPageFriendItemButton)).setText("Accept");
+//        ((TextView) viewUser.findViewById(R.id.socialPageFriendItemButton)).setText("Accept");
 
 
         return viewUser;
