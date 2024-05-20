@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,14 +68,11 @@ public class PostActivity extends AppCompatActivity {
                 "Dc dey chu", "45m"));
         cmtItemList.add(new CommentItem(R.drawable.google_logo, "Quan Lon",
                 "kimchi han wuoc", "3 days"));
-        cmtItemList.add(new CommentItem(R.drawable.picture, "Duc",
-                "It's bad", "1 day"));
-        cmtItemList.add(new CommentItem(R.drawable.ava, "Quan be",
-                "BTW", "3h"));
-        cmtItemList.add(new CommentItem(R.drawable.image1, "Trung",
-                "Dc dey chu", "45m"));
-        cmtItemList.add(new CommentItem(R.drawable.google_logo, "Quan Lon",
-                "kimchi han wuoc", "3 days"));
+
+
+
+
+
 
         commentAdapter = new CommentAdapter(cmtItemList);
         commentRecyclerView.setAdapter(commentAdapter);
