@@ -1,8 +1,10 @@
 package com.example.group2_bigproject;
 
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 
 
@@ -188,6 +190,8 @@ public class ProfilePageActivity extends AppCompatActivity{
 
         profilePageActivityHistoryButton.setOnClickListener(view -> {
 
+            openDatePickerDialog();
+
             profilePageActivityHistoryButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
             profilePageActivityHistoryButtonText.setTypeface(null, Typeface.BOLD);
@@ -208,5 +212,17 @@ public class ProfilePageActivity extends AppCompatActivity{
 
             profileEditDiaglog.show(getSupportFragmentManager(), "profileEdit");
         });
+    }
+
+    // Use this to open date picker dialog
+    public void openDatePickerDialog() {
+        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // Querry database here
+                Toast.makeText(ProfilePageActivity.this,"set dialog",Toast.LENGTH_LONG).show();
+            }
+        }, 0, 0, 0);
+        dialog.show();
     }
 }
