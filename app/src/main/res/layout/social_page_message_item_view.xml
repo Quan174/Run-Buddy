@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="@color/white"
+    android:elevation="10px">
+
+    <ImageView
+        android:id="@+id/socialPageMessageAvatarImage"
+        android:layout_width="56dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/black_circle_shape"/>
+
+    <TextView
+        android:id="@+id/socialPageMessageUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Username1"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/socialPageMessageAvatarImage"
+        app:layout_constraintTop_toTopOf="@+id/socialPageMessageAvatarImage" />
+
+    <TextView
+        android:id="@+id/socialPageMessageSendTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="x ms"
+        android:textColor="@color/light_grey"
+        app:layout_constraintBottom_toBottomOf="@+id/socialPageMessageUsername"
+        app:layout_constraintStart_toEndOf="@+id/socialPageMessageUsername"
+        app:layout_constraintTop_toTopOf="@+id/socialPageMessageUsername" />
+
+    <TextView
+        android:id="@+id/socialPageMessageContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Message"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/socialPageMessageUsername"
+        app:layout_constraintTop_toBottomOf="@+id/socialPageMessageUsername" />
+
+    <ImageView
+        android:id="@+id/socialPageMessageUnseenDot"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/circle_shape" />
+</androidx.constraintlayout.widget.ConstraintLayout>
