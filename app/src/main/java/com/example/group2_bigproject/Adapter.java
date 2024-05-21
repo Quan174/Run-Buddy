@@ -20,8 +20,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
     private List<PostItem> postList;
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        public ImageView postImage;
-        public ImageButton avaUser, likeBtn, commentBtn, shareBtn, optionBtn;
+        public ImageView avaUser, postImage;
+        public ImageButton likeBtn, commentBtn, shareBtn, optionBtn;
         public TextView postDate;
         public TextView userName;
         public TextView postDescription;

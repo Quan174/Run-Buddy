@@ -16,51 +16,24 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/toolBarLayout">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mapSuggestedRoutesButton"
-            android:layout_width="196dp"
-            android:layout_height="33dp"
+        <TextView
+            android:id="@+id/mapSavedRoutesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Saved Routes"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/mapSuggestedRoutesButtonText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Suggested Routes"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mapSavedRoutesButton"
-            android:layout_width="196dp"
-            android:layout_height="33dp"
-            android:background="#D9D9D9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/mapSavedRoutesButtonText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Saved Routes"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <HorizontalScrollView
             android:id="@+id/mapSuggestedRoutesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
-            app:layout_constraintTop_toBottomOf="@+id/mapSuggestedRoutesButton">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapSavedRoutesText">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -82,12 +55,12 @@
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_marginTop="5dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView8"
-                        tools:srcCompat="@drawable/ic_launcher_background" />
+                        app:srcCompat="@drawable/ava" />
 
                     <TextView
                         android:id="@+id/textView9"
@@ -245,62 +218,60 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="480dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
 
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_marginTop="4dp"
+            android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/mapCyclingButton"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/mapWalkingButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/circle_shape"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+<!--        <ImageView-->
+<!--            android:id="@+id/mapWalkingButton"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:src="@drawable/circle_shape"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
-        <ImageView
-            android:id="@+id/mapCyclingButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/black_circle_shape"
-            app:layout_constraintBottom_toTopOf="@+id/mapWalkingButton"
-            app:layout_constraintStart_toStartOf="@+id/mapWalkingButton" />
+<!--        <ImageView-->
+<!--            android:id="@+id/mapCyclingButton"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:src="@drawable/black_circle_shape"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/mapWalkingButton"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/mapWalkingButton" />-->
 
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="13dp"
-            android:layout_height="29dp"
-            android:src="@drawable/biking_mountain"
-            app:layout_constraintBottom_toBottomOf="@+id/mapCyclingButton"
-            app:layout_constraintEnd_toEndOf="@+id/mapCyclingButton"
-            app:layout_constraintStart_toStartOf="@+id/mapCyclingButton"
-            app:layout_constraintTop_toTopOf="@+id/mapCyclingButton"
-            app:tint="@color/white" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView8"-->
+<!--            android:layout_width="13dp"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:src="@drawable/biking_mountain"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/mapCyclingButton"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/mapCyclingButton"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/mapCyclingButton"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/mapCyclingButton"-->
+<!--            app:tint="@color/white" />-->
 
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="15dp"
-            android:layout_height="19dp"
-            android:src="@drawable/walking"
-            app:layout_constraintBottom_toBottomOf="@+id/mapWalkingButton"
-            app:layout_constraintEnd_toEndOf="@+id/mapWalkingButton"
-            app:layout_constraintStart_toStartOf="@+id/mapWalkingButton"
-            app:layout_constraintTop_toTopOf="@+id/mapWalkingButton"
-            app:tint="@color/white" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView9"-->
+<!--            android:layout_width="15dp"-->
+<!--            android:layout_height="19dp"-->
+<!--            android:src="@drawable/walking"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/mapWalkingButton"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/mapWalkingButton"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/mapWalkingButton"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/mapWalkingButton"-->
+<!--            app:tint="@color/white" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
