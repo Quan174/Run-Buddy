@@ -50,11 +50,8 @@ class SearchPageUserAdapter extends BaseAdapter {
         } else viewUser = convertView;
 
         //Bind sữ liệu phần tử vào View
-//        User user = (User) getItem(position);
-//        ((ImageView) viewUser.findViewById(R.id.activityHistoryUserImage)).setText(String.format("ID = %d", user.UserID));
-//        ((TextView) viewUser.findViewById(R.id.activityHistoryUserName)).setText(String.format("Tên SP : %s", user.name));
-//        ((ImageView) viewUser.findViewById(R.id.idUser)).setText(String.format("ID = %d", user.UserID));
-//        ((TextView) viewUser.findViewById(R.id.priceUser)).setText(String.format("Giá %d", user.price));
+         User user = (User) getItem(position);
+        ((TextView) viewUser.findViewById(R.id.socialPageFriendUsername)).setText(user.username);
         ((TextView) viewUser.findViewById(R.id.socialPageFriendItemButton)).setText("Add Friend");
 
 

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -64,12 +65,15 @@ public class SignUpPageActivity extends AppCompatActivity {
                         return;
                     }
                     User user = new User(username.getText().toString(), email.getText().toString(), password.getText().toString());
-                    dbUsers.add(user).addOnCompleteListener(task1 -> {
-                        Toast.makeText(this, "user added to firebase", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignUpPageActivity.this, SignInPageActivity.class);
-                        startActivity(intent);
+                    dbUsers.add(user).addOnSuccessListener(documentReference -> {
+                        friendRequest friendRequest = new friendRequest(documentReference.getId());
+                        CollectionReference dbFriendRequestList = db.collection("FriendRequests");
+                        dbFriendRequestList.add(friendRequest).addOnCompleteListener(task1 -> {
+                            Toast.makeText(this, "user added to firebase", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignUpPageActivity.this, SignInPageActivity.class);
+                            startActivity(intent);
+                        });
                     });
-
                 } else {
                     Toast.makeText(SignUpPageActivity.this, "Error checking users", Toast.LENGTH_SHORT).show();
                 }

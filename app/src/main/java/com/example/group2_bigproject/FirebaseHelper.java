@@ -1,5 +1,6 @@
 package com.example.group2_bigproject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,8 +15,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.auth.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FirebaseHelper {
@@ -26,10 +27,22 @@ public class FirebaseHelper {
         db = FirebaseFirestore.getInstance();
     }
 
+    public void searchForFriendRequestList(String userID, FriendRequestSearch friendRequestSearch) {
+        CollectionReference dbFriendRequestList = db.collection("FriendRequests");
+        dbFriendRequestList.whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
+           if (task.isSuccessful()) {
+               friendRequest friendRequest = new friendRequest();
+               for (QueryDocumentSnapshot document : task.getResult()) {
+                   friendRequest = document.toObject(com.example.group2_bigproject.friendRequest.class);
+                   friendRequestSearch.FriendRequestList(friendRequest);
+               }
+           }
+        });
+    }
     public void saveRouteToRouteHistory(Route route){
         CollectionReference dbRunHistory = db.collection("routeHistory");
         dbRunHistory.add(route).addOnCompleteListener(task -> {
-            Toast.makeText(context, "Route saved successfully on Firebase!!!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "Route saved successfully on Firebase!!!", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -50,13 +63,14 @@ public class FirebaseHelper {
         });
     }
 
-    public void readRoutes(RouteReader routeReader) {
+    @SuppressLint("SuspiciousIndentation")
+    public void readRoutes(String userID, RouteReader routeReader) {
         CollectionReference dbRoutes = db.collection("routeHistory");
         dbRoutes.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 ArrayList<Route> routes = new ArrayList<>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    routes.add(document.toObject(Route.class));
+                    if (document.getId().compareTo(userID) == 0)
                     Log.d("ADDED ROUTE", document.getId());
                 }
                 routeReader.readRoute(routes);
@@ -77,6 +91,23 @@ public class FirebaseHelper {
             Log.d("fbHelper", "edit profile successful");
         }).addOnFailureListener(e -> {
             Log.e("fbHelper", "edit profile failed");
+        });
+    }
+
+    public void searchForUser(String input, userSearcher userSearcher) {
+        CollectionReference dbUsers = db.collection("users");
+        dbUsers.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                ArrayList<User> users = new ArrayList<>();
+                for(QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d("FBHELPER", "userNAME IS " + document.toObject(User.class).username);
+                    if (document.toObject(User.class).username.contains(input)) {
+                        users.add(document.toObject(User.class));
+                        Log.d("FBHELPER", "ADDED!");
+                    }
+                }
+                userSearcher.searchUser(users);
+            }
         });
     }
 }

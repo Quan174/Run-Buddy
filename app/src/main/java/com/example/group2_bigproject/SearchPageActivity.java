@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class SearchPageActivity extends AppCompatActivity {
+    private FirebaseHelper fbHelper;
 
     private SharedPreferencesHelper spHelper;
     private String userID;
@@ -29,34 +30,17 @@ public class SearchPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_page);
-
         spHelper = new SharedPreferencesHelper(this);
+        userID = spHelper.getSessionID();
+        fbHelper = new FirebaseHelper(this);
         listView = findViewById(R.id.listView);
         backButton = findViewById(R.id.backButton);
         toolBarSearchInput = findViewById(R.id.toolBarSearchInput);
         userID = spHelper.getSessionID();
 
         listResults = new ArrayList<>();
-        listResults.add(new User());
-        listResults.add(new User());
-        listResults.add(new User());
-        listResults.add(new User());
-        listResults.add(new User());
-        listResults.add(new User());
-        listResults.add(new User());
-        listResults.add(new User());
 
-        SearchPageUserAdapter = new SearchPageUserAdapter(listResults);
-        listView.setAdapter(SearchPageUserAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Route route = (Route) activityHistoryListViewAdapter.getItem(position);
 
-                Intent intent = new Intent(SearchPageActivity.this, ViewProfilePageActivity.class);
-                startActivity(intent);
-            }
-        });
 
         backButton.setOnClickListener(v -> finish());
 
@@ -74,7 +58,16 @@ public class SearchPageActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 if(s.length() != 0)
-                    Toast.makeText(SearchPageActivity.this, s, Toast.LENGTH_SHORT).show();
+                    fbHelper.searchForUser(s.toString(), users -> {
+                        listResults = users;
+                        SearchPageUserAdapter = new SearchPageUserAdapter(listResults);
+                        listView.setAdapter(SearchPageUserAdapter);
+                        listView.setOnItemClickListener((parent, view, position, id) -> {
+
+//                            Intent intent = new Intent(SearchPageActivity.this, ViewProfilePageActivity.class);
+//                            startActivity(intent);
+                        });
+                    });
             }
         });
     }

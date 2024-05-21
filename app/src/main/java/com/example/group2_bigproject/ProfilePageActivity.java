@@ -139,7 +139,7 @@ public class ProfilePageActivity extends AppCompatActivity{
         });
 
         listRoute = new ArrayList<>();
-        fbHelper.readRoutes(routes -> {
+        fbHelper.readRoutes(userID, routes -> {
             listRoute = routes;
             Log.d("routesSize is ", listRoute.size() + "");
             activityHistoryListViewAdapter = new ActivityHistoryListViewAdapter(listRoute, this);
