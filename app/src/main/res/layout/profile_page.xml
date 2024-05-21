@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -10,7 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="760dp"
+        android:layout_height="720dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,12 +20,15 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <ImageView
                     android:id="@+id/imageView18"
-                    android:layout_width="409dp"
-                    android:layout_height="275dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="250dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/image1" />
@@ -127,12 +129,11 @@
                     android:id="@+id/profilePageGenderField"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:background="@drawable/received_messages"
                     android:padding="1dp"
                     android:text="Male"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/textView52"
+                    app:layout_constraintStart_toStartOf="@+id/textView59"
                     app:layout_constraintTop_toTopOf="@+id/textView52" />
 
                 <TextView
@@ -171,12 +172,11 @@
                     android:id="@+id/textView60"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:background="@drawable/received_messages"
                     android:padding="1dp"
                     android:text="+0123456789"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/textView54"
+                    app:layout_constraintStart_toStartOf="@+id/textView59"
                     app:layout_constraintTop_toTopOf="@+id/textView54" />
 
                 <TextView
@@ -193,12 +193,11 @@
                     android:id="@+id/textView61"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:background="@drawable/received_messages"
                     android:padding="1dp"
                     android:text="District, City, Country"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/textView55"
+                    app:layout_constraintStart_toStartOf="@+id/textView60"
                     app:layout_constraintTop_toTopOf="@+id/textView55" />
 
                 <TextView
@@ -215,12 +214,11 @@
                     android:id="@+id/textView62"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:background="@drawable/received_messages"
                     android:padding="1dp"
                     android:text="1xx cm"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toEndOf="@+id/textView56"
+                    app:layout_constraintStart_toStartOf="@+id/textView61"
                     app:layout_constraintTop_toTopOf="@+id/textView56" />
 
                 <TextView
