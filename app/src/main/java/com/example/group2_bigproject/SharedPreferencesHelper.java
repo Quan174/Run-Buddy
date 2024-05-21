@@ -2,6 +2,7 @@ package com.example.group2_bigproject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class SharedPreferencesHelper {
     // Sharedpref file name
@@ -19,6 +20,7 @@ public class SharedPreferencesHelper {
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("userID", userID);
         editor.putString("username", username);
+        Log.d("START SESSION", "USERNAME IS " + username);
         editor.apply();
     }
 

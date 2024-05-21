@@ -1,5 +1,6 @@
 package com.example.group2_bigproject;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -14,12 +15,13 @@ class MessageListViewAdapter extends BaseAdapter {
     private ArrayList<Message> listMessage;
     private String currentUsername;
     private TextView messageContent;
-    private boolean isSendByCurrentUser = false;
+    private boolean isSendByCurrentUser;
 
 
     MessageListViewAdapter(ArrayList<Message> listMessage, String currentUsername) {
         this.listMessage = listMessage;
         this.currentUsername = currentUsername;
+        this.isSendByCurrentUser = false;
     }
 
 
@@ -53,27 +55,26 @@ class MessageListViewAdapter extends BaseAdapter {
         //View này được sử dụng lại, chỉ việc cập nhật nội dung mới
         //Nếu null cần tạo mới
 
-        View viewMessage;
+        View viewMessage = null;
         if (convertView == null) {
             Message message = (Message) getItem(position);
-            if (currentUsername.compareTo(message.senderID) == 0) {
-                isSendByCurrentUser = true;
-            }
-
-            if(isSendByCurrentUser){
+            if(message.isSent){
                 viewMessage = View.inflate(parent.getContext(), R.layout.sent_message_item_list_view, null);
-            } else {
+            }
+            if (!message.isSent){
                 viewMessage = View.inflate(parent.getContext(), R.layout.received_message_item_list_view, null);
             }
 
-        } else viewMessage = convertView;
-            Message message = (Message) getItem(position);
-            if (isSendByCurrentUser) {
-                messageContent = viewMessage.findViewById(R.id.textView38);
-            } else {
-                messageContent = viewMessage.findViewById(R.id.textView36);
-            }
-            messageContent.setText(message.message);
+        } else {viewMessage = convertView;}
+
+        Message message = (Message) getItem(position);
+        if (message.isSent) {
+            messageContent = viewMessage.findViewById(R.id.textView38);
+        }  else {
+            messageContent = viewMessage.findViewById(R.id.textView36);
+        }
+        Log.d("IS SEND BY CURRENT USER IS TRUE?" , "" + isSendByCurrentUser);
+        messageContent.setText(message.message);
         //Bind sữ liệu phần tử vào View
 
 

@@ -1,13 +1,11 @@
 package com.example.group2_bigproject;
 
 public class Message {
-    public String senderID;
-    public String receiverID;
+    public boolean isSent;
     public String message;
     public Message(){}
-    public Message(String senderID, String receiverID,  String message){
-        this.senderID = senderID;
-        this.receiverID = receiverID;
+    public Message(boolean isSent,  String message){
+        this.isSent = isSent;
         this.message = message;
     }
 

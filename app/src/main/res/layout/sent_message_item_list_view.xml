@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/sent_messages"
             android:textAlignment="textEnd"
+            android:textSize="20dp"
             android:textColor="@color/white"
             android:text="Message 2 Message 2 Message 2 Message 2 Message 2 Message 2 "
             app:layout_constraintEnd_toEndOf="parent"

@@ -63,6 +63,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         sendButton.setOnClickListener(v -> {
             if (!chatTyper.getText().toString().isEmpty()) {
                 fbHelper.addMessagesToDialog(currentUsername, targetUsername, chatTyper.getText().toString());
+                chatTyper.setText("");
             }
         });
 

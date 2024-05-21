@@ -287,7 +287,7 @@ public class FirebaseHelper {
                         documentID = document.getId();
                     }
                 }
-                messages.add(new Message(currentUser, targetUser, message));
+                messages.add(new Message(true, message));
                 if (documentID != null) {
                     dbMessageDialog.document(documentID).update("messageList", messages);
                 } else {
@@ -305,7 +305,7 @@ public class FirebaseHelper {
                         documentID = document.getId();
                     }
                 }
-                messages.add(new Message(currentUser, targetUser, message));
+                messages.add(new Message(false, message));
                 if (documentID != null) {
                     dbMessageDialog.document(documentID).update("messageList", messages);
                 } else {

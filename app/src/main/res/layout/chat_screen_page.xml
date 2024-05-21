@@ -120,8 +120,9 @@
 
         <ListView
             android:id="@+id/messageListView"
+            android:paddingTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="630dp"
+            android:layout_height="616dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="3dp" />
 
