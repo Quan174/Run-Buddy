@@ -50,7 +50,7 @@ class MessageDialogListViewAdapter extends BaseAdapter {
         } else viewMessageDialog = convertView;
 
         //Bind sữ liệu phần tử vào View
-//        MessageDialog messageDialog = (MessageDialog) getItem(position);
+            MessageDialog messageDialog = (MessageDialog) getItem(position);
 //        ((ImageView) viewMessageDialog.findViewById(R.id.activityHistoryMessageDialogImage)).setText(String.format("ID = %d", messageDialog.MessageDialogID));
 //        ((TextView) viewMessageDialog.findViewById(R.id.activityHistoryMessageDialogName)).setText(String.format("Tên SP : %s", messageDialog.name));
 //        ((ImageView) viewMessageDialog.findViewById(R.id.idMessageDialog)).setText(String.format("ID = %d", messageDialog.MessageDialogID));

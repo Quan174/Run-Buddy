@@ -7,13 +7,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -137,6 +140,7 @@ public class FirebaseHelper {
 
     public void removeFriendRequest(User sender, String username) {
         CollectionReference dbFriendRequest = db.collection("FriendRequests");
+        Log.d("Remove friend request called", "username is " + username);
         dbFriendRequest.whereEqualTo("username", username).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 ArrayList<User> friendRequestList = new ArrayList<>();
@@ -148,6 +152,7 @@ public class FirebaseHelper {
                 }
                 if (documentID != null){
                     for (User user : friendRequestList) {
+                        Log.d("REMOVE FRIEND", "FRIEND USERNAME IS " + user.username + " SENDER USERNAME IS " + sender.username);
                         if (user.isEqual(sender) == 0) {
                             continue;
                         }
@@ -175,7 +180,7 @@ public class FirebaseHelper {
                 friendList.add(requester);
                 if (documentID != null){
                     dbFriendList.document(documentID).update("FriendList", friendList);
-                    removeFriendRequest(requester, receiver.username);
+                    removeFriendRequest(receiver, requester.username);
                     dbFriendList.whereEqualTo("username", requester.username).get().addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
                             ArrayList<User> friendList2 = new ArrayList<>();
@@ -195,6 +200,13 @@ public class FirebaseHelper {
                 } else {
                     Log.d("FBHELPER", "ADD FRIEND FAILED");
                 }
+            }
+        });
+        getMessageDialog(requester.username, receiver.username, messageDialog -> {
+            if(messageDialog == null) {
+                createMessageDialog(requester.username, receiver.username);
+            } else {
+                Log.d("Add friend not create Dialog", "Diaalog is present");
             }
         });
     }
@@ -250,6 +262,94 @@ public class FirebaseHelper {
                 Log.d("Friend list size is ", friendList.size() + "");
                 callback.getFriendList(friendList);
             }
+        });
+    }
+
+    public void createMessageDialog(String username1, String username2) {
+        CollectionReference dbMessageDialog = db.collection("messageDialog");
+        dbMessageDialog.add(new MessageDialog(username1, username2)).addOnCompleteListener(task -> {
+            Log.d("Add dialog", "Added first dialog");
+            dbMessageDialog.add(new MessageDialog(username2, username1)).addOnCompleteListener(task1 -> {
+                Log.d("Add dialog", "Added second dialog");
+            });
+        });
+    }
+
+    public void addMessagesToDialog(String currentUser, String targetUser, String message) {
+        CollectionReference dbMessageDialog = db.collection("messageDialog");
+        dbMessageDialog.whereEqualTo("username1", currentUser).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                ArrayList<Message> messages = new ArrayList<>();
+                String documentID = null;
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if ((document.toObject(MessageDialog.class).username2.compareTo(targetUser)) == 0) {
+                        messages = document.toObject(MessageDialog.class).messageList;
+                        documentID = document.getId();
+                    }
+                }
+                messages.add(new Message(currentUser, targetUser, message));
+                if (documentID != null) {
+                    dbMessageDialog.document(documentID).update("messageList", messages);
+                } else {
+                    Log.d("FBHELPER", "ADD MESSAGE FAILED");
+                }
+            }
+        });
+        dbMessageDialog.whereEqualTo("username1", targetUser).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                ArrayList<Message> messages = new ArrayList<>();
+                String documentID = null;
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if ((document.toObject(MessageDialog.class).username2.compareTo(currentUser)) == 0) {
+                        messages = document.toObject(MessageDialog.class).messageList;
+                        documentID = document.getId();
+                    }
+                }
+                messages.add(new Message(targetUser, currentUser, message));
+                if (documentID != null) {
+                    dbMessageDialog.document(documentID).update("messageList", messages);
+                } else {
+                    Log.d("FBHELPER", "ADD MESSAGE FAILED");
+                }
+            }
+        });
+    }
+
+    public void getMessageDialog(String username1, String username2, getMessageDialogCallback callback) {
+        CollectionReference dbMessageDialog = db.collection("messageDialog");
+        Log.d("getMessageDialog", "username1 is " + username1 );
+        dbMessageDialog.whereEqualTo("username1", username1).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                MessageDialog messageDialog = null;
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (document.toObject(MessageDialog.class).username2.compareTo(username2) == 0) {
+                        messageDialog = document.toObject(MessageDialog.class);
+                    }
+                }
+                callback.getMessageDialog(messageDialog);
+            }
+
+        });
+    }
+    public void friendListListener(String userID, friendListListenerCallBack callBack) {
+        db.collection("FriendList").whereEqualTo("userID", userID ).addSnapshotListener((value, error) -> {
+            ArrayList<User> users = new ArrayList<>();
+            for(QueryDocumentSnapshot document : value) {
+                users = document.toObject(FriendList.class).FriendList;
+            }
+            callBack.friendListListener(users);
+        });
+    }
+
+    public void messageDialogListener(String username1, String username2, messageDialogListenerCallback callback) {
+        db.collection("messageDialog").whereEqualTo("username1", username1).addSnapshotListener((value, error) -> {
+            ArrayList<Message> messages = new ArrayList<>();
+            for (QueryDocumentSnapshot document : value) {
+                if (document.toObject(MessageDialog.class).username2.compareTo(username2) == 0) {
+                    messages = document.toObject(MessageDialog.class).messageList;
+                }
+            }
+            callback.messageDialogListener(messages);
         });
     }
 

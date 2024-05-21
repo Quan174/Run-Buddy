@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class ChatSettingsPageActivity extends AppCompatActivity {
+    private TextView targetUsername;
 
     private SharedPreferencesHelper spHelper;
     ImageView chatSettingsBackButton;

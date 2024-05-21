@@ -11,10 +11,15 @@ import java.util.ArrayList;
 class MessageListViewAdapter extends BaseAdapter {
 
     //Dữ liệu liên kết bởi Adapter là một mảng các sản phẩm
-    final ArrayList<Message> listMessage;
+    private ArrayList<Message> listMessage;
+    private String currentUsername;
+    private TextView messageContent;
+    private boolean isSendByCurrentUser = false;
 
-    MessageListViewAdapter(ArrayList<Message> listMessage) {
+
+    MessageListViewAdapter(ArrayList<Message> listMessage, String currentUsername) {
         this.listMessage = listMessage;
+        this.currentUsername = currentUsername;
     }
 
 
@@ -38,6 +43,10 @@ class MessageListViewAdapter extends BaseAdapter {
         return position;
     }
 
+    public void setListMessage(ArrayList<Message> messages) {
+        this.listMessage = messages;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //convertView là View của phần tử ListView, nếu convertView != null nghĩa là
@@ -46,22 +55,27 @@ class MessageListViewAdapter extends BaseAdapter {
 
         View viewMessage;
         if (convertView == null) {
-            //Sửa true thành điều kiện để check xem đây là tin nhắn đến hay đi
-            if(true){
-                viewMessage = View.inflate(parent.getContext(), R.layout.received_message_item_list_view, null);
-            } else {
+            Message message = (Message) getItem(position);
+            if (currentUsername.compareTo(message.senderID) == 0) {
+                isSendByCurrentUser = true;
+            }
+
+            if(isSendByCurrentUser){
                 viewMessage = View.inflate(parent.getContext(), R.layout.sent_message_item_list_view, null);
+            } else {
+                viewMessage = View.inflate(parent.getContext(), R.layout.received_message_item_list_view, null);
             }
 
         } else viewMessage = convertView;
-
+            Message message = (Message) getItem(position);
+            if (isSendByCurrentUser) {
+                messageContent = viewMessage.findViewById(R.id.textView38);
+            } else {
+                messageContent = viewMessage.findViewById(R.id.textView36);
+            }
+            messageContent.setText(message.message);
         //Bind sữ liệu phần tử vào View
-//        Message message = (Message) getItem(position);
-//        ((ImageView) viewMessage.findViewById(R.id.activityHistoryMessageImage)).setText(String.format("ID = %d", message.MessageID));
-//        ((TextView) viewMessage.findViewById(R.id.activityHistoryMessageName)).setText(String.format("Tên SP : %s", message.name));
-//        ((ImageView) viewMessage.findViewById(R.id.idMessage)).setText(String.format("ID = %d", message.MessageID));
-//        ((TextView) viewMessage.findViewById(R.id.priceMessage)).setText(String.format("Giá %d", message.price));
-//        ((TextView) viewMessage.findViewById(R.id.priceMessage)).setText(String.format("Giá %d", message.price));
+
 
 
         return viewMessage;

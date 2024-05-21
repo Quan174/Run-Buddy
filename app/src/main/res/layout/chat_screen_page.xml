@@ -83,7 +83,7 @@
             tools:srcCompat="@drawable/picture" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText"
+            android:id="@+id/chatTyper"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:background="@drawable/white_rounded_edges"
@@ -91,13 +91,13 @@
             android:paddingHorizontal="15dp"
             android:paddingVertical="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView21"
+            app:layout_constraintEnd_toStartOf="@+id/sendButton"
             app:layout_constraintStart_toEndOf="@+id/chatScreenPictureButton"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.466" />
 
         <ImageView
-            android:id="@+id/imageView21"
+            android:id="@+id/sendButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="20dp"
@@ -120,10 +120,10 @@
 
         <ListView
             android:id="@+id/messageListView"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="3dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="630dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="3dp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

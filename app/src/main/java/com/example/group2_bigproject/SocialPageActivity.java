@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -33,7 +34,7 @@ public class SocialPageActivity extends AppCompatActivity {
     LinearLayout socialPageMessagesDisplayLayout;
 
     ListView socialPageFriendsListView;
-    ArrayList<User> listUser;
+    ArrayList<User> listFriend;
     SocialPageFriendListViewAdapter socialPageFriendListViewAdapter;
     SocialPageFriendRequestListViewAdapter socialPageFriendRequestListViewAdapter;
     TextView socialPageFriendRequestButton;
@@ -91,13 +92,30 @@ public class SocialPageActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
             startActivity(intent);
         });
+        fbHelper.friendListListener(userID, users -> {
+            Log.d("FRIEND LIST LISTENER", "FRIEND ADDED!!!!");
+            listFriend = users;
+            socialPageFriendListViewAdapter = new SocialPageFriendListViewAdapter(listFriend, this);
+            socialPageFriendsListView.setAdapter(socialPageFriendListViewAdapter);
+            socialPageFriendsListView.setOnItemClickListener((parent, view, position, id) -> {
+                User user = (User) socialPageFriendListViewAdapter.getItem(position);
+                Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
+                intent.putExtra("targetUsername", user.username);
+                Log.d("FROM FRIENDLIST TO CHAT BOX", "USERNAME IS " + user.username);
+                startActivity(intent);
+            });
+        });
 
        fbHelper.getFriendList(userID, users -> {
-           socialPageFriendListViewAdapter = new SocialPageFriendListViewAdapter(users, this);
+           listFriend = users;
+           socialPageFriendListViewAdapter = new SocialPageFriendListViewAdapter(listFriend, this);
            socialPageFriendsListView.setAdapter(socialPageFriendListViewAdapter);
 
            socialPageFriendsListView.setOnItemClickListener((parent, view, position, id) -> {
+               User user = (User) socialPageFriendListViewAdapter.getItem(position);
                Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
+               intent.putExtra("targetUsername", user.username);
+               Log.d("FROM FRIENDLIST TO CHAT BOX", "USERNAME IS " + user.username);
                startActivity(intent);
            });
        });

@@ -3,13 +3,13 @@ package com.example.group2_bigproject;
 import java.util.ArrayList;
 
 public class MessageDialog {
-    public String userID1;
-    public String userID2;
+    public String username2;
+    public String username1;
     public ArrayList<Message> messageList;
     public MessageDialog(){}
-    public MessageDialog(String userID1, String userID2, ArrayList<Message> messageList){
-        this.messageList = messageList;
-        this.userID1 = userID1;
-        this.userID2 = userID2;
+    public MessageDialog(String username1, String username2){
+        this.messageList = new ArrayList<>();
+        this.username1 = username1;
+        this.username2 = username2;
     }
 }

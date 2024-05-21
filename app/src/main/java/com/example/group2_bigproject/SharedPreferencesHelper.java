@@ -15,15 +15,17 @@ public class SharedPreferencesHelper {
                 .getSharedPreferences(PREF_NAME, 0);
     }
 
-    public void startSession(String userID) {
+    public void startSession(String userID, String username) {
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("userID", userID);
+        editor.putString("username", username);
         editor.apply();
     }
 
     public String getSessionID() {
         return pref.getString("userID", null);
     }
+    public String getUsername() {return pref.getString("username", null);}
 
     public void endSession() {
         SharedPreferences.Editor editor = pref.edit();

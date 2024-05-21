@@ -47,7 +47,7 @@ public class SignInPageActivity extends AppCompatActivity {
                         if (documentUsername.compareTo(username.getText().toString()) == 0) {
                             String documentPassword = document.toObject(User.class).password;
                             if (documentPassword.compareTo(password.getText().toString()) == 0) {
-                                spHeler.startSession(document.getId());
+                                spHeler.startSession(document.getId(), username.getText().toString());
                                 Toast.makeText(this, spHeler.getSessionID(), Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(SignInPageActivity.this, HomePageActivity.class);
                                 startActivity(intent);
