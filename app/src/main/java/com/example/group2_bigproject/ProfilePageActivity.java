@@ -82,10 +82,12 @@ public class ProfilePageActivity extends AppCompatActivity{
     ArrayList<Route> listRoute;
     ActivityHistoryListViewAdapter activityHistoryListViewAdapter;
     ImageView profilePageAvatar;
+    ImageView profilePageBackground;
 
     @SuppressLint("DefaultLocale")
     ImageButton btn_editAvatar;
     ImageButton btn_settings;
+    int sentRequestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,7 @@ public class ProfilePageActivity extends AppCompatActivity{
         btn_editAvatar = findViewById(R.id.btn_editAvatar);
         btn_settings = findViewById(R.id.btn_Setting);
         profilePageAvatar = findViewById(R.id.profilePageAvatar);
+        profilePageBackground = findViewById(R.id.profilePageBackground);
 
 
         profilePageCreatedRoutesButton = findViewById(R.id.profilePageCreatedRoutesButton);
@@ -156,9 +159,7 @@ public class ProfilePageActivity extends AppCompatActivity{
             });
         });
 
-
-        //menuBarProfileButton.setTextColor(R.color.light_grey);
-
+        menuBarProfileButton.setTextColor(R.color.light_grey);
         menuBarHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfilePageActivity.this, HomePageActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -250,15 +251,12 @@ public class ProfilePageActivity extends AppCompatActivity{
                     public boolean onMenuItemClick(MenuItem item) {
                         int n = item.getItemId();
                         if (n == R.id.ProfileAvatarEditor) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                                ImageSelector.selectImage(ProfilePageActivity.this);
-                            }
+                            sentRequestCode = 0;
+                            ImageSelector.selectImage(ProfilePageActivity.this);
                         }
                         if (n == R.id.ProfileBackgroundAvatarEditor) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                                ImageSelector.selectImage(ProfilePageActivity.this);
-                            }
-                        }
+                            sentRequestCode = 1;
+                            ImageSelector.selectImage(ProfilePageActivity.this);                        }
                         return false;
                     }
                 });
@@ -324,8 +322,11 @@ public class ProfilePageActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ImageSelector.PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
-            // Xử lý ảnh, ví dụ hiển thị ảnh hoặc tải lên server
-            Glide.with(profilePageAvatar.getContext()).load(imageUri).into(profilePageAvatar);
+            if (sentRequestCode == 0) {
+                Glide.with(profilePageAvatar.getContext()).load(imageUri).into(profilePageAvatar);
+            } else if (sentRequestCode == 1) {
+                Glide.with(profilePageBackground.getContext()).load(imageUri).into(profilePageBackground);
+            }
         }
     }
 
