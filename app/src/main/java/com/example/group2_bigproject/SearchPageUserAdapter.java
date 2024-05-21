@@ -95,6 +95,7 @@ class SearchPageUserAdapter extends BaseAdapter {
                                  addFriendButton.setText("Add Friend");
                              } else if (addFriendButton.getText().toString().compareTo("Unfriend") == 0) {
                                  fbHelper.removeFriend(currentUser, user.username);
+                                 fbHelper.removeFriend(user, currentUser.username);
                                  addFriendButton.setText("Add Friend");
                              } else if (addFriendButton.getText().toString().compareTo("Accept") == 0) {
                                  fbHelper.addFriend(user, currentUser);
