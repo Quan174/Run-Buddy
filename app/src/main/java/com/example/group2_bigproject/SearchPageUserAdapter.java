@@ -67,34 +67,44 @@ class SearchPageUserAdapter extends BaseAdapter {
          addFriendButton = viewUser.findViewById(R.id.socialPageFriendItemButton);
          username.setText(user.username);
          addFriendButton.setText("Add Friend");
-        fbHelper.getFriendRequest(user.username, users -> {
-            for (User userRequested : users) {
-                if (userRequested.isEqual(user) == 0) {
-                    addFriendButton.setText("Remove Friend Request");
-                }
-            }
-            fbHelper.getFriendList(userID, users1 -> {
-                for (User friend : users1) {
-                    if (friend.isEqual(user) == 0) {
-                        addFriendButton.setText("Unfriend");
-                    }
-                }
-                fbHelper.readUser(userID, currentUser -> {
-                    addFriendButton.setOnClickListener(v -> {
-                        if (addFriendButton.getText().toString().compareTo("Add Friend") == 0) {
-                            fbHelper.addFriendRequest(currentUser, user.username);
-                            addFriendButton.setText("Remove Friend Request");
-                        } else if (addFriendButton.getText().toString().compareTo("Remove Friend Request") == 0) {
-                            fbHelper.removeFriendRequest(currentUser, user.username);
-                            addFriendButton.setText("Add Friend");
-                        } else if (addFriendButton.getText().toString().compareTo("Unfriend") == 0) {
-                            fbHelper.removeFriend(currentUser, user.username);
-                            addFriendButton.setText("Add Friend");
-                        }
-                    });
-                });
-            });
-        });
+         fbHelper.readUser(userID, currentUser -> {
+             fbHelper.getFriendRequest(user.username, users -> {
+                 for (User userRequested : users) {
+                     if (userRequested.isEqual(currentUser) == 0) {
+                         addFriendButton.setText("Remove Friend Request");
+                     }
+                 }
+                 fbHelper.getFriendList(userID, users1 -> {
+                     for (User friend : users1) {
+                         if (friend.isEqual(user) == 0) {
+                             addFriendButton.setText("Unfriend");
+                         }
+                     }
+                     fbHelper.getFriendRequest(currentUser.username, users2 -> {
+                         for(User user2 : users2) {
+                             if (user2.isEqual(user) == 0) {
+                                 addFriendButton.setText("Accept");
+                             }
+                         }
+                         addFriendButton.setOnClickListener(v -> {
+                             if (addFriendButton.getText().toString().compareTo("Add Friend") == 0) {
+                                 fbHelper.addFriendRequest(currentUser, user.username);
+                                 addFriendButton.setText("Remove Friend Request");
+                             } else if (addFriendButton.getText().toString().compareTo("Remove Friend Request") == 0) {
+                                 fbHelper.removeFriendRequest(currentUser, user.username);
+                                 addFriendButton.setText("Add Friend");
+                             } else if (addFriendButton.getText().toString().compareTo("Unfriend") == 0) {
+                                 fbHelper.removeFriend(currentUser, user.username);
+                                 addFriendButton.setText("Add Friend");
+                             } else if (addFriendButton.getText().toString().compareTo("Accept") == 0) {
+                                 fbHelper.addFriend(user, currentUser);
+                                 addFriendButton.setText("Unfriend");
+                             }
+                         });
+                     });
+                 });
+             });
+         });
 
 
         return viewUser;
