@@ -3,6 +3,7 @@ package com.example.group2_bigproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class HomePageActivity extends AppCompatActivity {
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
+    EditText toolBarSearchInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class HomePageActivity extends AppCompatActivity {
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
+        toolBarSearchInput = findViewById(R.id.toolBarSearchInput);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -92,5 +95,9 @@ public class HomePageActivity extends AppCompatActivity {
             finish();
         });
 
+        toolBarSearchInput.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePageActivity.this, SearchPageActivity.class);
+            startActivity(intent);
+        });
     }
 }

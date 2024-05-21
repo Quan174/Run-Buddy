@@ -3,9 +3,11 @@ package com.example.group2_bigproject;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
@@ -37,10 +39,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -76,6 +81,7 @@ public class ProfilePageActivity extends AppCompatActivity{
     ListView activityHistoryListView;
     ArrayList<Route> listRoute;
     ActivityHistoryListViewAdapter activityHistoryListViewAdapter;
+    ImageView profilePageAvatar;
 
     @SuppressLint("DefaultLocale")
     ImageButton btn_editAvatar;
@@ -103,6 +109,7 @@ public class ProfilePageActivity extends AppCompatActivity{
         profilePagePersonalInformationButton = findViewById(R.id.profilePagePersonalInformationButton);
         btn_editAvatar = findViewById(R.id.btn_editAvatar);
         btn_settings = findViewById(R.id.btn_Setting);
+        profilePageAvatar = findViewById(R.id.profilePageAvatar);
 
 
         profilePageCreatedRoutesButton = findViewById(R.id.profilePageCreatedRoutesButton);
@@ -243,11 +250,10 @@ public class ProfilePageActivity extends AppCompatActivity{
                     public boolean onMenuItemClick(MenuItem item) {
                         int n = item.getItemId();
                         if (n == R.id.ProfileAvatarEditor) {
-                            // Avatar change here
+                            ImageSelector.selectImage(ProfilePageActivity.this);
                         }
                         if (n == R.id.ProfileBackgroundAvatarEditor) {
-                            // Background change here
-                        }
+                            ImageSelector.selectImage(ProfilePageActivity.this);                        }
                         return false;
                     }
                 });
@@ -288,4 +294,29 @@ public class ProfilePageActivity extends AppCompatActivity{
         }, 0, 0, 0);
         dialog.show();
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == ImageSelector.REQUEST_EXTERNAL_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                ImageSelector.openImagePicker(this);
+            } else {
+                // Xử lý tình huống quyền bị từ chối
+                Toast.makeText(this, "Permission have not been granted.", Toast.LENGTH_SHORT);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ImageSelector.PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            // Xử lý ảnh, ví dụ hiển thị ảnh hoặc tải lên server
+            Glide.with(profilePageAvatar.getContext()).load(imageUri).into(profilePageAvatar);
+        }
+    }
+
+
 }

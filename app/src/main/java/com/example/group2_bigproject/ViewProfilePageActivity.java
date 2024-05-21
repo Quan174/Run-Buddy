@@ -47,8 +47,8 @@ public class ViewProfilePageActivity extends AppCompatActivity{
 
         fbHelper.readUser(userID, user -> {
             nameProfile.setText(user.name);
-            genderProfile.setText(user.Gender);
-            birthdayProfile.setText(user.Birthday);
+            genderProfile.setText(user.gender);
+            birthdayProfile.setText(user.birthday);
             phoneProfile.setText(user.phone);
             addressProfile.setText(user.address);
             heightProfile.setText(String.format("%s cm", user.height));

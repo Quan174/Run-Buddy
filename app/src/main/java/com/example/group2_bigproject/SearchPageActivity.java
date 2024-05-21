@@ -23,7 +23,7 @@ public class SearchPageActivity extends AppCompatActivity {
     ImageView backButton;
     EditText toolBarSearchInput;
     ArrayList<User> listResults;
-    SocialPageFriendListViewAdapter socialPageFriendListViewAdapter;
+    SearchPageUserAdapter SearchPageUserAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,8 @@ public class SearchPageActivity extends AppCompatActivity {
         listResults.add(new User());
         listResults.add(new User());
 
-        socialPageFriendListViewAdapter = new SocialPageFriendListViewAdapter(listResults);
-        listView.setAdapter(socialPageFriendListViewAdapter);
+        SearchPageUserAdapter = new SearchPageUserAdapter(listResults);
+        listView.setAdapter(SearchPageUserAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
