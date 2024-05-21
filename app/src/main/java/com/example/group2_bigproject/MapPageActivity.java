@@ -71,10 +71,6 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_page);
-        mapSuggestedRoutesButton = findViewById(R.id.mapSuggestedRoutesButton);
-        mapSavedRoutesButton = findViewById(R.id.mapSavedRoutesButton);
-        mapSuggestedRoutesButtonText = findViewById(R.id.mapSuggestedRoutesButtonText);
-        mapSavedRoutesButtonText = findViewById(R.id.mapSavedRoutesButtonText);
         mapSuggestedRoutesLayout = findViewById(R.id.mapSuggestedRoutesLayout);
         mapStartTrackingButton = findViewById(R.id.mapStartTrackingButton);
         menuBarHomeButton =findViewById(R.id.menuBarHomeButton);
@@ -82,8 +78,8 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
-        mapWalkingButton = findViewById(R.id.mapWalkingButton);
-        mapCyclingButton = findViewById(R.id.mapCyclingButton);
+//        mapWalkingButton = findViewById(R.id.mapWalkingButton);
+//        mapCyclingButton = findViewById(R.id.mapCyclingButton);
         spHelper = new SharedPreferencesHelper(this);
 
         userID = spHelper.getSessionID();
@@ -109,20 +105,6 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
             }
         };
         getLastLocation();
-
-        mapSuggestedRoutesButton.setOnClickListener(view -> {
-            mapSuggestedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            mapSuggestedRoutesButtonText.setTypeface(null, Typeface.BOLD);
-            mapSavedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
-            mapSavedRoutesButtonText.setTypeface(null, Typeface.NORMAL);
-        });
-
-        mapSavedRoutesButton.setOnClickListener(view -> {
-            mapSavedRoutesButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            mapSavedRoutesButtonText.setTypeface(null, Typeface.BOLD);
-            mapSuggestedRoutesButton.setBackgroundColor(Color.parseColor("#BBBBBB"));
-            mapSuggestedRoutesButtonText.setTypeface(null, Typeface.NORMAL);
-        });
 
         mapStartTrackingButton.setOnClickListener(v -> {
             Intent intent = new Intent(MapPageActivity.this, TrackingPageActivity.class);
@@ -157,15 +139,15 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
             finish();
         });
 
-        mapCyclingButton.setOnClickListener(v -> {
-            mapCyclingButton.setImageResource(R.drawable.circle_shape);
-            mapWalkingButton.setImageResource(R.drawable.black_circle_shape);
-        });
-
-        mapWalkingButton.setOnClickListener(v -> {
-            mapCyclingButton.setImageResource(R.drawable.black_circle_shape);
-            mapWalkingButton.setImageResource(R.drawable.circle_shape);
-        });
+//        mapCyclingButton.setOnClickListener(v -> {
+//            mapCyclingButton.setImageResource(R.drawable.circle_shape);
+//            mapWalkingButton.setImageResource(R.drawable.black_circle_shape);
+//        });
+//
+//        mapWalkingButton.setOnClickListener(v -> {
+//            mapCyclingButton.setImageResource(R.drawable.black_circle_shape);
+//            mapWalkingButton.setImageResource(R.drawable.circle_shape);
+//        });
     }
 
     @Override
