@@ -118,74 +118,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
 
-        <TextView
-            android:id="@+id/textView34"
+        <ListView
+            android:id="@+id/messageListView"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="3dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1 Jan 2024, 9:01 AM"
-            android:textAlignment="center"
-            android:textColor="@color/light_grey"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView35"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/received_messages"
-            android:text="Message 1" />
-
-        <TextView
-            android:id="@+id/textView36"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/received_messages"
-            android:text="Message 2 Message 2 Message 2 Message 2 Message 2" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="10dp">
-
-            <TextView
-                android:id="@+id/textView37"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/sent_messages"
-                android:text="Message 1"
-                android:textAlignment="textEnd"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="10dp">
-
-
-            <TextView
-                android:id="@+id/textView38"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/sent_messages"
-                android:textAlignment="textEnd"
-                android:textColor="@color/white"
-                android:text="Message 2 Message 2 Message 2 Message 2 Message 2 Message 2 "
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

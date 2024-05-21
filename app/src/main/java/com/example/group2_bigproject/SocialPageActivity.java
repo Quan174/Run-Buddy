@@ -40,6 +40,9 @@ public class SocialPageActivity extends AppCompatActivity {
     LinearLayout socialPageFriendsRequestDisplayLayout;
     ImageView socialPageFriendsRequestBackButton;
     ListView socialPageFriendsRequestListView;
+    ListView messageDialogListView;
+    ArrayList<MessageDialog> listMessageDialog;
+    MessageDialogListViewAdapter messageDialogListViewAdapter;
     private String userID;
 
     @SuppressLint("ResourceAsColor")
@@ -54,7 +57,6 @@ public class SocialPageActivity extends AppCompatActivity {
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
-        message1 = findViewById(R.id.message1);
         socialPageMessageButton = findViewById(R.id.socialPageMessageButton);
         socialPageFriendsButton = findViewById(R.id.socialPageFriendsButton);
         socialPageFriendsDisplayLayout = findViewById(R.id.socialPageFriendsDisplayLayout);
@@ -65,9 +67,31 @@ public class SocialPageActivity extends AppCompatActivity {
         socialPageFriendsRequestDisplayLayout = findViewById(R.id.socialPageFriendsRequestDisplayLayout);
         socialPageFriendsRequestBackButton = findViewById(R.id.socialPageFriendsRequestBackButton);
         socialPageFriendsRequestListView = findViewById(R.id.socialPageFriendsRequestListView);
+        messageDialogListView = findViewById(R.id.messageDialogListView);
 
         userID = spHelper.getSessionID();
         menuBarSocialButton.setTextColor(R.color.light_grey);
+
+        listMessageDialog = new ArrayList<>();
+        listMessageDialog.add(new MessageDialog());
+        listMessageDialog.add(new MessageDialog());
+        listMessageDialog.add(new MessageDialog());
+        listMessageDialog.add(new MessageDialog());
+        listMessageDialog.add(new MessageDialog());
+        listMessageDialog.add(new MessageDialog());
+        listMessageDialog.add(new MessageDialog());
+        listMessageDialog.add(new MessageDialog());
+
+        messageDialogListViewAdapter = new MessageDialogListViewAdapter(listMessageDialog);
+        messageDialogListView.setAdapter(messageDialogListViewAdapter);
+
+        messageDialogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
+                startActivity(intent);
+            }
+        });
 
         listUser = new ArrayList<>();
         listUser.add(new User());
@@ -126,11 +150,6 @@ public class SocialPageActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
-        });
-
-        message1.setOnClickListener(v -> {
-            Intent intent = new Intent(SocialPageActivity.this, ChatBoxActivity.class);
-            startActivity(intent);
         });
 
         socialPageMessageButton.setOnClickListener(v -> {
