@@ -105,7 +105,11 @@ public class PostActivity extends AppCompatActivity {
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PostActivity.this, "Clicked like", Toast.LENGTH_SHORT).show();
+                if(MyUtil.containsSensitiveWords(PostActivity.this, postItem.getDescription()) ){
+                    Toast.makeText(PostActivity.this, "Noi dung tuc tiu", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PostActivity.this, "Noi dung oke", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
