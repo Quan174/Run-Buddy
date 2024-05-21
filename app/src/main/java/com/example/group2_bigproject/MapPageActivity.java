@@ -1,9 +1,11 @@
 package com.example.group2_bigproject;
 
 import android.Manifest;
+import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -37,6 +39,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.FileOutputStream;
 import java.util.Objects;
 
 public class MapPageActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -219,4 +222,5 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 20), 200, null);
         }
     }
+
 }

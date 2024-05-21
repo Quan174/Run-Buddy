@@ -17,11 +17,6 @@ public class WelcomePageActivity extends AppCompatActivity {
         Button btn_Welcome = findViewById(R.id.btn_Welcome);
         Intent intent = new Intent(this,SignInPageActivity.class);
 
-        btn_Welcome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent);
-            }
-        });
+        btn_Welcome.setOnClickListener(v -> startActivity(intent));
     }
 }

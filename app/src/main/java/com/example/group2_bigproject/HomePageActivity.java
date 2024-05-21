@@ -3,25 +3,33 @@ package com.example.group2_bigproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
     SharedPreferencesHelper spHelper;
+    ConstraintLayout mapSuggestedRoutesButton;
+    ConstraintLayout mapSavedRoutesButton;
+    TextView mapSuggestedRoutesButtonText;
+    TextView mapSavedRoutesButtonText;
+    RecyclerView recyclerView;
+    Adapter adapter;
+    List<PostItem> postItemList;
+    String userID;
     TextView menuBarHomeButton;
     TextView menuBarRoutesButton;
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
-    EditText toolBarSearchInput;
-
-    private String userID;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +41,6 @@ public class HomePageActivity extends AppCompatActivity {
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
-        toolBarSearchInput = findViewById(R.id.toolBarSearchInput);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -46,21 +53,29 @@ public class HomePageActivity extends AppCompatActivity {
         postItemList.add(new PostItem(R.drawable.ava, R.drawable.picture ,"29/5/2024", "Quang", "5th Test"));
 
         userID = spHelper.getSessionID();
-        Toast.makeText(this, userID + "", Toast.LENGTH_SHORT).show();
+        adapter = new Adapter(postItemList);
+        recyclerView.setAdapter(adapter);
 
 
-        menuBarRoutesButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomePageActivity.this, RoutesPage.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+
+        menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePageActivity.this, RoutesPage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
         });
 
-        menuBarMapButton.setOnClickListener(v -> {
-            Intent intent = new Intent(HomePageActivity.this, MapPageActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+        menuBarMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePageActivity.this, MapPageActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
         });
 
         menuBarSocialButton.setOnClickListener(v -> {
@@ -77,9 +92,5 @@ public class HomePageActivity extends AppCompatActivity {
             finish();
         });
 
-        toolBarSearchInput.setOnClickListener(v -> {
-            Intent intent = new Intent(HomePageActivity.this, SearchPageActivity.class);
-            startActivity(intent);
-        });
     }
 }

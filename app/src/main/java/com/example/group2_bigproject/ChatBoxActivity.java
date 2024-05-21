@@ -23,11 +23,19 @@ public class ChatBoxActivity extends AppCompatActivity {
         chatScreenSettingsButton = findViewById(R.id.chatScreenSettingsButton);
         userID = spHelper.getSessionID();
 
-        chatScreenBackButton.setOnClickListener(v -> finish());
+        chatScreenBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-        chatScreenSettingsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ChatBoxActivity.this, ChatSettingsPageActivity.class);
-            startActivity(intent);
+        chatScreenSettingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChatBoxActivity.this, ChatSettingsPageActivity.class);
+                startActivity(intent);
+            }
         });
     }
 }

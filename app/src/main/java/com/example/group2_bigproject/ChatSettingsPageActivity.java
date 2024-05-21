@@ -44,38 +44,55 @@ public class ChatSettingsPageActivity extends AppCompatActivity {
         chatSettingsPicture1 = findViewById(R.id.chatSettingsPicture1);
         String userID = spHelper.getSessionID();
 
-        chatSettingsBackButton.setOnClickListener(v -> finish());
-
-        chatSettingsPictureButton.setOnClickListener(v -> {
-            chatSettingsPictureButtonText.setTypeface(null, Typeface.BOLD);
-            chatSettingsPictureButtonLine.setVisibility(View.VISIBLE);
-            chatSettingsShareButtonText.setTypeface(null, Typeface.NORMAL);
-            chatSettingsShareButtonLine.setVisibility(View.INVISIBLE);
-            chatSettingsPicturesLayout.setVisibility(View.VISIBLE);
-            chatSettingsSharesLayout.setVisibility(View.INVISIBLE);
+        chatSettingsBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
 
-        chatSettingsShareButton.setOnClickListener(v -> {
-            chatSettingsShareButtonText.setTypeface(null, Typeface.BOLD);
-            chatSettingsShareButtonLine.setVisibility(View.VISIBLE);
-            chatSettingsPictureButtonText.setTypeface(null, Typeface.NORMAL);
-            chatSettingsPictureButtonLine.setVisibility(View.INVISIBLE);
-            chatSettingsPicturesLayout.setVisibility(View.INVISIBLE);
-            chatSettingsSharesLayout.setVisibility(View.VISIBLE);
+        chatSettingsPictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chatSettingsPictureButtonText.setTypeface(null, Typeface.BOLD);
+                chatSettingsPictureButtonLine.setVisibility(View.VISIBLE);
+                chatSettingsShareButtonText.setTypeface(null, Typeface.NORMAL);
+                chatSettingsShareButtonLine.setVisibility(View.INVISIBLE);
+                chatSettingsPicturesLayout.setVisibility(View.VISIBLE);
+                chatSettingsSharesLayout.setVisibility(View.INVISIBLE);
+            }
         });
 
-        chatSettingsAvatar.setOnClickListener(v -> {
-            Intent intent = new Intent(ChatSettingsPageActivity.this, FullScreenActivity.class);
-            // Optionally pass the image resource if it's dynamic
-            intent.putExtra("imageRes", R.drawable.black_circle_shape);
-            startActivity(intent);
+        chatSettingsShareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chatSettingsShareButtonText.setTypeface(null, Typeface.BOLD);
+                chatSettingsShareButtonLine.setVisibility(View.VISIBLE);
+                chatSettingsPictureButtonText.setTypeface(null, Typeface.NORMAL);
+                chatSettingsPictureButtonLine.setVisibility(View.INVISIBLE);
+                chatSettingsPicturesLayout.setVisibility(View.INVISIBLE);
+                chatSettingsSharesLayout.setVisibility(View.VISIBLE);
+            }
         });
 
-        chatSettingsPicture1.setOnClickListener(v -> {
-            Intent intent = new Intent(ChatSettingsPageActivity.this, FullScreenActivity.class);
-            // Optionally pass the image resource if it's dynamic
-            intent.putExtra("imageRes", R.drawable.screenshot_2024_05_06_160853);
-            startActivity(intent);
+        chatSettingsAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChatSettingsPageActivity.this, FullScreenActivity.class);
+                // Optionally pass the image resource if it's dynamic
+                intent.putExtra("imageRes", R.drawable.black_circle_shape);
+                startActivity(intent);
+            }
+        });
+
+        chatSettingsPicture1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChatSettingsPageActivity.this, FullScreenActivity.class);
+                // Optionally pass the image resource if it's dynamic
+                intent.putExtra("imageRes", R.drawable.screenshot_2024_05_06_160853);
+                startActivity(intent);
+            }
         });
     }
 }

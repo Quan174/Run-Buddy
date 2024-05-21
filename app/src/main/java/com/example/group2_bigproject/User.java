@@ -5,8 +5,8 @@ public class User {
     public String email;
     public String password;
     public String name;
-    public String Gender;
-    public String Birthday;
+    public String gender;
+    public String birthday;
     public String phone;
     public String address;
     public String height;
@@ -18,8 +18,8 @@ public class User {
         this.email = email;
         this.password = password;
         this.name = "Name";
-        this.Gender = "Gender";
-        this.Birthday = "Birthday";
+        this.gender = "Gender";
+        this.birthday = "Birthday";
         this.phone = "0123456789";
         this.address = "address";
         this.height = "180";

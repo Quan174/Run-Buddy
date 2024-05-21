@@ -16,6 +16,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
+import java.util.ArrayList;
+
 public class FirebaseHelper {
     private FirebaseFirestore db;
     private Context context;
@@ -44,6 +46,20 @@ public class FirebaseHelper {
                         myCallback.onCallback(document.toObject(com.example.group2_bigproject.User.class));
                     }
                 }
+            }
+        });
+    }
+
+    public void readRoutes(RouteReader routeReader) {
+        CollectionReference dbRoutes = db.collection("routeHistory");
+        dbRoutes.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                ArrayList<Route> routes = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    routes.add(document.toObject(Route.class));
+                    Log.d("ADDED ROUTE", document.getId());
+                }
+                routeReader.readRoute(routes);
             }
         });
     }

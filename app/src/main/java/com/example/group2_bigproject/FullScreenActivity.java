@@ -34,8 +34,11 @@ public class FullScreenActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
 
-        imageView.setOnClickListener(v -> {
-            finish(); // Close the activity
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Close the activity
+            }
         });
     }
 }

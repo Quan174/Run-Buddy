@@ -3,6 +3,7 @@ package com.example.group2_bigproject;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -122,8 +123,8 @@ public class ProfilePageActivity extends AppCompatActivity{
 
         fbHelper.readUser(userID, user -> {
             nameProfile.setText(user.name);
-            genderProfile.setText(user.Gender);
-            birthdayProfile.setText(user.Birthday);
+            genderProfile.setText(user.gender);
+            birthdayProfile.setText(user.birthday);
             phoneProfile.setText(user.phone);
             addressProfile.setText(user.address);
             heightProfile.setText(String.format("%s cm", user.height));
@@ -131,20 +132,12 @@ public class ProfilePageActivity extends AppCompatActivity{
         });
 
         listRoute = new ArrayList<>();
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-
-        activityHistoryListViewAdapter = new ActivityHistoryListViewAdapter(listRoute);
-        activityHistoryListView.setAdapter(activityHistoryListViewAdapter);
-        activityHistoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        fbHelper.readRoutes(routes -> {
+            listRoute = routes;
+            Log.d("routesSize is ", listRoute.size() + "");
+            activityHistoryListViewAdapter = new ActivityHistoryListViewAdapter(listRoute, this);
+            activityHistoryListView.setAdapter(activityHistoryListViewAdapter);
+            activityHistoryListView.setOnItemClickListener((parent, view, position, id) -> {
                 Route route = (Route) activityHistoryListViewAdapter.getItem(position);
                 //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
 //                Toast.makeText(ProfilePageActivity.this, route.routeName, Toast.LENGTH_LONG).show();
@@ -153,8 +146,9 @@ public class ProfilePageActivity extends AppCompatActivity{
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
-            }
+            });
         });
+
 
         //menuBarProfileButton.setTextColor(R.color.light_grey);
 
