@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:elevation="10px">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView8"
         android:layout_width="55dp"
         android:layout_height="55dp"
@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/black_circle_shape"/>
+        android:src="@drawable/default_avatar_icon_of_social_media_user_vector"/>
 
     <TextView
         android:id="@+id/textView29"

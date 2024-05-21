@@ -15,15 +15,12 @@
         android:layout_marginTop="24dp"
 
         android:layout_marginEnd="170dp"
-
         android:background="@drawable/button_orange"
-
         android:drawableTint="@color/black"
         android:ems="15"
-
         android:freezesText="true"
         android:text="Getting started"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:icon="@drawable/baseline_arrow_forward_24"
         app:iconGravity="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +46,7 @@
         android:layout_marginStart="174dp"
         android:layout_marginTop="37dp"
         android:layout_marginEnd="179dp"
-        android:text="Exercising with Strava Clone"
+        android:text="Exercising with RunBuddy"
         android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -66,7 +63,7 @@
         android:layout_marginEnd="177dp"
 
         android:gravity="center"
-        android:text="RunMate - Your perfect companion app for fitness enthusiasts. Track and record every step, every kilometer of your journey towards better health. With its user-friendly interface and diverse features, RunMate helps you monitor progress, enhance performance, and share achievements with a vibrant community. Start your journey today and explore a new lifestyle with RunMate!"
+        android:text="RunBuddy - Your perfect companion app for fitness enthusiasts. Track and record every step, every kilometer of your journey towards better health. With its user-friendly interface and diverse features, RunMate helps you monitor progress, enhance performance, and share achievements with a vibrant community. Start your journey today and explore a new lifestyle with RunBuddy!"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
