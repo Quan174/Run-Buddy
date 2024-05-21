@@ -1,5 +1,6 @@
 package com.example.group2_bigproject;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,10 +13,20 @@ import java.util.ArrayList;
 class SocialPageFriendRequestListViewAdapter extends BaseAdapter {
 
     //Dữ liệu liên kết bởi Adapter là một mảng các sản phẩm
-    final ArrayList<User> listUser;
+    private ArrayList<User> listUser;
+    private FirebaseHelper fbHelper;
+    private SharedPreferencesHelper spHelper;
+    private TextView accept;
+    private TextView deny;
+    private String userID;
+    private TextView username;
 
-    SocialPageFriendRequestListViewAdapter(ArrayList<User> listUser) {
+
+    SocialPageFriendRequestListViewAdapter(ArrayList<User> listUser, Context context) {
         this.listUser = listUser;
+        this.fbHelper = new FirebaseHelper(context);
+        this.spHelper = new SharedPreferencesHelper(context);
+        userID = spHelper.getSessionID();
     }
 
 
@@ -51,7 +62,24 @@ class SocialPageFriendRequestListViewAdapter extends BaseAdapter {
         } else viewUser = convertView;
 
         //Bind sữ liệu phần tử vào View
-//        User user = (User) getItem(position);
+            User user = (User) getItem(position);
+            username = viewUser.findViewById(R.id.socialPageFriendRequestUsername);
+            username.setText(user.username);
+            accept = viewUser.findViewById(R.id.socialPageFriendRequestItemAcceptButton);
+            deny = viewUser.findViewById(R.id.socialPageFriendRequestItemDenyButton);
+            fbHelper.readUser(userID, currentUser -> {
+                accept.setOnClickListener(v -> {
+                    fbHelper.addFriend(currentUser, user);
+                    listUser.remove(position);
+                    notifyDataSetChanged();
+                });
+                deny.setOnClickListener(v -> {
+                    fbHelper.removeFriendRequest(currentUser, user.username);
+                    listUser.remove(position);
+                    notifyDataSetChanged();
+                });
+            });
+
 //        ((ImageView) viewUser.findViewById(R.id.activityHistoryUserImage)).setText(String.format("ID = %d", user.UserID));
 //        ((TextView) viewUser.findViewById(R.id.activityHistoryUserName)).setText(String.format("Tên SP : %s", user.name));
 //        ((ImageView) viewUser.findViewById(R.id.idUser)).setText(String.format("ID = %d", user.UserID));

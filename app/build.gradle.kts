@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation("com.github.bumptech.glide:glide:4.13.2")
     implementation("com.google.android.material:material:1.11.0")
     implementation("com.github.jd-alexander:library:1.1.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

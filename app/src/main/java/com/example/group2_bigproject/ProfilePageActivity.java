@@ -156,7 +156,9 @@ public class ProfilePageActivity extends AppCompatActivity{
             });
         });
 
-        menuBarProfileButton.setTextColor(R.color.light_grey);
+
+        //menuBarProfileButton.setTextColor(R.color.light_grey);
+
         menuBarHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfilePageActivity.this, HomePageActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -248,10 +250,15 @@ public class ProfilePageActivity extends AppCompatActivity{
                     public boolean onMenuItemClick(MenuItem item) {
                         int n = item.getItemId();
                         if (n == R.id.ProfileAvatarEditor) {
-                            ImageSelector.selectImage(ProfilePageActivity.this);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                ImageSelector.selectImage(ProfilePageActivity.this);
+                            }
                         }
                         if (n == R.id.ProfileBackgroundAvatarEditor) {
-                            ImageSelector.selectImage(ProfilePageActivity.this);                        }
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                ImageSelector.selectImage(ProfilePageActivity.this);
+                            }
+                        }
                         return false;
                     }
                 });

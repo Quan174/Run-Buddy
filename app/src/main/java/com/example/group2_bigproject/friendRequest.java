@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 public class friendRequest {
     public String userID;
-    public ArrayList<String> requestListID;
+    public String username;
+    public ArrayList<User> requestListID;
 
     public friendRequest(){}
-    public friendRequest(String userID) {
+    public friendRequest(String userID, String username) {
+        requestListID = new ArrayList<>();
         this.userID = userID;
+        this.username = username;
     }
 }

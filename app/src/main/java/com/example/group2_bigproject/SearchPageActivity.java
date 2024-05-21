@@ -47,7 +47,8 @@ public class SearchPageActivity extends AppCompatActivity {
         toolBarSearchInput.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start,
@@ -57,10 +58,10 @@ public class SearchPageActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if(s.length() != 0)
-                    fbHelper.searchForUser(s.toString(), users -> {
+                if (s.length() != 0) {
+                    fbHelper.searchForUser(userID ,s.toString(), users -> {
                         listResults = users;
-                        SearchPageUserAdapter = new SearchPageUserAdapter(listResults);
+                        SearchPageUserAdapter = new SearchPageUserAdapter(listResults, SearchPageActivity.this);
                         listView.setAdapter(SearchPageUserAdapter);
                         listView.setOnItemClickListener((parent, view, position, id) -> {
 
@@ -68,6 +69,7 @@ public class SearchPageActivity extends AppCompatActivity {
 //                            startActivity(intent);
                         });
                     });
+                }
             }
         });
     }

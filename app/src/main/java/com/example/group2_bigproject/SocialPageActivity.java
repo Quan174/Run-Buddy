@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class SocialPageActivity extends AppCompatActivity {
     private SharedPreferencesHelper spHelper;
+    private FirebaseHelper fbHelper;
     TextView menuBarMapButton;
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
@@ -51,6 +52,8 @@ public class SocialPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.social_page);
         spHelper = new SharedPreferencesHelper(this);
+        fbHelper = new FirebaseHelper(this);
+        userID = spHelper.getSessionID();
 
         menuBarHomeButton =findViewById(R.id.menuBarHomeButton);
         menuBarRoutesButton = findViewById(R.id.menuBarRoutesButton);
@@ -69,7 +72,6 @@ public class SocialPageActivity extends AppCompatActivity {
         socialPageFriendsRequestListView = findViewById(R.id.socialPageFriendsRequestListView);
         messageDialogListView = findViewById(R.id.messageDialogListView);
 
-        userID = spHelper.getSessionID();
         menuBarSocialButton.setTextColor(R.color.light_grey);
 
         listMessageDialog = new ArrayList<>();
@@ -85,44 +87,32 @@ public class SocialPageActivity extends AppCompatActivity {
         messageDialogListViewAdapter = new MessageDialogListViewAdapter(listMessageDialog);
         messageDialogListView.setAdapter(messageDialogListViewAdapter);
 
-        messageDialogListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
-                startActivity(intent);
-            }
+        messageDialogListView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
+            startActivity(intent);
         });
 
-        listUser = new ArrayList<>();
-        listUser.add(new User());
-        listUser.add(new User());
-        listUser.add(new User());
-        listUser.add(new User());
-        listUser.add(new User());
-        listUser.add(new User());
-        listUser.add(new User());
-        listUser.add(new User());
+       fbHelper.getFriendList(userID, users -> {
+           socialPageFriendListViewAdapter = new SocialPageFriendListViewAdapter(users, this);
+           socialPageFriendsListView.setAdapter(socialPageFriendListViewAdapter);
 
-        socialPageFriendListViewAdapter = new SocialPageFriendListViewAdapter(listUser);
-        socialPageFriendsListView.setAdapter(socialPageFriendListViewAdapter);
+           socialPageFriendsListView.setOnItemClickListener((parent, view, position, id) -> {
+               Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
+               startActivity(intent);
+           });
+       });
 
-        socialPageFriendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
-                startActivity(intent);
-            }
-        });
+        fbHelper.readUser(userID, user -> {
+            fbHelper.getFriendRequest(user.username, users -> {
+                socialPageFriendRequestListViewAdapter = new SocialPageFriendRequestListViewAdapter(users, this);
+                socialPageFriendsRequestListView.setAdapter(socialPageFriendRequestListViewAdapter);
 
-        socialPageFriendRequestListViewAdapter = new SocialPageFriendRequestListViewAdapter(listUser);
-        socialPageFriendsRequestListView.setAdapter(socialPageFriendRequestListViewAdapter);
+                socialPageFriendsRequestListView.setOnItemClickListener((parent, view, position, id) -> {
+                    Intent intent = new Intent(getApplicationContext(), ViewProfilePageActivity.class);
+                    startActivity(intent);
+                });
 
-        socialPageFriendsRequestListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ViewProfilePageActivity.class);
-                startActivity(intent);
-            }
+            });
         });
         menuBarHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(SocialPageActivity.this, HomePageActivity.class);
@@ -176,6 +166,7 @@ public class SocialPageActivity extends AppCompatActivity {
         });
 
         socialPageFriendsRequestBackButton.setOnClickListener(v -> {
+            socialPageFriendRequestListViewAdapter.notifyDataSetChanged();
             SocialPageFriendsListDisplayLayout.setVisibility(View.VISIBLE);
             socialPageFriendsRequestDisplayLayout.setVisibility(View.GONE);
 

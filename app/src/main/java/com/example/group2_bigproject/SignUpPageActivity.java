@@ -66,12 +66,16 @@ public class SignUpPageActivity extends AppCompatActivity {
                     }
                     User user = new User(username.getText().toString(), email.getText().toString(), password.getText().toString());
                     dbUsers.add(user).addOnSuccessListener(documentReference -> {
-                        friendRequest friendRequest = new friendRequest(documentReference.getId());
+                        friendRequest friendRequest = new friendRequest(documentReference.getId(), user.username);
                         CollectionReference dbFriendRequestList = db.collection("FriendRequests");
                         dbFriendRequestList.add(friendRequest).addOnCompleteListener(task1 -> {
-                            Toast.makeText(this, "user added to firebase", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignUpPageActivity.this, SignInPageActivity.class);
-                            startActivity(intent);
+                            CollectionReference dbFriendList = db.collection("FriendList");
+                            FriendList friendList = new FriendList(documentReference.getId(), user.username);
+                            dbFriendList.add(friendList).addOnCompleteListener(task2 -> {
+                                Toast.makeText(this, "user added to firebase", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUpPageActivity.this, SignInPageActivity.class);
+                                startActivity(intent);
+                            });
                         });
                     });
                 } else {

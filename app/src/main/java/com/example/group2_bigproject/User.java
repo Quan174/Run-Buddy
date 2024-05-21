@@ -25,4 +25,16 @@ public class User {
         this.height = "180";
         this.weight = "80";
     }
+    public int isEqual(User user) {
+        return this.username.compareTo(user.username)
+                + this.email.compareTo(user.email)
+                + this.password.compareTo(user.password)
+                + this.name.compareTo(user.name)
+                + this.gender.compareTo(user.gender)
+                + this.birthday.compareTo(user.birthday)
+                + this.phone.compareTo(user.phone)
+                + this.address.compareTo(user.address)
+                + this.height.compareTo(user.height)
+                + this.weight.compareTo(user.weight);
+    }
 }
