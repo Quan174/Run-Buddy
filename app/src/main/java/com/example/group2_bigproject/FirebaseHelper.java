@@ -305,7 +305,7 @@ public class FirebaseHelper {
                         documentID = document.getId();
                     }
                 }
-                messages.add(new Message(targetUser, currentUser, message));
+                messages.add(new Message(currentUser, targetUser, message));
                 if (documentID != null) {
                     dbMessageDialog.document(documentID).update("messageList", messages);
                 } else {
