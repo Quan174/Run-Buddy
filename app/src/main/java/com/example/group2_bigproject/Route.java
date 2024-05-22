@@ -23,6 +23,9 @@ public class Route {
     public String date;
 
     public Route(){}
+    public Route(String routeName){
+        this.routeName = routeName;
+    }
     public Route(String userID, ArrayList<LatLng> latLngArrayList, int length, String time) {
         this.latLngArrayList = new ArrayList<>();
         for(LatLng latLng : latLngArrayList) {

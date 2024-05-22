@@ -1,28 +1,23 @@
 package com.example.group2_bigproject;
 
 import android.Manifest;
-import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -36,10 +31,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.android.gms.tasks.Task;
 
-import java.io.FileOutputStream;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MapPageActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -48,8 +44,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
     private ConstraintLayout mapSavedRoutesButton;
     private TextView mapSuggestedRoutesButtonText;
     private TextView mapSavedRoutesButtonText;
-    private HorizontalScrollView mapSuggestedRoutesLayout;
-    private HorizontalScrollView mapSavedRoutesLayout;
+
     private TextView menuBarHomeButton;
     private TextView menuBarRoutesButton;
     private TextView menuBarMapButton;
@@ -66,12 +61,15 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
     static int FINE_PERMISSION_CODE = 1;
     private String userID;
 
+    private ArrayList<Route> routeList;
+    private RecyclerView routeQuickViewRecyclerView;
+    private RouteQuickViewAdapter routeQuickViewAdapter;
+
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_page);
-        mapSuggestedRoutesLayout = findViewById(R.id.mapSuggestedRoutesLayout);
         mapStartTrackingButton = findViewById(R.id.mapStartTrackingButton);
         menuBarHomeButton =findViewById(R.id.menuBarHomeButton);
         menuBarRoutesButton = findViewById(R.id.menuBarRoutesButton);
@@ -148,6 +146,20 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
 //            mapCyclingButton.setImageResource(R.drawable.black_circle_shape);
 //            mapWalkingButton.setImageResource(R.drawable.circle_shape);
 //        });
+
+        //Route Quick View setup here
+        routeList = new ArrayList<>();
+        routeList.add(new Route("Route 1"));
+        routeList.add(new Route("Route 2"));
+        routeList.add(new Route("Route 3"));
+        routeList.add(new Route("Route 4"));
+        routeList.add(new Route("Route 5"));
+        routeList.add(new Route("Route 6"));
+
+        routeQuickViewRecyclerView = findViewById(R.id.routeQuickView);
+        routeQuickViewRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        routeQuickViewAdapter = new RouteQuickViewAdapter(routeList);
+        routeQuickViewRecyclerView.setAdapter(routeQuickViewAdapter);
     }
 
     @Override

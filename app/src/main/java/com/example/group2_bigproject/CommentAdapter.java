@@ -48,7 +48,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         holder.time.setText(currentItem.getTime());
         holder.cmtText.setText(currentItem.getCmtText());
         holder.userName.setText(currentItem.getUserName());
-        MyUtil.setImageButtonBackground(holder.itemView.getContext(), currentItem.getAvaUser(),holder.avaUser);
+        holder.avaUser.setImageResource(currentItem.getAvaUser());
         holder.avaUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

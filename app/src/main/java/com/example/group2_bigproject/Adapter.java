@@ -62,7 +62,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
         holder.postDate.setText(currentItem.getDate());
         holder.postDescription.setText(currentItem.getDescription());
         holder.userName.setText(currentItem.getUserName());
-        MyUtil.setImageButtonBackground(holder.itemView.getContext(), currentItem.getAvaUser(),holder.avaUser);
+        holder.avaUser.setImageResource(currentItem.getImageResource());
         holder.avaUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
