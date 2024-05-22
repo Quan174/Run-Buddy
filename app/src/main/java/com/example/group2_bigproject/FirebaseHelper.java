@@ -24,6 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class FirebaseHelper {
     private FirebaseFirestore db;
@@ -434,5 +435,100 @@ public class FirebaseHelper {
                 }
             });
         }
+    }
+
+    public void saveRouteByRouteID(String routeID, String name, String description) {
+        CollectionReference dbRoutes = db.collection("routeHistory");
+        dbRoutes.whereEqualTo("routeID", routeID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                String documentID = null;
+                for(QueryDocumentSnapshot document: task.getResult()){
+                    documentID = document.getId();
+                }
+                saveRoute(documentID, name, description);
+            }
+        });
+    }
+
+    public void savePost(String date, String userName, String description, String userID, String routeID){
+        CollectionReference dbPost = db.collection("postList");
+        dbPost.add(new PostItem(date, userName, description, userID, routeID)).addOnCompleteListener(task -> {
+           Log.d("ADDPOST", "post added");
+        });
+    }
+
+    public void getPost(String userID, String userName, getPostCallBack callBack){
+        getFriendList(userID, users -> {
+            HashSet<String> userNames = new HashSet<>();
+            for(User user : users){
+                userNames.add(user.username);
+            }
+            userNames.add(userName);
+            CollectionReference dbPost = db.collection("postList");
+            dbPost.get().addOnCompleteListener(task -> {
+                ArrayList<PostItem> posts = new ArrayList<>();
+               if(task.isSuccessful()){
+                   for (QueryDocumentSnapshot document: task.getResult()){
+                       if (userNames.contains(document.toObject(PostItem.class).userName)){
+                           posts.add(document.toObject(PostItem.class));
+                       }
+                   }
+                   callBack.getPost(posts);
+               }
+            });
+        });
+    }
+
+    public void getPostIDByPost(PostItem postItem, getPostIDByPostCallBack callBack){
+        CollectionReference dbPost = db.collection("postList");
+        dbPost.whereEqualTo("userID", postItem.userID).get().addOnCompleteListener(task -> {
+           if (task.isSuccessful()){
+               String documentID = null;
+               for (QueryDocumentSnapshot document : task.getResult()){
+                   PostItem temp = document.toObject(PostItem.class);
+                   if(temp.date.compareTo(postItem.date)+temp.description.compareTo(postItem.description)+temp.routeID.compareTo(postItem.routeID)==0){
+                       documentID = document.getId();
+                   }
+               }
+               callBack.getPostIDByPost(documentID);
+           }
+        });
+    }
+
+    public void getPostByPostID(String postID, getPostByPostID callBack){
+        CollectionReference dbPost = db.collection("postList");
+        dbPost.document(postID).get().addOnCompleteListener(task -> {
+           if(task.isSuccessful()){
+               callBack.getPostByPostID(task.getResult().toObject(PostItem.class));
+           }
+        });
+    }
+
+    public void addComment(String postID, CommentItem comment){
+        getPostByPostID(postID, postItem -> {
+            ArrayList<CommentItem> commentItems = new ArrayList<>();
+            commentItems = postItem.comments;
+            commentItems.add(comment);
+            db.collection("postList").document(postID).update("comments", commentItems);
+        });
+    }
+
+    public void postListener(String userID, String userName, postListenerCallBack callBack){
+        getFriendList(userID, users -> {
+            HashSet<String> userNames = new HashSet<>();
+            for(User user : users){
+                userNames.add(user.username);
+            }
+            userNames.add(userName);
+            db.collection("postList").addSnapshotListener((value, error) -> {
+                ArrayList<PostItem> postList = new ArrayList<>();
+                for(QueryDocumentSnapshot document: value){
+                    if(userNames.contains(document.toObject(PostItem.class).userName)){
+                        postList.add(document.toObject(PostItem.class));
+                    }
+                }
+                callBack.postListener(postList);
+            });
+        });
     }
 }

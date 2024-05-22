@@ -3,6 +3,7 @@ package com.example.group2_bigproject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,21 +18,24 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
     private List<PostItem> postList;
+    public SharedPreferencesHelper pfHelper;
+    public FirebaseHelper fbHelper;
+    public Context context;
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        public ImageView avaUser, postImage;
         public ImageButton likeBtn, commentBtn, shareBtn, optionBtn;
         public TextView postDate;
         public TextView userName;
         public TextView postDescription;
+        public ImageView avaUser;
 
         public PostViewHolder(View itemView) {
             super(itemView);
-            postImage = itemView.findViewById(R.id.imgPost);
             avaUser = itemView.findViewById(R.id.avaUser);
             likeBtn = itemView.findViewById(R.id.btn_like);
             commentBtn = itemView.findViewById(R.id.cmtBtn);
@@ -43,7 +47,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
         }
     }
 
-    public Adapter(List<PostItem> postList, Activity context) {
+    public Adapter(List<PostItem> postList, Context context) {
+        this.postList = postList;
+        this.context = context;
+        pfHelper = new SharedPreferencesHelper(context);
+        fbHelper = new FirebaseHelper(context);
+    }
+
+    public void updatePostList(ArrayList<PostItem> postList){
         this.postList = postList;
     }
 
@@ -58,17 +69,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
     @Override
     public void onBindViewHolder(PostViewHolder holder, int position) {
         PostItem currentItem = postList.get(position);
-        holder.postImage.setImageResource(currentItem.getImageResource());
-        holder.postDate.setText(currentItem.getDate());
-        holder.postDescription.setText(currentItem.getDescription());
-        holder.userName.setText(currentItem.getUserName());
-        MyUtil.setImageButtonBackground(holder.itemView.getContext(), currentItem.getAvaUser(),holder.avaUser);
+        holder.postDate.setText(currentItem.date);
+        holder.postDescription.setText(currentItem.description);
+        holder.userName.setText(currentItem.userName);
+
         holder.avaUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(holder.itemView.getContext(), "Clicked ava", Toast.LENGTH_SHORT).show();
-                /* Navigating to author's profile */
-
+                Intent intent = new Intent(context, ViewProfilePageActivity.class);
+                context.startActivity(intent);
             }
         });
 
@@ -76,8 +85,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(holder.itemView.getContext(), PostActivity.class);
-                intent.putExtra("post_item", currentItem);
-                holder.itemView.getContext().startActivity(intent);            }
+                fbHelper.getPostIDByPost(currentItem, postID -> {
+                    intent.putExtra("postID", postID);
+                    holder.itemView.getContext().startActivity(intent);
+                });
+            }
         });
 
         holder.likeBtn.setOnClickListener(new View.OnClickListener() {
@@ -87,12 +99,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
             }
         });
 
-        holder.shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(holder.itemView.getContext(), "Clicked share", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        holder.shareBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(holder.itemView.getContext(), "Clicked share", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         holder.optionBtn.setOnClickListener(new View.OnClickListener() {
             @Override

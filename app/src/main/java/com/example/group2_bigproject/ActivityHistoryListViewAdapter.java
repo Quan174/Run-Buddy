@@ -98,7 +98,8 @@ class ActivityHistoryListViewAdapter extends BaseAdapter implements OnMapReadyCa
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ResultPageActivity.class);
-                intent.putExtra("runHistoryID", route.routeID);
+                intent.putExtra("routeID", route.routeID);
+                intent.putExtra("isFromHistory", true);
                 mContext.startActivity(intent);
             }
         });

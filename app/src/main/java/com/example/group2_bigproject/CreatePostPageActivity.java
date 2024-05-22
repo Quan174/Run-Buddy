@@ -17,6 +17,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class CreatePostPageActivity extends AppCompatActivity {
     private SharedPreferencesHelper spHelper;
     TextView createPostPageBackButton;
@@ -27,6 +30,7 @@ public class CreatePostPageActivity extends AppCompatActivity {
     TextView resultDisplayDetailText;
     TextView routeNameTextView;
     private String userID;
+    FirebaseHelper fbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,14 +45,26 @@ public class CreatePostPageActivity extends AppCompatActivity {
         resultDisplayDetailText = findViewById(R.id.resultDisplayDetailText);
         routeNameTextView = findViewById(R.id.routeNameTextView);
 
+        String routeID = getIntent().getStringExtra("routeID");
         String format = getIntent().getStringExtra("format");
-
         if(format.equals("result")){
             createPostResultDisplay.setVisibility(View.VISIBLE);
+
         } else {
             createPostRouteDisplay.setVisibility(View.VISIBLE);
         }
+        fbHelper = new FirebaseHelper(this);
+
         createPostPageBackButton.setOnClickListener(v -> finish());
-        createPostButton.setOnClickListener(v -> finish());
+        createPostButton.setOnClickListener(v -> {
+            if(!contentEditText.getText().toString().isEmpty()){
+                Date currentTime = Calendar.getInstance().getTime();
+                fbHelper.savePost(currentTime.toString(), spHelper.getUsername(), contentEditText.getText().toString(), spHelper.getSessionID(), routeID);
+                finish();
+            } else {
+                Toast.makeText(this, "No content", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 }

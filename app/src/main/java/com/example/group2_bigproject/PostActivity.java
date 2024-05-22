@@ -2,8 +2,10 @@ package com.example.group2_bigproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,18 +17,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class PostActivity extends AppCompatActivity {
 
     ImageButton backBtn;
-    ImageView postImg, avaUser;
+    ImageView avaUser, sendButton;
     TextView description, date, username;
-
+    EditText commentField;
     RecyclerView commentRecyclerView;
     List<CommentItem> cmtItemList;
     CommentAdapter commentAdapter;
     ImageButton likeBtn, commentBtn, shareBtn, optionBtn;
+    String postID;
+    FirebaseHelper fbHelper;
+    SharedPreferencesHelper phHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,39 +50,43 @@ public class PostActivity extends AppCompatActivity {
         username = findViewById(R.id.textView_Username);
         date = findViewById(R.id.textView_Date);
         description = findViewById(R.id.textView_PostText);
+        commentField = findViewById(R.id.commentField);
+        sendButton = findViewById(R.id.sendButton);
 
-        postImg = findViewById(R.id.imgPost);
+        postID = getIntent().getStringExtra("postID");
 
-        PostItem postItem = getIntent().getParcelableExtra("post_item");
-        if (postItem != null){
-            username.setText(postItem.getUserName());
-            date.setText(postItem.getDate());
-            description.setText(postItem.getDescription());
-            MyUtil.setImageButtonBackground(this, postItem.getAvaUser(), avaUser);
-            postImg.setImageResource(postItem.getImageResource());
-        }
+        phHelper = new SharedPreferencesHelper(this);
+        fbHelper = new FirebaseHelper(this);
+        fbHelper.getPostByPostID(postID, postItem -> {
+            username.setText(postItem.userName);
+            date.setText(postItem.date);
+            description.setText(postItem.description);
+            commentAdapter = new CommentAdapter(postItem.comments, this);
+            commentRecyclerView.setAdapter(commentAdapter);
+        });
+
+        sendButton.setOnClickListener(v -> {
+            Date currentTime = Calendar.getInstance().getTime();
+            fbHelper.addComment(postID, new CommentItem(phHelper.getUsername(), commentField.getText().toString(), currentTime.toString()));
+            commentField.setText("");
+        });
+
+
+
+//        PostItem postItem = getIntent().getParcelableExtra("post_item");
+//        if (postItem != null){
+//            username.setText(postItem.getUserName());
+//            date.setText(postItem.getDate());
+//            description.setText(postItem.getDescription());
+//            MyUtil.setImageButtonBackground(this, postItem.getAvaUser(), avaUser);
+//            postImg.setImageResource(postItem.getImageResource());
+//        }
 
 
         commentRecyclerView = findViewById(R.id.commentRecyclerView);
         commentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        cmtItemList = new ArrayList<>();
-        cmtItemList.add(new CommentItem(R.drawable.facebook_logo, "Duc",
-                "It's so bad", "1 day"));
-        cmtItemList.add(new CommentItem(R.drawable.ava, "Quan be",
-                "It's normal", "3h"));
-        cmtItemList.add(new CommentItem(R.drawable.image1, "Trung",
-                "Dc dey chu", "45m"));
-        cmtItemList.add(new CommentItem(R.drawable.google_logo, "Quan Lon",
-                "kimchi han wuoc", "3 days"));
 
-
-
-
-
-
-        commentAdapter = new CommentAdapter(cmtItemList);
-        commentRecyclerView.setAdapter(commentAdapter);
 
 
 
@@ -105,11 +116,11 @@ public class PostActivity extends AppCompatActivity {
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MyUtil.containsSensitiveWords(PostActivity.this, postItem.getDescription()) ){
-                    Toast.makeText(PostActivity.this, "Noi dung tuc tiu", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(PostActivity.this, "Noi dung oke", Toast.LENGTH_SHORT).show();
-                }
+//                if(MyUtil.containsSensitiveWords(PostActivity.this, postItem.getDescription()) ){
+//                    Toast.makeText(PostActivity.this, "Noi dung tuc tiu", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(PostActivity.this, "Noi dung oke", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 

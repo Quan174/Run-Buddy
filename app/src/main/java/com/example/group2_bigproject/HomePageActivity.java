@@ -32,6 +32,7 @@ public class HomePageActivity extends AppCompatActivity {
     TextView menuBarSocialButton;
     TextView menuBarProfileButton;
     EditText toolBarSearchInput;
+    FirebaseHelper fbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +49,16 @@ public class HomePageActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        postItemList = new ArrayList<>();
-        postItemList.add(new PostItem(R.drawable.image1, R.drawable.round_person_24, "25/5/2024", "Trung", "Sexx khong em"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.google_logo,"26/5/2024", "Quan be", "Second Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, android.R.drawable.ic_notification_overlay,"27/5/2024", "Quan lon", "Third Test"));
-        postItemList.add(new PostItem(R.drawable.facebook_logo, R.drawable.ava,"28/5/2024", "Duc", "4th Test"));
-        postItemList.add(new PostItem(R.drawable.ava, R.drawable.picture ,"29/5/2024", "Quang", "5th Test"));
-
         userID = spHelper.getSessionID();
-        adapter = new Adapter(postItemList, this);
-        recyclerView.setAdapter(adapter);
+        fbHelper = new FirebaseHelper(this);
+        fbHelper.getPost(userID, spHelper.getUsername(), posts -> {
+            adapter = new Adapter(posts, this);
+            recyclerView.setAdapter(adapter);
+        });
+        fbHelper.postListener(userID, spHelper.getUsername(), postList -> {
+            adapter.updatePostList(postList);
+            adapter.notifyDataSetChanged();
+        });
 
         menuBarHomeButton.setTextColor(getResources().getColor(R.color.light_grey));
 

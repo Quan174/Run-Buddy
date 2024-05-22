@@ -136,6 +136,7 @@ public class RouteViewActivity extends AppCompatActivity {
         routeViewShareButton.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), CreatePostPageActivity.class);
             intent.putExtra("format", "route");
+            intent.putExtra("routeID", routeID);
             startActivity(intent);
         });
         routeViewBackButton.setOnClickListener(v -> finish());

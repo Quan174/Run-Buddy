@@ -1,5 +1,7 @@
 package com.example.group2_bigproject;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,9 @@ import java.util.List;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
     private List<CommentItem> cmtList;
+    public SharedPreferencesHelper pfHelper;
+    public FirebaseHelper fbHelper;
+    public Context context;
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
         public ImageView avaUser;
@@ -30,8 +35,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         }
     }
 
-    public CommentAdapter(List<CommentItem> cmtList) {
+    public CommentAdapter(List<CommentItem> cmtList, Context context) {
         this.cmtList = cmtList;
+        this.context = context;
+        fbHelper = new FirebaseHelper(context);
+        pfHelper = new SharedPreferencesHelper(context);
     }
 
     @NonNull
@@ -45,16 +53,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @Override
     public void onBindViewHolder(CommentAdapter.CommentViewHolder holder, int position) {
         CommentItem currentItem = cmtList.get(position);
-        holder.time.setText(currentItem.getTime());
-        holder.cmtText.setText(currentItem.getCmtText());
-        holder.userName.setText(currentItem.getUserName());
-        holder.avaUser.setImageResource(currentItem.getAvaUser());
+        holder.time.setText(currentItem.time);
+        holder.cmtText.setText(currentItem.cmtText);
+        holder.userName.setText(currentItem.userName);
         holder.avaUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(holder.itemView.getContext(), "Clicked ava", Toast.LENGTH_SHORT).show();
-                /* Navigating to author's profile */
-
+                Intent intent = new Intent(context, ViewProfilePageActivity.class);
+                context.startActivity(intent);
             }
         });
 

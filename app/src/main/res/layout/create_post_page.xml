@@ -81,7 +81,7 @@
                     android:id="@+id/createPostResultDisplay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
+                    android:visibility="invisible"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
