@@ -80,22 +80,9 @@
         app:layout_constraintStart_toStartOf="parent">
 
 
-        <ImageView
-            android:id="@+id/chatScreenPictureButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/picture"
-            app:tint="@color/orange"
-            tools:srcCompat="@drawable/picture" />
-
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/chatTyper"
-            android:layout_width="280dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:background="@drawable/white_rounded_edges"
             android:hint="Aa"
@@ -103,7 +90,7 @@
             android:paddingVertical="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sendButton"
-            app:layout_constraintStart_toEndOf="@+id/chatScreenPictureButton"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.466" />
 
@@ -125,13 +112,13 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="660dp"
+        android:layout_height="0dp"
         android:background="#FFFFFF"
-        android:maxHeight="660dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
 
 
         <ListView

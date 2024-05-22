@@ -59,7 +59,7 @@ public class HomePageActivity extends AppCompatActivity {
         adapter = new Adapter(postItemList, this);
         recyclerView.setAdapter(adapter);
 
-
+        menuBarHomeButton.setTextColor(getResources().getColor(R.color.light_grey));
 
         menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override
