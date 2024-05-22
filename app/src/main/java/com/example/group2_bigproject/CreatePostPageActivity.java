@@ -1,13 +1,20 @@
 package com.example.group2_bigproject;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.bumptech.glide.Glide;
 
 public class CreatePostPageActivity extends AppCompatActivity {
     private SharedPreferencesHelper spHelper;
@@ -15,6 +22,7 @@ public class CreatePostPageActivity extends AppCompatActivity {
     TextView createPostButton;
     ConstraintLayout createPostResultDisplay;
     ConstraintLayout createPostRouteDisplay;
+    TextView chooseRouteButton;
     private String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,8 @@ public class CreatePostPageActivity extends AppCompatActivity {
         createPostButton = findViewById(R.id.createPostButton);
         createPostResultDisplay = findViewById(R.id.createPostResultDisplay);
         createPostRouteDisplay = findViewById(R.id.createPostRouteDisplay);
+        chooseRouteButton = findViewById(R.id.chooseRouteButton);
+        chooseRouteButton = findViewById(R.id.chooseRouteButton);
         String format = getIntent().getStringExtra("format");
 
         if(format.equals("result")){
@@ -36,5 +46,8 @@ public class CreatePostPageActivity extends AppCompatActivity {
         createPostPageBackButton.setOnClickListener(v -> finish());
         createPostButton.setOnClickListener(v -> finish());
 
+        chooseRouteButton.setOnClickListener(v -> {
+            //Open choose route/results dialog
+        });
     }
 }

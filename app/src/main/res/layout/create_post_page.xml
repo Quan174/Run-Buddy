@@ -54,25 +54,44 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
 
-            <EditText
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="200dp"
-                android:hint="Your content goes here..."
-                android:textStyle="bold"
-                android:padding="10dp"
-                />
+                android:minHeight="200dp">
+
+                <EditText
+                    android:id="@+id/contentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Your content goes here..."
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/chooseRouteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/received_messages"
+                    android:text="Choose Route/Result"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:visibility="invisible"
                     android:id="@+id/createPostResultDisplay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent">
-
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="match_parent"
@@ -80,7 +99,6 @@
                         android:text="Today at 9:19 AM - Hanoi, Vietnam\nDistance: 20.08 km | Pace: 10 km/h | Moving Time: 2:01:15"
                         android:textAlignment="center"
                         android:textColor="@color/light_grey" />
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -99,7 +117,7 @@
                     app:layout_constraintTop_toTopOf="@+id/createPostResultDisplay">
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/routeNameTextView"
                         android:layout_marginStart="30dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -110,12 +128,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
+                        android:id="@+id/routeImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4"
+                        app:layout_constraintTop_toBottomOf="@+id/routeNameTextView"
                         app:srcCompat="@drawable/screenshot_2024_05_06_160853" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
