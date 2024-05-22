@@ -4,11 +4,13 @@ import static com.google.android.material.internal.ContextUtils.getActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
@@ -45,6 +47,7 @@ class ActivityHistoryListViewAdapter extends BaseAdapter implements OnMapReadyCa
     private TextView distance;
     private TextView runTime;
     private GoogleMap map;
+    Button button;
 
     ActivityHistoryListViewAdapter(ArrayList<Route> listRoute, Context context) {
         this.listRoute = listRoute;
@@ -90,6 +93,15 @@ class ActivityHistoryListViewAdapter extends BaseAdapter implements OnMapReadyCa
         for (customLatLng customLatLng : route.latLngArrayList) {
             myRoute.add(new LatLng(customLatLng.latitude, customLatLng.longitude));
         }
+        button = viewRoute.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ResultPageActivity.class);
+                intent.putExtra("runHistoryID", route.routeID);
+                mContext.startActivity(intent);
+            }
+        });
         mapView = viewRoute.findViewById(R.id.map);
         if (mapView != null) {
             // Initialise the MapView

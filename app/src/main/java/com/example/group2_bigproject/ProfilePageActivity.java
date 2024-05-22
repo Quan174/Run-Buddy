@@ -127,7 +127,12 @@ public class ProfilePageActivity extends AppCompatActivity{
 
         profilePageActivityHistoryLayout = findViewById(R.id.profilePageActivityHistoryLayout);
         activityHistoryListView = findViewById(R.id.activityHistoryListView);
-
+        profilePageActivityHistoryLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ProfilePageActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
         userID = spHelper.getSessionID();
         Toast.makeText(this, userID, Toast.LENGTH_SHORT).show();
 
@@ -147,15 +152,18 @@ public class ProfilePageActivity extends AppCompatActivity{
             Log.d("routesSize is ", listRoute.size() + "");
             activityHistoryListViewAdapter = new ActivityHistoryListViewAdapter(listRoute, this);
             activityHistoryListView.setAdapter(activityHistoryListViewAdapter);
-            activityHistoryListView.setOnItemClickListener((parent, view, position, id) -> {
-                Route route = (Route) activityHistoryListViewAdapter.getItem(position);
-                //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
-//                Toast.makeText(ProfilePageActivity.this, route.routeName, Toast.LENGTH_LONG).show();
+            activityHistoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    Route route = (Route) activityHistoryListViewAdapter.getItem(i);
+                    //Làm gì đó khi chọn sản phẩm (ví dụ tạo một Activity hiện thị chi tiết, biên tập ..)
+//                    Toast.makeText(ProfilePageActivity.this, route.routeName, Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(ProfilePageActivity.this, HomePageActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
+                    Intent intent = new Intent(ProfilePageActivity.this, HomePageActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
             });
         });
 
@@ -329,6 +337,4 @@ public class ProfilePageActivity extends AppCompatActivity{
             }
         }
     }
-
-
 }

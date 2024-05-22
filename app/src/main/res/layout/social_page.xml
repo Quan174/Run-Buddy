@@ -52,11 +52,12 @@
     <LinearLayout
         android:id="@+id/socialPageMessagesDisplayLayout"
         android:layout_width="match_parent"
-        android:layout_height="625dp"
+        android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/include4"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -142,7 +143,7 @@
             <ListView
                 android:id="@+id/socialPageFriendsListView"
                 android:layout_width="match_parent"
-                android:layout_height="570dp"/>
+                android:layout_height="match_parent"/>
         </LinearLayout>
         <LinearLayout
             android:visibility="gone"
