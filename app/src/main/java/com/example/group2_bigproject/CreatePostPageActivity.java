@@ -34,8 +34,6 @@ public class CreatePostPageActivity extends AppCompatActivity {
         createPostButton = findViewById(R.id.createPostButton);
         createPostResultDisplay = findViewById(R.id.createPostResultDisplay);
         createPostRouteDisplay = findViewById(R.id.createPostRouteDisplay);
-        chooseRouteButton = findViewById(R.id.chooseRouteButton);
-        chooseRouteButton = findViewById(R.id.chooseRouteButton);
 //        String format = getIntent().getStringExtra("format");
 //
 //        if(format.equals("result")){
