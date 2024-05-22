@@ -140,7 +140,7 @@
             android:layout_height="match_parent"
             android:divider="@android:color/transparent"
             android:dividerHeight="3dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:stackFromBottom="true"
             android:transcriptMode="normal" />
 
