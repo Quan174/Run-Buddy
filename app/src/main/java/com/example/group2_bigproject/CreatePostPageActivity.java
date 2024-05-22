@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,8 +42,6 @@ public class CreatePostPageActivity extends AppCompatActivity {
         routeNameTextView = findViewById(R.id.routeNameTextView);
 
         String format = getIntent().getStringExtra("format");
-        String routeID = getIntent().getStringExtra("routeID");
-        Log.d("ROUTE ID IS FROM CREATEPOST", routeID);
 
         if(format.equals("result")){
             createPostResultDisplay.setVisibility(View.VISIBLE);
