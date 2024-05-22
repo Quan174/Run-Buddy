@@ -20,13 +20,13 @@ import java.util.List;
 public class PostActivity extends AppCompatActivity {
 
     ImageButton backBtn;
-    ImageView postImg;
+    ImageView postImg, avaUser;
     TextView description, date, username;
 
     RecyclerView commentRecyclerView;
     List<CommentItem> cmtItemList;
     CommentAdapter commentAdapter;
-    ImageButton avaUser, likeBtn, commentBtn, shareBtn, optionBtn;
+    ImageButton likeBtn, commentBtn, shareBtn, optionBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
