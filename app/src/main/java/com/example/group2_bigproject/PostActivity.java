@@ -18,12 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 public class PostActivity extends AppCompatActivity {
     ImageButton backBtn;
-    ImageView postImg;
+    ImageView avaUser, postImg;
     TextView description, date, username;
     RecyclerView commentRecyclerView;
     List<CommentItem> cmtItemList;
     CommentAdapter commentAdapter;
-    ImageButton avaUser, likeBtn, commentBtn, shareBtn, optionBtn;
+    ImageButton likeBtn, commentBtn, shareBtn, optionBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

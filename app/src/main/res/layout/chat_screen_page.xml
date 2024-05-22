@@ -1,149 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout10"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="54dp"
+        android:background="@color/orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout10"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="@color/orange"
-            app:layout_constraintEnd_toEndOf="parent"
+        <ImageView
+            android:id="@+id/chatScreenBackButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="Back"
+            android:src="@drawable/arrow_small_left"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
 
-            <ImageView
-                android:id="@+id/chatScreenBackButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:contentDescription="Back"
-                android:src="@drawable/arrow_small_left"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:text="Username1"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-                android:id="@+id/textView32"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="4dp"
-                android:text="Username1"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView7"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="48dp"
+            android:layout_height="34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/chatScreenBackButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/black_circle_shape"
+            android:contentDescription="Ava" />
 
 
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="48dp"
-                android:layout_height="34dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/chatScreenBackButton"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/black_circle_shape"
-                android:contentDescription="Ava" />
-
-
-            <ImageView
-                android:id="@+id/chatScreenSettingsButton"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/menu_dots"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/lighter_grey"
+        <ImageView
+            android:id="@+id/chatScreenSettingsButton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/menu_dots"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:elevation="10dp">
-
-
-            <ImageView
-                android:id="@+id/chatScreenPictureButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/picture"
-                app:tint="@color/orange"
-                tools:srcCompat="@drawable/picture" />
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/chatTyper"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_rounded_edges"
-                android:hint="Aa"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="3dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/sendButton"
-                app:layout_constraintStart_toEndOf="@+id/chatScreenPictureButton"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.466" />
-
-
-            <ImageView
-                android:id="@+id/sendButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/paper_plane_top"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/orange"
-                tools:srcCompat="@drawable/paper_plane_top" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="407dp"
-            android:layout_height="793dp"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
-
-
-            <ListView
-                android:id="@+id/messageListView"
-                android:layout_width="match_parent"
-                android:layout_height="745dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="3dp"
-                android:paddingTop="10dp"
-                android:stackFromBottom="true"
-                android:transcriptMode="normal" />
-
-
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/lighter_grey"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ImageView
+            android:id="@+id/chatScreenPictureButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/picture"
+            app:tint="@color/orange"
+            tools:srcCompat="@drawable/picture" />
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/chatTyper"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_rounded_edges"
+            android:hint="Aa"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sendButton"
+            app:layout_constraintStart_toEndOf="@+id/chatScreenPictureButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.466" />
+
+
+        <ImageView
+            android:id="@+id/sendButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/paper_plane_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/orange"
+            tools:srcCompat="@drawable/paper_plane_top" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="660dp"
+        android:background="#FFFFFF"
+        android:maxHeight="660dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ListView
+            android:id="@+id/messageListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="3dp"
+            android:paddingBottom="10dp"
+            android:stackFromBottom="true"
+            android:transcriptMode="normal" />
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
