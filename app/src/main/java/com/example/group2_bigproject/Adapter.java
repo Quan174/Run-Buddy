@@ -1,5 +1,7 @@
 package com.example.group2_bigproject;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
         }
     }
 
-    public Adapter(List<PostItem> postList) {
+    public Adapter(List<PostItem> postList, Activity context) {
         this.postList = postList;
     }
 
@@ -107,7 +110,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
                             Toast.makeText(holder.itemView.getContext(), "Clicked block", Toast.LENGTH_SHORT).show();
                             return true;
                         } else if (itemId == R.id.reportBtn) {
-                            Toast.makeText(holder.itemView.getContext(), "Clicked reported", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(holder.itemView.getContext(), "Clicked report", Toast.LENGTH_SHORT).show();
+
                             return true;
                         } else {
                             return false;

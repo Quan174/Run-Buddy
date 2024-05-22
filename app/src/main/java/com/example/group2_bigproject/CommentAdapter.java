@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +18,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private List<CommentItem> cmtList;
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        public ImageButton avaUser;
+        public ImageView avaUser;
         public TextView time, userName, cmtText;
 
         public CommentViewHolder(View itemView) {
