@@ -48,6 +48,7 @@ public class ResultPageActivity extends AppCompatActivity {
 
         resultPageShareRouteButton.setOnClickListener(v -> {
             Intent intent = new Intent(ResultPageActivity.this, CreatePostPageActivity.class);
+            intent.putExtra("format", "result");
             startActivity(intent);
         });
     }

@@ -59,5 +59,11 @@ public class RouteViewActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        routeViewShareButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), CreatePostPageActivity.class);
+            intent.putExtra("format", "route");
+            startActivity(intent);
+        });
     }
 }
