@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
 
 public class RoutesPage extends AppCompatActivity {
+    private FirebaseHelper fbHelper;
     private SharedPreferencesHelper spHelper;
     TextView menuBarHomeButton;
     TextView menuBarRoutesButton;
@@ -32,7 +33,7 @@ public class RoutesPage extends AppCompatActivity {
         setContentView(R.layout.routes_page);
 
         spHelper = new SharedPreferencesHelper(this);
-
+        fbHelper = new FirebaseHelper(this);
         menuBarHomeButton = findViewById(R.id.menuBarHomeButton);
         menuBarRoutesButton = findViewById(R.id.menuBarRoutesButton);
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
@@ -44,26 +45,9 @@ public class RoutesPage extends AppCompatActivity {
         spHelper = new SharedPreferencesHelper(this);
         userID = spHelper.getSessionID();
 
-        listRoute = new ArrayList<>();
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-        listRoute.add(new Route());
-
-        routesPageRouteListViewAdapter = new RoutesPageRouteListViewAdapter(listRoute);
-        routesPageRoutesListView.setAdapter(routesPageRouteListViewAdapter);
-        routesPageRoutesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Route route = (Route) routesPageRouteListViewAdapter.getItem(position);
-
-                Intent intent = new Intent(getApplicationContext(), RouteViewActivity.class);
-                startActivity(intent);
-            }
+        fbHelper.searchAllSavedRoute(userID, routes -> {
+            routesPageRouteListViewAdapter = new RoutesPageRouteListViewAdapter(routes, this);
+            routesPageRoutesListView.setAdapter(routesPageRouteListViewAdapter);
         });
 
         menuBarHomeButton.setOnClickListener(v -> {

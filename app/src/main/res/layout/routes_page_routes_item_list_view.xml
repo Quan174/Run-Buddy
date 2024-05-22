@@ -6,13 +6,14 @@
     android:layout_height="wrap_content"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
-    <ImageView
-        android:id="@+id/activityHistoryRouteImage"
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/screenshot_2024_05_06_160853"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:liteMode="true"
+        app:mapType="normal" />
     <TextView
         android:id="@+id/activityHistoryRouteName"
         android:layout_width="wrap_content"
@@ -20,7 +21,7 @@
         android:layout_marginTop="10dp"
         android:text="Route's name"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/activityHistoryRouteImage"
+        app:layout_constraintStart_toEndOf="@+id/map"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -28,7 +29,7 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:src="@drawable/walking"
-        app:layout_constraintStart_toEndOf="@id/activityHistoryRouteImage"
+        app:layout_constraintStart_toEndOf="@id/map"
         app:layout_constraintTop_toBottomOf="@+id/activityHistoryRouteName"
         app:tint="@color/light_grey" />
 
@@ -38,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="xx.xx km"
         android:textColor="@color/light_grey"
-        app:layout_constraintStart_toEndOf="@id/activityHistoryRouteType"
+        app:layout_constraintStart_toEndOf="@id/map"
         app:layout_constraintTop_toBottomOf="@+id/activityHistoryRouteName" />
 
     <TextView
@@ -47,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="Street, District, City, Country"
         android:textColor="@color/light_grey"
-        app:layout_constraintStart_toEndOf="@id/activityHistoryRouteImage"
+        app:layout_constraintStart_toEndOf="@id/map"
         app:layout_constraintTop_toBottomOf="@+id/activityHistoryRouteDistance" />
 
     <TextView

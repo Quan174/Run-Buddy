@@ -11,9 +11,11 @@ import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -43,10 +45,10 @@ public class FirebaseHelper {
            }
         });
     }
-    public void saveRouteToRouteHistory(Route route){
+    public void saveRouteToRouteHistory(Route route, saveRouteToRunHistoryCallback callback){
         CollectionReference dbRunHistory = db.collection("routeHistory");
-        dbRunHistory.add(route).addOnCompleteListener(task -> {
-//            Toast.makeText(context, "Route saved successfully on Firebase!!!", Toast.LENGTH_SHORT).show();
+        dbRunHistory.add(route).addOnSuccessListener(documentReference -> {
+            callback.saveRouteToRunHistory(documentReference.getId());
         });
     }
 
@@ -385,4 +387,52 @@ public class FirebaseHelper {
         });
     }
 
+    public void saveRoute(String routeID, String name, String description) {
+        CollectionReference dbRoutes = db.collection("routeHistory");
+        dbRoutes.document(routeID).update("routeName", name, "routeDescripion", description).addOnCompleteListener(task -> {
+            Log.d("saveRoute", "Route saved to routes");
+        });
+    }
+
+    public void searchAllSavedRoute(String userID, RouteReader callback) {
+        CollectionReference dbRoutes = db.collection("routeHistory");
+        dbRoutes.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                ArrayList<Route> routeArrayList = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (document.toObject(Route.class).userID.compareTo(userID) == 0
+                            && document.toObject(Route.class).routeName.compareTo("UNSAVED") != 0 ) {
+                        routeArrayList.add(document.toObject(Route.class));
+                    }
+                }
+                callback.readRoute(routeArrayList);
+            }
+        });
+    }
+
+    public void getRouteFromRouteID(String userID, String routeID, String documentID, getRouteFromRouteIDCallback callback) {
+        if (documentID.compareTo("") == 0) {
+            CollectionReference dbRoutes = db.collection("routeHistory");
+            dbRoutes.whereEqualTo("routeID", routeID).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Route route = new Route();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (userID.compareTo(document.toObject(Route.class).userID) == 0) {
+                            route = document.toObject(Route.class);
+                        }
+                    }
+                    callback.getRouteFromRouteID(route);
+                }
+            });
+        } else {
+            CollectionReference dbRoutes = db.collection("routeHistory");
+            dbRoutes.document(documentID).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    Route route = document.toObject(Route.class);
+                    callback.getRouteFromRouteID(route);
+                }
+            });
+        }
+    }
 }

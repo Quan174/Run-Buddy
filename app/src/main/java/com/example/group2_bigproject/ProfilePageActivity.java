@@ -248,55 +248,51 @@ public class ProfilePageActivity extends AppCompatActivity{
         });
 
 
-        btn_editAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(ProfilePageActivity.this,btn_editAvatar);
-                getMenuInflater().inflate(R.menu.context_menu_avatar_profile,popupMenu.getMenu());
-                popupMenu.show();
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int n = item.getItemId();
-                        if (n == R.id.ProfileAvatarEditor) {
-                            sentRequestCode = 0;
+        btn_editAvatar.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(ProfilePageActivity.this,btn_editAvatar);
+            getMenuInflater().inflate(R.menu.context_menu_avatar_profile,popupMenu.getMenu());
+            popupMenu.show();
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    int n = item.getItemId();
+                    if (n == R.id.ProfileAvatarEditor) {
+                        sentRequestCode = 0;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                             ImageSelector.selectImage(ProfilePageActivity.this);
                         }
-                        if (n == R.id.ProfileBackgroundAvatarEditor) {
-                            sentRequestCode = 1;
-                            ImageSelector.selectImage(ProfilePageActivity.this);                        }
-                        return false;
                     }
-                });
-            }
+                    if (n == R.id.ProfileBackgroundAvatarEditor) {
+                        sentRequestCode = 1;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            ImageSelector.selectImage(ProfilePageActivity.this);
+                        }
+                    }
+                    return false;
+                }
+            });
         });
 
-        btn_settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(ProfilePageActivity.this,btn_settings);
-                getMenuInflater().inflate(R.menu.context_menu_setting_profile,popupMenu.getMenu());
-                popupMenu.show();
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int n = item.getItemId();
-                        if (n == R.id.BlockListViewer) {
-                            Intent intent = new Intent(ProfilePageActivity.this, ViewBlockPageActivity.class);
-                            startActivity(intent);
-                        }
-                        if (n == R.id.LogOutButton) {
-                            SharedPreferencesHelper sps = new SharedPreferencesHelper(getApplicationContext());
-                            sps.endSession();
-                            Intent intent = new Intent(ProfilePageActivity.this, WelcomePageActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
-                        return false;
-                    }
-                });
-            }
+        btn_settings.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(ProfilePageActivity.this,btn_settings);
+            getMenuInflater().inflate(R.menu.context_menu_setting_profile,popupMenu.getMenu());
+            popupMenu.show();
+            popupMenu.setOnMenuItemClickListener(item -> {
+                int n = item.getItemId();
+                if (n == R.id.BlockListViewer) {
+                    Intent intent = new Intent(ProfilePageActivity.this, ViewBlockPageActivity.class);
+                    startActivity(intent);
+                }
+                if (n == R.id.LogOutButton) {
+                    SharedPreferencesHelper sps = new SharedPreferencesHelper(getApplicationContext());
+                    sps.endSession();
+                    Intent intent = new Intent(ProfilePageActivity.this, WelcomePageActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+                return false;
+            });
         });
     }
 

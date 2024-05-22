@@ -111,6 +111,7 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
             Intent intent = new Intent(TrackingPageActivity.this, ResultPageActivity.class);
             double distanceInKilometres = (double) Math.round(distanceMoved) /1000;
             distanceInKilometres = (double) Math.round(distanceInKilometres * 100) /100;
+            int distanceInMetres = (int) ((double) Math.round(distanceMoved * 100) /100);
             long millis = showElapsedTime();
             String timeString = String.format("%02d:%02d:%02d",
                                     TimeUnit.MILLISECONDS.toHours(millis),
@@ -121,9 +122,11 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
             intent.putExtra("TimeInNumeral", showElapsedTime());
             intent.putExtra("totalDistance", distanceInKilometres);
             intent.putExtra("Time", timeString);
-            saveRouteToRunHistory();
-            startActivity(intent);
-            finish();
+            fbHelper.saveRouteToRouteHistory(new Route(spHelper.getSessionID(), myRoute, distanceInMetres, timeString), routeID -> {
+                intent.putExtra("routeID", routeID);
+                startActivity(intent);
+                finish();
+            });
         });
 
         polylines = new ArrayList<>();
@@ -266,18 +269,6 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
                     + Integer.parseInt(array[2]) * 1000;
         }
         return stoppedMilliseconds;
-    }
-
-    private void saveRouteToRunHistory() {
-        int distanceInMetres = (int) ((double) Math.round(distanceMoved * 100) /100);
-        long millis = showElapsedTime();
-        String timeString = String.format("%02d:%02d:%02d",
-                TimeUnit.MILLISECONDS.toHours(millis),
-                TimeUnit.MILLISECONDS.toMinutes(millis) -
-                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
-                TimeUnit.MILLISECONDS.toSeconds(millis) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-        fbHelper.saveRouteToRouteHistory(new Route(spHelper.getSessionID() ,myRoute, distanceInMetres, timeString));
     }
 
 }
