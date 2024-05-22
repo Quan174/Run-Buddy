@@ -159,7 +159,7 @@ public class ProfilePageActivity extends AppCompatActivity{
             });
         });
 
-        menuBarProfileButton.setTextColor(R.color.light_grey);
+        menuBarProfileButton.setTextColor(getResources().getColor(R.color.light_grey));
         menuBarHomeButton.setOnClickListener(v -> {
             Intent intent = new Intent(ProfilePageActivity.this, HomePageActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

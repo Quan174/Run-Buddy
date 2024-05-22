@@ -10,52 +10,44 @@
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"
-        android:layout_width="88dp"
-        android:layout_height="96dp"
-        android:layout_margin="9dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/RouteHistoryDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:liteMode="true"
         app:mapType="normal" />
+
     <TextView
         android:id="@+id/RouteHistoryDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="Date"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/map"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/RouteHistoryRunIcon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/walking"
-        app:layout_constraintStart_toEndOf="@id/map"
-        app:layout_constraintTop_toBottomOf="@+id/RouteHistoryDate"
-        app:tint="@color/light_grey" />
 
     <TextView
         android:id="@+id/activityHistoryRouteDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="xx.xx km"
-        android:textSize="20dp"
         android:textColor="@color/light_grey"
-        app:layout_constraintStart_toEndOf="@id/RouteHistoryRunIcon"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/RouteHistoryDate"
         app:layout_constraintTop_toBottomOf="@+id/RouteHistoryDate" />
 
     <TextView
         android:id="@+id/activityHistoryRouteTime"
-        android:layout_width="188dp"
-        android:layout_height="43dp"
-        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Street, District, City, Country"
         android:textColor="@color/light_grey"
-        app:layout_constraintStart_toEndOf="@id/map"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/activityHistoryRouteDistance"
         app:layout_constraintTop_toBottomOf="@+id/activityHistoryRouteDistance" />
 </androidx.constraintlayout.widget.ConstraintLayout>

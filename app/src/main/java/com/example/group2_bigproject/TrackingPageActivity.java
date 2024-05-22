@@ -54,7 +54,6 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
     private SharedPreferencesHelper spHelper;
     private TextView velocityTrack;
     private TextView distance;
-    private TextView trackingPageBackButton;
     private ConstraintLayout trackingPagePauseButton;
     private TextView trackingPagePauseButtonText;
     private TextView trackingPageFinishButton;
@@ -83,7 +82,6 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
         lastRecordedTime = 0;
         velocityTrack = findViewById(R.id.textView14);
         distance = findViewById(R.id.textView13);
-        trackingPageBackButton = findViewById(R.id.trackingPageBackButton);
         trackingPagePauseButton = findViewById(R.id.trackingPagePauseButton);
         trackingPagePauseButtonText = findViewById(R.id.trackingPagePauseButtonText);
         trackingPageFinishButton = findViewById(R.id.trackingPageFinishButton);
@@ -92,7 +90,6 @@ public class TrackingPageActivity extends FragmentActivity implements OnMapReady
 
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
-        trackingPageBackButton.setOnClickListener(v -> finish());
 
         trackingPagePauseButton.setOnClickListener(v -> {
             if (trackingPagePauseButtonText.getText().toString().compareTo("Pause") == 0) {

@@ -22,7 +22,7 @@ public class MyUtil {
     public static void setImageButtonBackground(Context context, int imageId, ImageButton imageBtn) {
         Drawable drawable = ContextCompat.getDrawable(context, imageId);
         if (drawable != null) {
-            imageBtn.setBackground(drawable);
+            imageBtn.setImageDrawable(drawable);
         }
     }
 

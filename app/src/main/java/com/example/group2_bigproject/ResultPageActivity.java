@@ -40,9 +40,10 @@ public class ResultPageActivity extends AppCompatActivity {
 
         resultPageHomeButton.setOnClickListener(v -> finish());
         resultPageCreateRouteButton.setOnClickListener(v -> {
-            CreateRouteFragment createRouteDiaglog = new CreateRouteFragment();
-            createRouteDiaglog.show(getSupportFragmentManager(), "createroute");
-
+//            CreateRouteFragment createRouteDiaglog = new CreateRouteFragment();
+//            createRouteDiaglog.show(getSupportFragmentManager(), "createroute");
+            Intent intent = new Intent(ResultPageActivity.this, CreateRoutePageActivity.class);
+            startActivity(intent);
         });
 
         resultPageShareRouteButton.setOnClickListener(v -> {

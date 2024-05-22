@@ -56,10 +56,10 @@ public class HomePageActivity extends AppCompatActivity {
         postItemList.add(new PostItem(R.drawable.ava, R.drawable.picture ,"29/5/2024", "Quang", "5th Test"));
 
         userID = spHelper.getSessionID();
-        adapter = new Adapter(postItemList);
+        adapter = new Adapter(postItemList, this);
         recyclerView.setAdapter(adapter);
 
-
+        menuBarHomeButton.setTextColor(getResources().getColor(R.color.light_grey));
 
         menuBarRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -54,7 +54,9 @@
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
-            android:layout_height="273dp"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             app:srcCompat="@android:drawable/editbox_dropdown_light_frame"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
@@ -93,60 +95,61 @@
             </com.google.android.material.textfield.TextInputLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp">-->
 
-            <RadioButton
-                android:id="@+id/radioButton"
-                android:layout_width="35dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <RadioButton-->
+<!--                android:id="@+id/radioButton"-->
+<!--                android:layout_width="35dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:layout_marginStart="30dp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create Challenge"
-                app:layout_constraintBottom_toBottomOf="@+id/radioButton"
-                app:layout_constraintStart_toEndOf="@+id/radioButton"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <TextView-->
+<!--                android:id="@+id/textView15"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Create Challenge"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/radioButton"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/radioButton"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <RadioButton
-                android:id="@+id/radioButton1"
-                android:layout_width="35dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioButton" />
+<!--            <RadioButton-->
+<!--                android:id="@+id/radioButton1"-->
+<!--                android:layout_width="35dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:layout_marginStart="60dp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/radioButton" />-->
 
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lock Challenge (only permitted users allowed)"
-                app:layout_constraintStart_toEndOf="@+id/radioButton1"
-                app:layout_constraintTop_toTopOf="@+id/radioButton1" />
+<!--            <TextView-->
+<!--                android:id="@+id/textView26"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Lock Challenge (only permitted users allowed)"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/radioButton1"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/radioButton1" />-->
 
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Time:"
-                app:layout_constraintStart_toStartOf="@+id/radioButton1"
-                app:layout_constraintTop_toBottomOf="@+id/radioButton1" />
+<!--            <TextView-->
+<!--                android:id="@+id/textView28"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Time:"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/radioButton1"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/radioButton1" />-->
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <Spinner-->
+<!--                android:id="@+id/spinner"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="30dp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/textView28" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -155,6 +158,7 @@
                 android:id="@+id/createRoutePageSaveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/sent_messages"
                 android:text="Save"
