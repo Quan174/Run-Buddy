@@ -64,6 +64,7 @@ class MessageListViewAdapter extends BaseAdapter {
             viewMessage = View.inflate(parent.getContext(), R.layout.received_message_item_list_view, null);
         }
 
+        Log.d("is Message Sent?", "Message IsSent is " + message.isSent);
         if (message.isSent) {
             messageContent = viewMessage.findViewById(R.id.SentMessageTextView);
         }  else {

@@ -11,12 +11,17 @@ import java.util.ArrayList;
 class MessageDialogListViewAdapter extends BaseAdapter {
 
     //Dữ liệu liên kết bởi Adapter là một mảng các sản phẩm
-    final ArrayList<MessageDialog> listMessageDialog;
+    private ArrayList<MessageDialog> listMessageDialog;
+    private TextView messageDialogUsername;
+    private TextView messageDialogNewestText;
 
     MessageDialogListViewAdapter(ArrayList<MessageDialog> listMessageDialog) {
         this.listMessageDialog = listMessageDialog;
     }
 
+    public void setListMessageDialog(ArrayList<MessageDialog> listMessageDialog) {
+        this.listMessageDialog = listMessageDialog;
+    }
 
     @Override
     public int getCount() {
@@ -51,12 +56,14 @@ class MessageDialogListViewAdapter extends BaseAdapter {
 
         //Bind sữ liệu phần tử vào View
             MessageDialog messageDialog = (MessageDialog) getItem(position);
-//        ((ImageView) viewMessageDialog.findViewById(R.id.activityHistoryMessageDialogImage)).setText(String.format("ID = %d", messageDialog.MessageDialogID));
-//        ((TextView) viewMessageDialog.findViewById(R.id.activityHistoryMessageDialogName)).setText(String.format("Tên SP : %s", messageDialog.name));
-//        ((ImageView) viewMessageDialog.findViewById(R.id.idMessageDialog)).setText(String.format("ID = %d", messageDialog.MessageDialogID));
-//        ((TextView) viewMessageDialog.findViewById(R.id.priceMessageDialog)).setText(String.format("Giá %d", messageDialog.price));
-//        ((TextView) viewMessageDialog.findViewById(R.id.priceMessageDialog)).setText(String.format("Giá %d", messageDialog.price));
-
+            messageDialogUsername = viewMessageDialog.findViewById(R.id.messageDialogUsername);
+            messageDialogNewestText = viewMessageDialog.findViewById(R.id.messageDialogNewestMessage);
+            if (messageDialog.messageList.get(messageDialog.messageList.size() - 1).isSent) {
+                messageDialogNewestText.setText("You: " + messageDialog.messageList.get(messageDialog.messageList.size() - 1).message);
+            } else {
+                messageDialogNewestText.setText("Their: " + messageDialog.messageList.get(messageDialog.messageList.size() - 1).message);
+            }
+            messageDialogUsername.setText(messageDialog.username2);
 
         return viewMessageDialog;
     }
