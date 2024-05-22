@@ -360,7 +360,7 @@ public class FirebaseHelper {
             if (task.isSuccessful()) {
                 messageDialogArrayList = new ArrayList<>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    if (document.toObject(MessageDialog.class).username2.compareTo(username) == 0) {
+                    if (document.toObject(MessageDialog.class).username1.compareTo(username) != 0) {
                         continue;
                     }
                     messageDialogArrayList.add(document.toObject(MessageDialog.class));
@@ -374,7 +374,7 @@ public class FirebaseHelper {
         db.collection("messageDialog").addSnapshotListener((value, error) -> {
            ArrayList<MessageDialog> messageDialogArrayList = new ArrayList<>();
            for (QueryDocumentSnapshot document : value) {
-               if (document.toObject(MessageDialog.class).username2.compareTo(username) == 0) {
+               if (document.toObject(MessageDialog.class).username1.compareTo(username) != 0) {
                    continue;
                }
                messageDialogArrayList.add(document.toObject(MessageDialog.class));
