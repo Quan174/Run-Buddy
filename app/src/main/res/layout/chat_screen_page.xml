@@ -124,7 +124,9 @@
             android:layout_width="match_parent"
             android:layout_height="616dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="3dp" />
+            android:dividerHeight="3dp"
+            android:stackFromBottom="true"
+            android:transcriptMode="normal"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
