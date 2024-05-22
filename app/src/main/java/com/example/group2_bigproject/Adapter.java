@@ -59,63 +59,41 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostViewHolder> {
         holder.postDate.setText(currentItem.getDate());
         holder.postDescription.setText(currentItem.getDescription());
         holder.userName.setText(currentItem.getUserName());
-        MyUtil.setImageButtonBackground(holder.itemView.getContext(), currentItem.getAvaUser(),holder.avaUser);
-        holder.avaUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(holder.itemView.getContext(), "Clicked ava", Toast.LENGTH_SHORT).show();
-                /* Navigating to author's profile */
+        holder.avaUser.setImageResource(currentItem.getImageResource());
+        holder.avaUser.setOnClickListener(v -> {
+            Toast.makeText(holder.itemView.getContext(), "Clicked ava", Toast.LENGTH_SHORT).show();
+            /* Navigating to author's profile */
 
-            }
         });
 
-        holder.commentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(holder.itemView.getContext(), PostActivity.class);
-                intent.putExtra("post_item", currentItem);
-                holder.itemView.getContext().startActivity(intent);            }
-        });
+        holder.commentBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), PostActivity.class);
+            intent.putExtra("post_item", currentItem);
+            holder.itemView.getContext().startActivity(intent);            });
 
-        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(holder.itemView.getContext(), "Clicked like", Toast.LENGTH_SHORT).show();
-            }
-        });
+        holder.likeBtn.setOnClickListener(v -> Toast.makeText(holder.itemView.getContext(), "Clicked like", Toast.LENGTH_SHORT).show());
 
-        holder.shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(holder.itemView.getContext(), "Clicked share", Toast.LENGTH_SHORT).show();
-            }
-        });
+        holder.shareBtn.setOnClickListener(v -> Toast.makeText(holder.itemView.getContext(), "Clicked share", Toast.LENGTH_SHORT).show());
 
-        holder.optionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(), holder.optionBtn);
-                popupMenu.inflate(R.menu.menu_options); // Load menu resource
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int itemId = item.getItemId();
-                        if (itemId == R.id.saveRouteBtn) {
-                            Toast.makeText(holder.itemView.getContext(), "Clicked save route", Toast.LENGTH_SHORT).show();
-                            return true;
-                        } else if (itemId == R.id.blockBtn) {
-                            Toast.makeText(holder.itemView.getContext(), "Clicked block", Toast.LENGTH_SHORT).show();
-                            return true;
-                        } else if (itemId == R.id.reportBtn) {
-                            Toast.makeText(holder.itemView.getContext(), "Clicked reported", Toast.LENGTH_SHORT).show();
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                });
-                popupMenu.show();
-            }
+        holder.optionBtn.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(), holder.optionBtn);
+            popupMenu.inflate(R.menu.menu_options); // Load menu resource
+            popupMenu.setOnMenuItemClickListener(item -> {
+                int itemId = item.getItemId();
+                if (itemId == R.id.saveRouteBtn) {
+                    Toast.makeText(holder.itemView.getContext(), "Clicked save route", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else if (itemId == R.id.blockBtn) {
+                    Toast.makeText(holder.itemView.getContext(), "Clicked block", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else if (itemId == R.id.reportBtn) {
+                    Toast.makeText(holder.itemView.getContext(), "Clicked reported", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            popupMenu.show();
         });
 
     }

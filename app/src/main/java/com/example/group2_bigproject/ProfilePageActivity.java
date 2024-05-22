@@ -216,7 +216,7 @@ public class ProfilePageActivity extends AppCompatActivity{
 
         profilePageActivityHistoryButton.setOnClickListener(view -> {
 
-            openDatePickerDialog();
+//            openDatePickerDialog();
 
             profilePageActivityHistoryButton.setBackgroundColor(Color.parseColor("#FFFFFF"));
 

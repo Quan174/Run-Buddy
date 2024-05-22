@@ -141,7 +141,7 @@ class ActivityHistoryListViewAdapter extends BaseAdapter implements OnMapReadyCa
         distance = viewRoute.findViewById(R.id.activityHistoryRouteDistance);
         runTime = viewRoute.findViewById(R.id.activityHistoryRouteTime);
         date.setText(route.date);
-        distance.setText(route.length + " km");
+        distance.setText(route.length + " m");
         runTime.setText(route.time);
         return viewRoute;
     }

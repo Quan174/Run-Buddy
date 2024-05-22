@@ -74,8 +74,10 @@ public class FirebaseHelper {
             if (task.isSuccessful()) {
                 ArrayList<Route> routes = new ArrayList<>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    if (document.toObject(Route.class).routeID.compareTo(userID) == 0)
-                    Log.d("ADDED ROUTE", document.getId());
+                    if (document.toObject(Route.class).userID.compareTo(userID) == 0) {
+                        Log.d("ADDED ROUTE", document.getId());
+                        routes.add(document.toObject(Route.class));
+                    }
                 }
                 routeReader.readRoute(routes);
             }
