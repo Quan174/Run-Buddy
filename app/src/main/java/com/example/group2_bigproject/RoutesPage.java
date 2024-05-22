@@ -40,7 +40,7 @@ public class RoutesPage extends AppCompatActivity {
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
         routesPageRoutesListView = findViewById(R.id.routesPageRoutesListView);
 
-        menuBarRoutesButton.setTextColor(R.color.light_grey);
+
         spHelper = new SharedPreferencesHelper(this);
         userID = spHelper.getSessionID();
 
