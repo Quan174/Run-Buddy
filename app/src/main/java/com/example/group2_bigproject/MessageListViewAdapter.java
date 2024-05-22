@@ -56,25 +56,22 @@ class MessageListViewAdapter extends BaseAdapter {
         //Nếu null cần tạo mới
 
         View viewMessage = null;
-        if (convertView == null) {
             Message message = (Message) getItem(position);
-            if(message.isSent){
-                viewMessage = View.inflate(parent.getContext(), R.layout.sent_message_item_list_view, null);
-            }
-            if (!message.isSent){
-                viewMessage = View.inflate(parent.getContext(), R.layout.received_message_item_list_view, null);
-            }
-
-        } else {viewMessage = convertView;}
-
-        Message message = (Message) getItem(position);
-        if (message.isSent) {
-            messageContent = viewMessage.findViewById(R.id.textView38);
-        }  else {
-            messageContent = viewMessage.findViewById(R.id.textView36);
+        if(message.isSent){
+            viewMessage = View.inflate(parent.getContext(), R.layout.sent_message_item_list_view, null);
         }
-        Log.d("IS SEND BY CURRENT USER IS TRUE?" , "" + isSendByCurrentUser);
-        messageContent.setText(message.message);
+        if (!message.isSent){
+            viewMessage = View.inflate(parent.getContext(), R.layout.received_message_item_list_view, null);
+        }
+
+        if (message.isSent) {
+            messageContent = viewMessage.findViewById(R.id.SentMessageTextView);
+        }  else {
+            messageContent = viewMessage.findViewById(R.id.ReceivedMessageTextview);
+        }
+        if (messageContent != null){
+            messageContent.setText(message.message);
+        }
         //Bind sữ liệu phần tử vào View
 
 

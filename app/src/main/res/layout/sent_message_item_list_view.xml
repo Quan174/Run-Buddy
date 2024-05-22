@@ -12,7 +12,7 @@
         android:layout_marginRight="10dp">
 
         <TextView
-            android:id="@+id/textView38"
+            android:id="@+id/SentMessageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/sent_messages"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class ChatBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_screen_page);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         upperUsername = findViewById(R.id.textView32);
         chatTyper = findViewById(R.id.chatTyper);
         sendButton = findViewById(R.id.sendButton);
@@ -54,8 +56,9 @@ public class ChatBoxActivity extends AppCompatActivity {
             messageListView.setAdapter(messageListViewAdapter);
             chatScreenBackButton.setOnClickListener(v -> finish());
             fbHelper.messageDialogListener(currentUsername, targetUsername, messages -> {
-                messageListViewAdapter.setListMessage(messages);
-                messageListViewAdapter.notifyDataSetChanged();
+                messageListViewAdapter = new MessageListViewAdapter(messages, currentUsername);
+                messageListView.setAdapter(messageListViewAdapter);
+                chatScreenBackButton.setOnClickListener(v -> finish());
             });
         });
 

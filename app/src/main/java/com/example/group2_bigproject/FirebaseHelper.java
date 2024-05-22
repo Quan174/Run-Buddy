@@ -347,6 +347,7 @@ public class FirebaseHelper {
             for (QueryDocumentSnapshot document : value) {
                 if (document.toObject(MessageDialog.class).username2.compareTo(username2) == 0) {
                     messages = document.toObject(MessageDialog.class).messageList;
+                    break;
                 }
             }
             callback.messageDialogListener(messages);
