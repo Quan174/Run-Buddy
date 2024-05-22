@@ -36,13 +36,13 @@ public class CreatePostPageActivity extends AppCompatActivity {
         createPostRouteDisplay = findViewById(R.id.createPostRouteDisplay);
         chooseRouteButton = findViewById(R.id.chooseRouteButton);
         chooseRouteButton = findViewById(R.id.chooseRouteButton);
-        String format = getIntent().getStringExtra("format");
-
-        if(format.equals("result")){
-            createPostResultDisplay.setVisibility(View.VISIBLE);
-        } else {
-            createPostRouteDisplay.setVisibility(View.VISIBLE);
-        }
+//        String format = getIntent().getStringExtra("format");
+//
+//        if(format.equals("result")){
+//            createPostResultDisplay.setVisibility(View.VISIBLE);
+//        } else {
+//            createPostRouteDisplay.setVisibility(View.VISIBLE);
+//        }
         createPostPageBackButton.setOnClickListener(v -> finish());
         createPostButton.setOnClickListener(v -> finish());
 
