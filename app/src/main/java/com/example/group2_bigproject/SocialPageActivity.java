@@ -75,23 +75,25 @@ public class SocialPageActivity extends AppCompatActivity {
 
         menuBarSocialButton.setTextColor(R.color.light_grey);
 
-        listMessageDialog = new ArrayList<>();
-        listMessageDialog.add(new MessageDialog());
-        listMessageDialog.add(new MessageDialog());
-        listMessageDialog.add(new MessageDialog());
-        listMessageDialog.add(new MessageDialog());
-        listMessageDialog.add(new MessageDialog());
-        listMessageDialog.add(new MessageDialog());
-        listMessageDialog.add(new MessageDialog());
-        listMessageDialog.add(new MessageDialog());
+        fbHelper.getAllMessageDialog(spHelper.getUsername(), messageDialogArrayList -> {
+            messageDialogListViewAdapter = new MessageDialogListViewAdapter(messageDialogArrayList);
+            messageDialogListView.setAdapter(messageDialogListViewAdapter);
 
-        messageDialogListViewAdapter = new MessageDialogListViewAdapter(listMessageDialog);
-        messageDialogListView.setAdapter(messageDialogListViewAdapter);
-
-        messageDialogListView.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
-            startActivity(intent);
+            messageDialogListView.setOnItemClickListener((parent, view, position, id) -> {
+                User user = (User) socialPageFriendListViewAdapter.getItem(position);
+                Intent intent = new Intent(getApplicationContext(), ChatBoxActivity.class);
+                intent.putExtra("targetUsername", user.username);
+                Log.d("FROM FRIENDLIST TO CHAT BOX", "USERNAME IS " + user.username);
+                startActivity(intent);
+            });
+            fbHelper.getAllMessageDialogListener(spHelper.getUsername(), messageDialogArrayList1 -> {
+                messageDialogListViewAdapter.setListMessageDialog(messageDialogArrayList1);
+                messageDialogListViewAdapter.notifyDataSetChanged();
+            });
         });
+
+
+
         fbHelper.friendListListener(userID, users -> {
             Log.d("FRIEND LIST LISTENER", "FRIEND ADDED!!!!");
             listFriend = users;

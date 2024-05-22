@@ -124,8 +124,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout3"
-            android:layout_width="401dp"
-            android:layout_height="790dp"
+            android:layout_width="407dp"
+            android:layout_height="793dp"
             android:background="#FFFFFF"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -136,7 +136,7 @@
             <ListView
                 android:id="@+id/messageListView"
                 android:layout_width="match_parent"
-                android:layout_height="719dp"
+                android:layout_height="745dp"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="3dp"
                 android:paddingTop="10dp"

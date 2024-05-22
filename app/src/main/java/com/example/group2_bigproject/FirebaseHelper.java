@@ -354,4 +354,33 @@ public class FirebaseHelper {
         });
     }
 
+    public void getAllMessageDialog(String username, getAllMessageDialogCallback callback) {
+        db.collection("messageDialog").get().addOnCompleteListener(task -> {
+            ArrayList<MessageDialog> messageDialogArrayList = null;
+            if (task.isSuccessful()) {
+                messageDialogArrayList = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (document.toObject(MessageDialog.class).username2.compareTo(username) == 0) {
+                        continue;
+                    }
+                    messageDialogArrayList.add(document.toObject(MessageDialog.class));
+                }
+            }
+            callback.getAllMessageDialog(messageDialogArrayList);
+        });
+    }
+
+    public void getAllMessageDialogListener(String username, getAllMessageDialogListenerCallback callback) {
+        db.collection("messageDialog").addSnapshotListener((value, error) -> {
+           ArrayList<MessageDialog> messageDialogArrayList = new ArrayList<>();
+           for (QueryDocumentSnapshot document : value) {
+               if (document.toObject(MessageDialog.class).username2.compareTo(username) == 0) {
+                   continue;
+               }
+               messageDialogArrayList.add(document.toObject(MessageDialog.class));
+           }
+           callback.getAllMessageDialog(messageDialogArrayList);
+        });
+    }
+
 }
