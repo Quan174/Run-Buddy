@@ -2,6 +2,7 @@ package com.example.group2_bigproject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -529,6 +530,57 @@ public class FirebaseHelper {
                 }
                 callBack.postListener(postList);
             });
+        });
+    }
+
+    public void commentListener(String postID, commentListenerCallBack callBack){
+        db.collection("postList").document(postID).addSnapshotListener((value, error) -> {
+           callBack.commentListener(value.toObject(PostItem.class).comments);
+        });
+    }
+
+    public void pressHeart(String postID, String userID){
+        getPostByPostID(postID, postItem -> {
+            boolean isLiked = false;
+            for(String userid : postItem.likedUsers){
+                if(userID.compareTo(userid)==0){
+                    isLiked = true;
+                }
+            }
+            if(isLiked){
+                ArrayList<String> modifyLikedUsersID = new ArrayList<>();
+                for(String userid : postItem.likedUsers){
+                    if(userID.compareTo(userid)==0){
+                        continue;
+                    }
+                    modifyLikedUsersID.add(userid);
+                }
+                db.collection("postList").document(postID).update("likedUsers", modifyLikedUsersID);
+            } else {
+                ArrayList<String> modifyLikedUsersID = postItem.likedUsers;
+                modifyLikedUsersID.add(userID);
+                db.collection("postList").document(postID).update("likedUsers", modifyLikedUsersID);
+            }
+        });
+    }
+
+    public void isLiked(String postID, String userID, isLikedCallBack callBack){
+        db.collection("postList").document(postID).get().addOnCompleteListener(task -> {
+           if(task.isSuccessful()){
+               Boolean isLiked = false;
+               for(String userid : task.getResult().toObject(PostItem.class).likedUsers){
+                   if(userID.compareTo(userid)==0){
+                       isLiked = true;
+                   }
+               }
+               callBack.isLiked(isLiked);
+           }
+        });
+    }
+
+    public void isLikedListener(String postID, String userID, isLikedListenerCallBack callBack){
+        db.collection("postList").document(postID).addSnapshotListener((value, error) -> {
+            callBack.isLikedListener();
         });
     }
 }

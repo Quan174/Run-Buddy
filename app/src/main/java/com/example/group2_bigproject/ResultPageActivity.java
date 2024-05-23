@@ -51,6 +51,7 @@ public class ResultPageActivity extends AppCompatActivity {
         pace = findViewById(R.id.textView20);
         time = findViewById(R.id.textView21);
         CaloriesBurned = findViewById(R.id.textView22);
+        resultPageShareRouteButton = findViewById(R.id.resultPageShareRouteButton);
         String routeID = getIntent().getStringExtra("routeID");
         isFromHistory = getIntent().getBooleanExtra("isFromHistory", false);
         if(!isFromHistory) {

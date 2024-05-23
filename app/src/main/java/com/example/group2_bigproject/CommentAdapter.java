@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
@@ -40,6 +41,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         this.context = context;
         fbHelper = new FirebaseHelper(context);
         pfHelper = new SharedPreferencesHelper(context);
+    }
+
+    public void setCommentItemList(ArrayList<CommentItem> commentList){
+        this.cmtList = commentList;
     }
 
     @NonNull

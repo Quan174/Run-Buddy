@@ -64,6 +64,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
     private ArrayList<Route> routeList;
     private RecyclerView routeQuickViewRecyclerView;
     private RouteQuickViewAdapter routeQuickViewAdapter;
+    public FirebaseHelper fbHelper;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -76,6 +77,7 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
         menuBarMapButton = findViewById(R.id.menuBarMapButton);
         menuBarSocialButton = findViewById(R.id.menuBarSocialButton);
         menuBarProfileButton = findViewById(R.id.menuBarProfileButton);
+        routeQuickViewRecyclerView = findViewById(R.id.routeQuickView);
 //        mapWalkingButton = findViewById(R.id.mapWalkingButton);
 //        mapCyclingButton = findViewById(R.id.mapCyclingButton);
         spHelper = new SharedPreferencesHelper(this);
@@ -148,18 +150,12 @@ public class MapPageActivity extends FragmentActivity implements OnMapReadyCallb
 //        });
 
         //Route Quick View setup here
-        routeList = new ArrayList<>();
-        routeList.add(new Route("Route 1"));
-        routeList.add(new Route("Route 2"));
-        routeList.add(new Route("Route 3"));
-        routeList.add(new Route("Route 4"));
-        routeList.add(new Route("Route 5"));
-        routeList.add(new Route("Route 6"));
-
-        routeQuickViewRecyclerView = findViewById(R.id.routeQuickView);
-        routeQuickViewRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        routeQuickViewAdapter = new RouteQuickViewAdapter(routeList);
-        routeQuickViewRecyclerView.setAdapter(routeQuickViewAdapter);
+        fbHelper = new FirebaseHelper(this);
+        fbHelper.searchAllSavedRoute(userID, routes -> {
+            routeQuickViewRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            routeQuickViewAdapter = new RouteQuickViewAdapter(routes, this);
+            routeQuickViewRecyclerView.setAdapter(routeQuickViewAdapter);
+        });
     }
 
     @Override

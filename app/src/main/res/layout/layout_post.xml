@@ -80,18 +80,17 @@
                 app:layout_constraintStart_toStartOf="@+id/avaUser"
                 app:layout_constraintTop_toBottomOf="@+id/avaUser" />
 
-            <ImageView
-                android:id="@+id/imgPost"
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/map"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="230dp"
                 android:layout_marginTop="10dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_PostText"
-                app:srcCompat="@drawable/image1" />
+                app:liteMode="true"
+                app:mapType="normal" />
+
 
             <ImageButton
                 android:id="@+id/btn_like"
@@ -102,7 +101,18 @@
                 android:background="@drawable/like_button"
                 android:backgroundTint="@color/light_grey"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgPost" />
+                app:layout_constraintTop_toBottomOf="@+id/map" />
+            <ImageButton
+                android:visibility="invisible"
+                android:id="@+id/btn_liked"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/like_button"
+                android:backgroundTint="@color/orange"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/map" />
 
             <TextView
                 android:id="@+id/textView_LikeCount"

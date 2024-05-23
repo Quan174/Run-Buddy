@@ -54,11 +54,12 @@ public class HomePageActivity extends AppCompatActivity {
         fbHelper.getPost(userID, spHelper.getUsername(), posts -> {
             adapter = new Adapter(posts, this);
             recyclerView.setAdapter(adapter);
+            fbHelper.postListener(userID, spHelper.getUsername(), postList -> {
+                adapter.updatePostList(postList);
+                adapter.notifyDataSetChanged();
+            });
         });
-        fbHelper.postListener(userID, spHelper.getUsername(), postList -> {
-            adapter.updatePostList(postList);
-            adapter.notifyDataSetChanged();
-        });
+
 
         menuBarHomeButton.setTextColor(getResources().getColor(R.color.light_grey));
 
