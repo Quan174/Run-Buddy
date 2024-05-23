@@ -583,4 +583,18 @@ public class FirebaseHelper {
             callBack.isLikedListener();
         });
     }
+
+    public void searchRouteByName(String name, searchRouteByNameCallback callback) {
+        db.collection("routeHistory").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                ArrayList<Route> routes = new ArrayList<>();
+                for (DocumentSnapshot document : task.getResult()) {
+                    if (document.toObject(Route.class).routeName.contains(name)) {
+                        routes.add(document.toObject(Route.class));
+                    }
+                }
+                callback.searchRouteByName(routes);
+            }
+        });
+    }
 }
