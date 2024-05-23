@@ -25,6 +25,10 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
+      - name: Create local.properties
+        run: |
+          echo "apiKey=${{ secrets.MAPS_API_KEY }}" >> local.properties  
+
       - name: Run lint
         run: ./gradlew lintDebug
 
